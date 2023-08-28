@@ -8,8 +8,8 @@ export default function Home() {
         <h4>Biprodas R.</h4>
         <Text>Hello from Radix Themes </Text>
         <Button>Lets go</Button>
-        <ThemeToggle />
       </Flex>
+      <ThemeToggle />
     </main>
   )
 }
