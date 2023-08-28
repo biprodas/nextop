@@ -8,7 +8,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { LangOpt } from '../schemas/dictionary.schema';
+import { LangOpt } from '../schemas/word.schema';
 
 export class CreateWordDto {
   @IsString()

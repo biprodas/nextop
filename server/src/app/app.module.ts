@@ -8,6 +8,7 @@ import { AppController } from './controllers/app.controller';
 import { TaskModule } from '@modules/task/task.module';
 import { DatabaseModule } from 'src/database/database.module';
 import { DictionaryModule } from '@modules/dictionary/dictionary.module';
+import { WordModule } from '@modules/word/word.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { DictionaryModule } from '@modules/dictionary/dictionary.module';
     DatabaseModule,
     // CommonModule,
     DictionaryModule,
+    WordModule,
     TaskModule,
     JobsModule.forRoot(),
   ],

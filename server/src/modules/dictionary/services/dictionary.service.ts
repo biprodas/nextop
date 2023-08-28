@@ -2,15 +2,15 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Dictionary } from '../schemas/dictionary.schema';
-import { FilterWordDto } from '../dtos/filter-word.dto';
-import { UpdateWordDto } from '../dtos/update-word.dto';
+import { FilterDictionaryDto } from '../dtos/filter-dictionary.dto';
+import { UpdateDictionaryDto } from '../dtos/update-dictionary.dto';
 
 @Injectable()
 export class DictionaryService {
   constructor(@InjectModel(Dictionary.name) private dictionaryModel: Model<Dictionary>) {}
 
-  async getAll(filterWordDto: FilterWordDto): Promise<Dictionary[]> {
-    console.log(filterWordDto);
+  async getAll(filterDictionaryDto: FilterDictionaryDto): Promise<Dictionary[]> {
+    console.log(filterDictionaryDto);
     return this.dictionaryModel.find().exec();
   }
 
@@ -18,19 +18,18 @@ export class DictionaryService {
     return this.dictionaryModel.findById(id).exec();
   }
 
-  async findOne(filterWordDto: FilterWordDto): Promise<Dictionary> {
-    const { word } = filterWordDto;
-    return this.dictionaryModel.findOne({ word }).exec();
+  async findOne(filterDictionaryDto: FilterDictionaryDto): Promise<Dictionary> {
+    const { title } = filterDictionaryDto;
+    return this.dictionaryModel.findOne({ title }).exec();
   }
 
-  async create(createWordDto: FilterWordDto): Promise<Dictionary> {
-    console.log(createWordDto);
-    // through error for duplicate word
-    return this.dictionaryModel.create(createWordDto);
+  async create(createDictionaryDto: FilterDictionaryDto): Promise<Dictionary> {
+    console.log(createDictionaryDto);
+    return this.dictionaryModel.create(createDictionaryDto);
   }
 
-  async update(id: string, updateWordDto: UpdateWordDto): Promise<Dictionary> {
-    return this.dictionaryModel.findByIdAndUpdate(id, updateWordDto).exec();
+  async update(id: string, updateDictionaryDto: UpdateDictionaryDto): Promise<Dictionary> {
+    return this.dictionaryModel.findByIdAndUpdate(id, updateDictionaryDto).exec();
   }
 
   delete(id: string): Promise<Dictionary> {
