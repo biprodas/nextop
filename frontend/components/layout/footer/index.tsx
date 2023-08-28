@@ -5,16 +5,16 @@ import { siteConfig } from '@/config/site'
 
 export default function Footer() {
   return (
-    <footer className="border">
-      <div className="container mx-auto flex justify-between items-center py-3">
+    <footer className="border-t">
+      <div className="container mx-auto flex justify-between items-center p-3">
         <small>
           <Link href="/">WordBook</Link>
           <span className="ms-1">&copy; {dayjs().format('YYYY')} all right reserved</span>
         </small>
         <small>
           <span className="mr-1">Developed with ♥ by</span>
-          <Link href={siteConfig.links.linkedIn} target="_blank">
-            biprodas.ry
+          <Link href={siteConfig.links.linkedIn} target="_blank" rel="noopener noreferrer">
+            Biprodas R.
           </Link>
         </small>
       </div>
