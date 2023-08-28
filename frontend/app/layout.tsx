@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { Theme } from '@radix-ui/themes'
 import ThemeProvider from '@/components/shared/theme-provider'
-import PageHeader from '@/components/layout/header/page-header'
+import Header from '@/components/layout/header'
 import Footer from '@/components/layout/footer'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -22,9 +22,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Theme accentColor="iris" grayColor="sand" radius="large" scaling="95%">
             <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-100 via-slate-100 to-cyan-100 dark:bg-gradient-to-br dark:from-gray-800 dark:to-slate-700" />
-            <div className="relative z-10">
-              <PageHeader />
-              <main>{children}</main>
+            <div className="relative z-10 flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow">{children}</main>
               <Footer />
             </div>
           </Theme>
