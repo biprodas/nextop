@@ -5,7 +5,7 @@ import { siteConfig } from '@/config/site'
 
 export default function Footer() {
   return (
-    <footer className="border-t">
+    <footer className="border-t dark:border-slate-600">
       <div className="container mx-auto flex justify-between items-center p-3">
         <small>
           <Link href="/">WordBook</Link>
