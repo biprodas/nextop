@@ -1,4 +1,4 @@
-# NexTop
+# NexTop Frontend
 
 ## Getting Started
 

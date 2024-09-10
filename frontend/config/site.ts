@@ -3,10 +3,11 @@ const apiBaseUrl =
   process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost:3900";
 
 export const siteConfig = {
-  name: "NexTop",
+  title: "NexTop",
   description: "NexTop",
   siteUrl,
   apiBaseUrl,
+  robots: "noindex, nofollow",
   author: {
     name: "Biprodas Roy",
     website: "https://biprodas.me",
