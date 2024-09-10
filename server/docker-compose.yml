@@ -1,0 +1,73 @@
+version: '3.8'
+
+volumes:
+  db: # mount it internally instead of a folder. it avoids file lock problems
+
+services:
+  app:
+    env_file:
+      - .env
+    container_name: backend
+    restart: always
+    build: .
+    ports:
+      - '$PORT:$PORT'
+    links:
+      - postgres
+
+  mysql:
+    image: mysql:8.0.23
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    ports:
+      - 3306:3306
+
+  postgres:
+    image: postgres:13.1
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: matir_bank
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 101
+      TZ: 'GMT'
+      PGTZ: 'GMT'
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  mongodb_ecbe:
+    image: sathyajith/mongo-replica-set:5.0.6
+    container_name: mongodb
+    ports:
+      - 27017:27017
+      - 27018:27018
+      - 27019:27019
+
+  redis:
+    image: 'redis:alpine'
+    container_name: redis
+    ports:
+      - '6379:6379'
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  adminer:
+    image: adminer
+    restart: always
+    links:
+      - postgres
+    ports:
+      - 8081:8080
+
+networks:
+  default:
+    name: backend

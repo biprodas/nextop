@@ -1,0 +1,4 @@
+// id
+// question
+// answer
+// isActive

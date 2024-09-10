@@ -1,0 +1,12 @@
+### Get all 
+GET http://localhost:3900/api/v1/words
+
+
+### Create
+POST http://localhost:3900/api/v1/words
+Content-Type: application/json
+  
+{
+  "word": "root",
+  "definition": ""
+}

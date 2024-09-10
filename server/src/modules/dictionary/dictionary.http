@@ -1,0 +1,12 @@
+### Get all 
+GET http://localhost:3900/api/v1/dictionaries
+
+
+### Create
+POST http://localhost:3900/api/v1/dictionaries
+Content-Type: application/json
+  
+{
+  "word": "root",
+  "definition": ""
+}
