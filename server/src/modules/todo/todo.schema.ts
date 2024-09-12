@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type TaskDocument = HydratedDocument<Task>;
+export type TodoDocument = HydratedDocument<Todo>;
 
 @Schema()
-export class Task {
+export class Todo {
   @Prop()
   title: string;
 
@@ -12,4 +12,4 @@ export class Task {
   description: string;
 }
 
-export const TaskSchema = SchemaFactory.createForClass(Task);
+export const TodoSchema = SchemaFactory.createForClass(Todo);

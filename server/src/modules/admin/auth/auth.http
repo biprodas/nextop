@@ -1,0 +1,60 @@
+
+### Register
+POST http://localhost:3900/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "Biprodas Roy",
+  "email": "biprodas@gmail.com",
+  "password": "12345678"
+}
+
+### Login
+POST http://localhost:3900/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "biprodas@gmail.com",
+  "password": "12345678"
+}
+
+
+### Signup
+POST http://localhost:3900/api/v1/auth/signup
+Content-Type: application/json
+
+{
+  "email": "biprodas",
+  "password": "12345678",
+}
+
+
+### Signin
+POST http://localhost:3900/api/v1/auth/signin
+Content-Type: application/json
+
+{
+  "username": "biprodas",
+  "password": "12345678"
+}
+
+### Get Current User
+GET http://localhost:3900/api/v1/auth/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzU2MTQzMjcsImV4cCI6MTYzNTY1MDMyNywiYXVkIjoiaHR0cHM6Ly9teS1hcHAuY29tIiwiaXNzIjoiaHR0cHM6Ly9teS1hcHAuY29tIiwic3ViIjoiNTk5OTkxMDctNTQxZi00NGJiLThjMmQtZGFkMzk1YzU5OTQ1In0.ukCEJPa0IPvL-6ONwYz15pw4hsVTxDqB0SfrL2Yf-Gc
+
+### Refresh access token using refresh token
+POST http://localhost:3900/api/v1/auth/refresh-token
+Content-Type: application/json
+
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRkZCIsImlhdCI6MTYzNTU5NzczMywiZXhwIjoxNjM2MjAyNTMzLCJhdWQiOiJodHRwczovL215LWFwcC5jb20iLCJpc3MiOiJodHRwczovL215LWFwcC5jb20iLCJzdWIiOiJiYzllYmNlMC04YmIwLTRmY2YtOWM2Yi0zZjNhYTQ1MjRmZmEiLCJqdGkiOiI2NjlmNWE5ZC0yNTk0LTRkOTctYjhjNy1jNDBlNWZkYmQyNGYifQ.m5Z9pIe4vPiYHFpa_HHzO_msJBP8Y1z6f9Q6We6B3Hc"
+}
+
+### Get access token using refresh token
+POST http://localhost:3900/api/v1/auth/revoke-token
+Content-Type: application/json
+
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRkZCIsImlhdCI6MTYzNTU5NzczMywiZXhwIjoxNjM2MjAyNTMzLCJhdWQiOiJodHRwczovL215LWFwcC5jb20iLCJpc3MiOiJodHRwczovL215LWFwcC5jb20iLCJzdWIiOiJiYzllYmNlMC04YmIwLTRmY2YtOWM2Yi0zZjNhYTQ1MjRmZmEiLCJqdGkiOiI2NjlmNWE5ZC0yNTk0LTRkOTctYjhjNy1jNDBlNWZkYmQyNGYifQ.m5Z9pIe4vPiYHFpa_HHzO_msJBP8Y1z6f9Q6We6B3Hc"
+}

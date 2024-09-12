@@ -1,0 +1,29 @@
+### Create a new user
+POST http://localhost:5000/api/v1/users
+Content-Type: application/json
+
+{
+  "email": "ruhit@gmail.com",
+  "password": "12345678"
+}
+
+
+### Find all filtered users
+GET  http://localhost:5000/api/v1/users
+
+
+### Find a user by id
+GET  http://localhost:5000/api/v1/users/1b8bcf28-c71f-4ecb-9845-151bc2735230
+
+### Update a user 
+PATCH   http://localhost:5000/users/4
+Content-Type: application/json
+
+{
+  "email": "hiranmy@gmail.com"
+}
+
+
+### Delete a user by id
+DELETE  http://localhost:5000/api/v1/users/9408a924-5122-471a-aa58-5e74248adb63
+

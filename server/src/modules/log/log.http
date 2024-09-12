@@ -1,0 +1,30 @@
+### Create a new log
+POST http://localhost:3900/api/v1/logs
+Content-Type: application/json
+
+{
+  "name": "Operator"
+}
+
+
+### Find all filtered logs
+GET http://localhost:3900/api/v1/logs
+
+
+### Find a log by id
+GET http://localhost:3900/api/v1/logs/38b844e7-aaa6-4165-a3ed-5687b64bd8df
+
+### Update a log 
+PUT http://localhost:3900/api/v1/logs/ec18070b-02c2-4fbc-9b28-7756574a1c74
+Content-Type: application/json
+
+{
+  "level": 3,
+  "colorCode": "#ddd"
+}
+
+
+### Delete a log by id
+DELETE http://localhost:3900/api/v1/logs/367d0017-0c9c-4417-81f9-47edd470dd83
+
+

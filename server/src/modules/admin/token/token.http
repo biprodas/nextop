@@ -1,0 +1,21 @@
+### Get All Refresh Tokens
+GET http://localhost:3900/api/v1/tokens?userId=
+
+### Get Refresh Token by id
+GET http://localhost:3900/api/v1/tokens/43c59412-8cb9-4b00-bbfe-49c9b68046e1
+
+### Refresh access token using refresh token
+POST http://localhost:3900/api/v1/tokens/refresh
+Content-Type: application/json
+
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRkZCIsImlhdCI6MTYzNTU5NzczMywiZXhwIjoxNjM2MjAyNTMzLCJhdWQiOiJodHRwczovL215LWFwcC5jb20iLCJpc3MiOiJodHRwczovL215LWFwcC5jb20iLCJzdWIiOiJiYzllYmNlMC04YmIwLTRmY2YtOWM2Yi0zZjNhYTQ1MjRmZmEiLCJqdGkiOiI2NjlmNWE5ZC0yNTk0LTRkOTctYjhjNy1jNDBlNWZkYmQyNGYifQ.m5Z9pIe4vPiYHFpa_HHzO_msJBP8Y1z6f9Q6We6B3Hc"
+}
+
+### (Privat Route) Get access token using refresh token
+POST http://localhost:3900/api/v1/tokens/revoke
+Content-Type: application/json
+
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzU2NjMzNjUsImV4cCI6MTYzNjI2ODE2NSwiYXVkIjoiaHR0cHM6Ly9teS1hcHAuY29tIiwiaXNzIjoiaHR0cHM6Ly9teS1hcHAuY29tIiwic3ViIjoiNDIwZGYxZjItYjNkMC00Njk2LWFhZGMtOTU4YzMwNDk4MWQ3IiwianRpIjoiNDNjNTk0MTItOGNiOS00YjAwLWJiZmUtNDljOWI2ODA0NmUxIn0.1_-gcfykHkRjuuyhgxAK4jH1dDiFxYQ5AUuhyUhG4lA"
+}

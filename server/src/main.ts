@@ -14,8 +14,11 @@ import { RequestIdMiddleware } from '@common/middlewares/request-id.middleware';
 import { AppModule } from './app/app.module';
 import { AppConfig } from './config/config.type';
 import { swaggerInit } from './api-docs.swagger';
+import { initializeTransactionalContext } from 'typeorm-transactional';
 
 export async function bootstrap() {
+  initializeTransactionalContext();
+
   const app: NestApplication = await NestFactory.create(AppModule);
 
   const configService = app.get(ConfigService);

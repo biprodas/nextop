@@ -1,0 +1,16 @@
+export enum RefTable {
+  Task = 'Task',
+  User = 'User',
+  Car = 'Car',
+  Customer = 'Customer',
+  People = 'People',
+  Contract = 'Contract',
+  Department = 'Department',
+  Document = 'Document',
+  Accessory = 'Accessory',
+  Payment = 'Payment',
+  CreditCard = 'Credit Card',
+  Batch = 'Batch',
+  BatchInstruction = 'Batch Instruction',
+  Notice = 'Notice',
+}

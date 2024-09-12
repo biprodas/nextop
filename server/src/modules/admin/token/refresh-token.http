@@ -1,0 +1,29 @@
+### Create a new refresh-token
+POST http://localhost:3900/api/v1/refreshtokens
+Content-Type: application/json
+
+{
+  "expiresIn": "2021-10-26T13:13:43.524Z"
+}
+
+
+### Find all filtered refresh token
+GET  http://localhost:3900/api/v1/refreshtokens
+
+
+### Find a refreshtoken by id
+GET  http://localhost:3900/api/v1/refreshtokens/63a2c42e-bf89-4df5-9caf-68d0cbb5a7b5
+
+### Update a refreshtoken 
+PATCH   http://localhost:3900/refreshtokens/4
+Content-Type: application/json
+
+{
+  "email": "hiranmy@gmail.com"
+}
+
+
+### Delete a refreshtoken by id
+DELETE  http://localhost:3900/refreshtokens/3
+
+

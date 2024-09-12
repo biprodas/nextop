@@ -19,7 +19,7 @@
       // "@helpers":["src/utils/helpers"],
       // "@subscribers/*":["src/entity-subscribers/*"],
       // "@auth":["src/modules/admin/auth"],
-      // "@admin/*":["src/modules/admin/*"],
+      "@admin/*":["src/modules/admin/*"],
       // "@log":["src/modules/other/log"],
       "@modules/*":["src/modules/*"],
     },
