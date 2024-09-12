@@ -37,7 +37,9 @@ import { HelperDateService } from './services/helper.date.service';
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('helper.jwt.defaultSecretKey'),
         signOptions: {
-          expiresIn: configService.get<string>('helper.jwt.defaultExpirationTime'),
+          expiresIn: configService.get<string>(
+            'helper.jwt.defaultExpirationTime',
+          ),
         },
       }),
     }),

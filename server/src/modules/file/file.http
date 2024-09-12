@@ -1,0 +1,21 @@
+### Upload new file
+POST http://localhost:3900/api/v1/files
+Content-Type: application/json
+
+{
+  "path": "123"
+}
+
+
+### Get all files
+GET http://localhost:3900/api/v1/files
+
+
+### Find a file by publicKey
+GET http://localhost:3900/api/v1/files/38b844e7-aaa6-4165-a3ed-5687b64bd8df
+
+
+### Delete a file by privateKey
+DELETE http://localhost:3900/api/v1/files/367d0017-0c9c-4417-81f9-47edd470dd83
+
+

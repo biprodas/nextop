@@ -1,14 +1,17 @@
 import { registerAs } from '@nestjs/config';
-import { DatabaseConfig } from './config.type';
+import { DbConfig } from './config.type';
 
-export default registerAs<DatabaseConfig>('database', () => ({
-  host: process.env?.DATABASE_HOST ?? 'mongodb://localhost:27017,localhost:27018,localhost:27019',
-  port: process.env.DATABASE_PORT ? parseInt(process.env.DATABASE_PORT, 10) : 5432,
-  name: process.env?.DATABASE_NAME ?? 'ry',
-  username: process.env?.DATABASE_USERNAME,
-  password: process?.env.DATABASE_PASSWORD,
-  debug: process.env.DATABASE_DEBUG === 'true',
-  options: process.env?.DATABASE_OPTIONS,
+export default registerAs<DbConfig>('db', () => ({
+  type: process.env?.DB_TYPE ?? 'postgres',
+  host: process.env?.DB_HOST ?? 'localhost',
+  //   host: process.env?.DATABASE_HOST ??
+  //     'mongodb://localhost:27017,localhost:27018,localhost:27019',
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432,
+  name: process.env?.DB_DATABASE ?? 'ry',
+  username: process.env?.DB_USERNAME,
+  password: process?.env.DB_PASSWORD,
+  debug: process.env.DB_DEBUG === 'true',
+  options: process.env?.DB_OPTIONS,
 }));
 
 // export default registerAs<DatabaseConfig>('database', () => {

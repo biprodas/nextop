@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import { ConfigService } from '@nestjs/config';
 import { IDatabaseOptionsService } from '../interfaces/database.options-service.interface';
 import { ENUM_APP_ENVIRONMENT } from 'src/app/constants/app.enum.constant';
-import { AppConfig, DatabaseConfig } from 'src/configs/config.type';
+import { AppConfig, DbConfig } from 'src/config/config.type';
 
 @Injectable()
 export class DatabaseOptionsService implements IDatabaseOptionsService {
@@ -12,7 +12,7 @@ export class DatabaseOptionsService implements IDatabaseOptionsService {
 
   createOptions(): MongooseModuleOptions {
     const appConfig = this.configService.get<AppConfig>('app');
-    const dbConfig = this.configService.get<DatabaseConfig>('database');
+    const dbConfig = this.configService.get<DbConfig>('db');
 
     // console.log(appConfig.nodeEnv, dbConfig);
 

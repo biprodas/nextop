@@ -20,14 +20,21 @@ export default registerAs<AppConfig>('app', () => {
     http: {
       enable: process.env.HTTP_ENABLE === 'true' ?? false,
       host: process.env.HTTP_HOST ?? 'localhost',
-      port: process.env.HTTP_PORT ? Number.parseInt(process.env.HTTP_PORT) : 5000,
+      port: process.env.HTTP_PORT
+        ? Number.parseInt(process.env.HTTP_PORT)
+        : 5000,
+    },
+    rateLimit: {
+      ttl: Number.parseInt(process.env.RATE_LIMIT_TTL) ?? 60,
+      max: Number.parseInt(process.env.RATE_LIMIT_MAX) ?? 5,
     },
 
     jobEnable: process.env.JOB_ENABLE === 'true' ?? false,
+    inactivityPeriod: Number.parseInt(process.env.INACTIVITY_PERIOD) ?? 7,
 
-    // workingDirectory: process.env.PWD || process.cwd(),
-    // frontendDomain: process.env.FRONTEND_DOMAIN,
-    // backendDomain: process.env.BACKEND_DOMAIN ?? 'http://localhost',
+    workingDirectory: process.env.PWD || process.cwd(),
+    frontendDomain: process.env.FRONTEND_DOMAIN,
+    backendDomain: process.env.BACKEND_DOMAIN ?? 'http://localhost',
 
     fallbackLanguage: process.env.APP_FALLBACK_LANGUAGE || 'en',
     // headerLanguage: process.env.APP_HEADER_LANGUAGE || 'x-custom-lang',

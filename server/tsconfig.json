@@ -15,7 +15,7 @@
       "@common/*":["src/common/*"],
       // "@shared/*":["src/shared/*"],
       // "@database/*":["src/database/*"],
-      "@config":["src/configs"],
+      // "@config":["src/config"],
       // "@helpers":["src/utils/helpers"],
       // "@subscribers/*":["src/entity-subscribers/*"],
       // "@auth":["src/modules/admin/auth"],

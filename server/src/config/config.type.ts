@@ -1,9 +1,11 @@
+import { StorageType } from '@common/enums/storage-type.enum';
+
 export type AppConfig = {
   nodeEnv: string;
   name: string;
-  // workingDirectory: string;
-  // frontendDomain?: string;
-  // backendDomain: string;
+  workingDirectory: string;
+  frontendDomain?: string;
+  backendDomain: string;
   repoVersion: string;
   apiPrefix: string; // globalPrefix
   versioning: {
@@ -17,6 +19,13 @@ export type AppConfig = {
     port: number;
   };
   jobEnable: boolean;
+
+  rateLimit: {
+    ttl: number; // in second
+    max: number;
+  };
+
+  inactivityPeriod: number;
 
   fallbackLanguage: string;
   // headerLanguage: string;
@@ -33,7 +42,7 @@ export type AuthConfig = {
   refreshExpires?: string;
 };
 
-export type DatabaseConfig = {
+export type DbConfig = {
   url?: string;
   type?: string;
   host?: string;
@@ -50,6 +59,21 @@ export type DatabaseConfig = {
   ca?: string;
   key?: string;
   cert?: string;
+};
+
+export type StorageConfig = {
+  type: StorageType;
+  local: {
+    uploadPath: string;
+  };
+  s3: {
+    accessKeyId?: string;
+    secretAccessKey?: string;
+    region?: string;
+    bucket?: string;
+    apiVersion?: string;
+    baseUrl?: string;
+  };
 };
 
 export type FacebookConfig = {
@@ -93,7 +117,7 @@ export type AllConfigType = {
   app: AppConfig;
   apple: AppleConfig;
   auth: AuthConfig;
-  database: DatabaseConfig;
+  database: DbConfig;
   facebook: FacebookConfig;
   file: FileConfig;
   google: GoogleConfig;

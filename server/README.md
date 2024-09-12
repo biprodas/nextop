@@ -1,6 +1,6 @@
-# NexTop Backend
+# NexTop - Nodejs Backend
 
-## Installation
+## Quick Start
 
 ```bash
 $ npm install

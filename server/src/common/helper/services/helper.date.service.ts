@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import moment, { ISO_8601 } from 'moment';
-import { ENUM_HELPER_DATE_DIFF, ENUM_HELPER_DATE_FORMAT } from '../constants/helper.enum.constant';
+import {
+  ENUM_HELPER_DATE_DIFF,
+  ENUM_HELPER_DATE_FORMAT,
+} from '../constants/helper.enum.constant';
 import { IHelperDateService } from '../interfaces/helper.date-service.interface';
 import {
   IHelperDateExtractDate,
@@ -26,7 +29,11 @@ export class HelperDateService implements IHelperDateService {
     return m.diff(dateOfBirth, 'years');
   }
 
-  diff(dateOne: Date, dateTwoMoreThanDateOne: Date, options?: IHelperDateOptionsDiff): number {
+  diff(
+    dateOne: Date,
+    dateTwoMoreThanDateOne: Date,
+    options?: IHelperDateOptionsDiff,
+  ): number {
     const mDateOne = moment(dateOne);
     const mDateTwo = moment(dateTwoMoreThanDateOne);
     const diff = moment.duration(mDateTwo.diff(mDateOne));
@@ -56,7 +63,10 @@ export class HelperDateService implements IHelperDateService {
     return moment(timestamp, true).isValid();
   }
 
-  create(date?: string | number | Date, options?: IHelperDateOptionsCreate): Date {
+  create(
+    date?: string | number | Date,
+    options?: IHelperDateOptionsCreate,
+  ): Date {
     const mDate = moment(date ?? undefined);
 
     if (options?.startOfDay) {
@@ -66,7 +76,10 @@ export class HelperDateService implements IHelperDateService {
     return mDate.toDate();
   }
 
-  timestamp(date?: string | number | Date, options?: IHelperDateOptionsCreate): number {
+  timestamp(
+    date?: string | number | Date,
+    options?: IHelperDateOptionsCreate,
+  ): number {
     const mDate = moment(date ?? undefined);
 
     if (options?.startOfDay) {
@@ -80,13 +93,19 @@ export class HelperDateService implements IHelperDateService {
     return moment(date).format(options?.format ?? ENUM_HELPER_DATE_FORMAT.DATE);
   }
 
-  forwardInMilliseconds(milliseconds: number, options?: IHelperDateOptionsForward): Date {
+  forwardInMilliseconds(
+    milliseconds: number,
+    options?: IHelperDateOptionsForward,
+  ): Date {
     return moment(options?.fromDate)
       .add(milliseconds, 'ms')
       .toDate();
   }
 
-  backwardInMilliseconds(milliseconds: number, options?: IHelperDateOptionsBackward): Date {
+  backwardInMilliseconds(
+    milliseconds: number,
+    options?: IHelperDateOptionsBackward,
+  ): Date {
     return moment(options?.fromDate)
       .subtract(milliseconds, 'ms')
       .toDate();
@@ -98,7 +117,10 @@ export class HelperDateService implements IHelperDateService {
       .toDate();
   }
 
-  backwardInSeconds(seconds: number, options?: IHelperDateOptionsBackward): Date {
+  backwardInSeconds(
+    seconds: number,
+    options?: IHelperDateOptionsBackward,
+  ): Date {
     return moment(options?.fromDate)
       .subtract(seconds, 's')
       .toDate();
@@ -110,7 +132,10 @@ export class HelperDateService implements IHelperDateService {
       .toDate();
   }
 
-  backwardInMinutes(minutes: number, options?: IHelperDateOptionsBackward): Date {
+  backwardInMinutes(
+    minutes: number,
+    options?: IHelperDateOptionsBackward,
+  ): Date {
     return moment(options?.fromDate)
       .subtract(minutes, 'm')
       .toDate();
@@ -214,7 +239,9 @@ export class HelperDateService implements IHelperDateService {
     return mDate.toDate();
   }
 
-  getStartAndEndDate(options?: IHelperDateStartAndEnd): IHelperDateStartAndEndDate {
+  getStartAndEndDate(
+    options?: IHelperDateStartAndEnd,
+  ): IHelperDateStartAndEndDate {
     const today = moment();
     const todayMonth = today.format(ENUM_HELPER_DATE_FORMAT.ONLY_MONTH);
     const todayYear = today.format(ENUM_HELPER_DATE_FORMAT.ONLY_YEAR);
