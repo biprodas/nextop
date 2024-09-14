@@ -64,31 +64,6 @@ export class MailController {
     };
   }
 
-  // @Post('confirm-email')
-  // async sendVerifyEmailMail() {
-
-  //   const confirmMailTemplate = confirmMail
-  //     .replace(new RegExp('--PersonName--', 'g'), "Biprodas")
-  //     .replace(new RegExp('--ProjectName--', 'g'), "Drivus CRM")
-  //     .replace(new RegExp('--ProjectAddress--', 'g'), "Australia")
-  //     .replace(new RegExp('--ProjectLogo--', 'g'), "Drivus Logo")
-  //     .replace(new RegExp('--ProjectSlogan--', 'g'), "Two mules for sister sara")
-  //     .replace(new RegExp('--ProjectColor--', 'g'), "Deep blue, red")
-  //     .replace(new RegExp('--ProjectLink--', 'g'), "drivus.com")
-  //     .replace(new RegExp('--ButtonLink--', 'g'), "A bottom link")
-  //     .replace(new RegExp('--TermsOfServiceLink--', 'g'),"Drivus terms and service");
-
-  //     const mail = {
-  //       to: "biprodas.cse@gmail.com",
-  //       subject: 'Confirm your email test',
-  //       from: 'milon@semicolonit.com', // Fill it with your validated email on SendGrid account
-  //       text: 'Please confirm your email by login in you email and view the template',
-  //       html: confirmMailTemplate,
-  //     };
-
-  //     return await this.sendgridService.sendTestMail(ctx, "biprodas.cse@gmail.com");
-  //   }
-
   @Post()
   create(@Body() createMailDto: CreateMailDto) {
     return this.mailService.create(createMailDto);

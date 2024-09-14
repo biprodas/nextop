@@ -2,6 +2,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { DbConfig } from 'src/config/config.type';
 import { DataSource } from 'typeorm';
+import { addTransactionalDataSource } from 'typeorm-transactional';
 
 const defaultConnection = (
   configService: ConfigService,
@@ -36,7 +37,9 @@ export const databaseProviders = [
       if (!options) {
         throw new Error('Invalid options passed');
       }
-      return Promise.resolve(new DataSource(options));
+      return Promise.resolve(
+        addTransactionalDataSource(new DataSource(options)),
+      );
     },
   }),
 ];

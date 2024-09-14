@@ -30,9 +30,12 @@ import { ResetPasswordDto } from '../dtos/reset-password.dto';
 import { UpdatePasswordDto } from '@admin/user/dtos/update-password.dto';
 import { UpdateUserDto } from '@admin/user/dtos/update-user.dto';
 
-@Controller('auth')
+@Controller({ path: 'auth', version: '1' })
 export class AuthController {
-  constructor(private authService: AuthService, private configService: ConfigService) {}
+  constructor(
+    private authService: AuthService,
+    private configService: ConfigService,
+  ) {}
 
   @Serialize(AuthenticationResponseDto)
   @Post('/register')
@@ -41,7 +44,10 @@ export class AuthController {
     @Body() registerCredentialsDto: RegisterCredentialsDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<BaseApiSuccessResponse<AuthenticationResponseDto>> {
-    const authPayload = await this.authService.register(ctx, registerCredentialsDto);
+    const authPayload = await this.authService.register(
+      ctx,
+      registerCredentialsDto,
+    );
     this.buildCookieTokenResponse(ctx, res, authPayload.tokenPayload);
 
     return {
@@ -56,9 +62,15 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @HttpCode(200)
   @Post('/login')
-  async login(@RequestContext() ctx: RequestContextDto, @Res({ passthrough: true }) res: Response) {
+  async login(
+    @RequestContext() ctx: RequestContextDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     // await this.authService.payAdLogin(ctx);
-    const authPayload = await this.authService.buildAuthenticationPayload(ctx, ctx.user);
+    const authPayload = await this.authService.buildAuthenticationPayload(
+      ctx,
+      ctx.user,
+    );
     this.buildCookieTokenResponse(ctx, res, authPayload.tokenPayload);
 
     return {
@@ -118,7 +130,10 @@ export class AuthController {
   }
 
   @Delete('/signout')
-  async signOut(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+  async signOut(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     // response.cookie('token', 'none', {
     //   expires: new Date(Date.now() + 10 * 1000),
     //   httpOnly: true
@@ -201,7 +216,10 @@ export class AuthController {
     @RequestContext() ctx: RequestContextDto,
     @Body() forgotPasswordDto: ForgotPasswordDto,
   ) {
-    const mailPayload = await this.authService.forgotPassword(ctx, forgotPasswordDto);
+    const mailPayload = await this.authService.forgotPassword(
+      ctx,
+      forgotPasswordDto,
+    );
 
     return {
       success: true,
@@ -227,7 +245,10 @@ export class AuthController {
   }
 
   @Get('/confirm')
-  confirm(@RequestContext() ctx: RequestContextDto, @Query() confirmAccountQuery) {
+  confirm(
+    @RequestContext() ctx: RequestContextDto,
+    @Query() confirmAccountQuery,
+  ) {
     // this.authService.confirm(confirmAccountQuery); //return boolean
 
     return {
@@ -255,14 +276,19 @@ export class AuthController {
     const refreshTokenCookieOptions = {
       // domain: 'localhost',
       expires: new Date(
-        Date.now() + +this.configService.get('JWT_REFRESH_TOKEN_EXPIRES') * 1000, // cookie expires in in ms
+        Date.now() +
+          +this.configService.get('JWT_REFRESH_TOKEN_EXPIRES') * 1000, // cookie expires in in ms
       ),
       // secure: config.SSL && config.NODE_ENV===env_mode.PRODUCTION
     };
 
     response
       .status(200)
-      .cookie('token', tokenPayload[TokenType.AccessToken], accessTokenCookieOptions)
+      .cookie(
+        'token',
+        tokenPayload[TokenType.AccessToken],
+        accessTokenCookieOptions,
+      )
       .cookie(TokenType.AccessToken, tokenPayload[TokenType.AccessToken], {
         ...accessTokenCookieOptions,
         httpOnly: true,

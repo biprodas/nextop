@@ -17,9 +17,9 @@ export class AuthMailService {
     const confirmation_url = `http://localhost:3900/auth/confirm?token=${token}`;
 
     const mailOptions = {
-      to: 'biprodas.semicolonit@gmail.com',
-      from: `Biprodas R. <biprodas.semicolonit@gmail.com>`,
-      subject: 'Welcome to Drivus! Confirm your Email',
+      to: 'biprodas.cse@gmail.com',
+      from: `Biprodas R. <bipro10cse@gmail.com>`,
+      subject: 'Welcome to NexTop! Confirm your Email',
       text: 'hello email from aws ses',
       template: './welcome', // `.hbs` extension is appended automatically
       context: {

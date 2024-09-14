@@ -11,7 +11,7 @@ export class MailService {
   constructor(private mailerService: MailerService) {}
 
   async sendTestMail(ctx: RequestContextDto, sendMailDto: SendMailDto) {
-    console.log(`${this.sendTestMail.name}Service called`);
+    console.log(`${this.sendTestMail.name} Service called`);
 
     const user = { name: 'Biprodas Roy', url: 'https://example.com' };
 
@@ -26,13 +26,14 @@ export class MailService {
 
     const mailOptions = {
       to,
-      from: `Biprodas R. <biprodas.semicolonit@gmail.com>`,
+      from: `Biprodas R. <bipro10cse@gmail.com>`,
       subject: 'Sending test email',
       text: 'hello email from aws ses',
       html: ejsHtml,
     };
 
     console.log('mailoptions', mailOptions);
+
     try {
       const transport = await this.mailerService.sendMail(mailOptions);
       return transport;
@@ -46,9 +47,9 @@ export class MailService {
     const confirmation_url = `http://localhost:3900/auth/confirm?token=${token}`;
 
     const mailOptions = {
-      to: 'biprodas.semicolonit@gmail.com',
-      from: `Biprodas R. <biprodas.semicolonit@gmail.com>`,
-      subject: 'Welcome to Drivus! Confirm your Email',
+      to: 'biprodas.cse@gmail.com',
+      from: `Biprodas R. <bipro10cse@gmail.com>`,
+      subject: 'Welcome to NexTop! Confirm your Email',
       text: 'hello email from aws ses',
       template: './welcome', // `.hbs` extension is appended automatically
       context: {

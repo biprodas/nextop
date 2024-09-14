@@ -76,12 +76,13 @@ export class UserService {
     //   .execute();
 
     // console.log('send password to email', user.email, newPassword);
+    // if option is enabled
     const credentialsMailDro = {
       name: user.username,
       email: user.email,
       password: newPassword,
     };
-    this.authMailService.sendCredentialsEmail(credentialsMailDro);
+    await this.authMailService.sendCredentialsEmail(credentialsMailDro);
 
     return user;
   }
