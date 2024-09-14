@@ -1,4 +1,4 @@
-import { S3 } from '@aws-sdk/client-s3';
+import { S3Client } from '@aws-sdk/client-s3';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
@@ -26,7 +26,7 @@ export class MulterConfigService implements MulterOptionsFactory {
 
     // AWS S3
     if (this.storage.type === StorageType.S3) {
-      const s3Client = new S3({
+      const s3Client = new S3Client({
         // forcePathStyle: false,
         // apiVersion: storage.s3.apiVersion,
         region: this.storage.s3.region,

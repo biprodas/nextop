@@ -1,5 +1,6 @@
 import AppConfig from './app.config';
 import DbConfig from './db.config';
+import storageConfig from './storage.config';
 // import AuthConfig from './auth.config';
 // import DatabaseConfig from './database.config';
 // import HelperConfig from './helper.config';
@@ -15,6 +16,7 @@ export default [
   AppConfig,
   // AuthConfig,
   DbConfig,
+  storageConfig,
   // HelperConfig,
   // AwsConfig,
   // UserConfig,

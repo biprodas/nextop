@@ -33,7 +33,7 @@ import { MailModule } from '@modules/mail/mail.module';
     ScheduleModule.forRoot(),
     DatabaseModule,
     AdminModule,
-    // FileModule,
+    FileModule,
     // CommonModule,
     // DictionaryModule,
     // WordModule,

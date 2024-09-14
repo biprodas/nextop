@@ -1,4 +1,8 @@
-import { GetObjectCommand, S3 } from '@aws-sdk/client-s3';
+import {
+  S3Client,
+  GetObjectCommand,
+  DeleteObjectCommand,
+} from '@aws-sdk/client-s3';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { StorageConfig } from 'src/config/config.type';
@@ -6,13 +10,13 @@ import { Readable } from 'stream';
 
 @Injectable()
 export class AwsS3Service {
-  private s3: S3;
+  private s3: S3Client;
   private bucket: string;
 
   constructor(private readonly configService: ConfigService) {
     const storage = this.configService.get<StorageConfig>('storage');
     this.bucket = storage.s3.bucket;
-    this.s3 = new S3({
+    this.s3 = new S3Client({
       region: storage.s3.region,
       credentials: {
         accessKeyId: storage.s3.accessKeyId,
@@ -42,9 +46,12 @@ export class AwsS3Service {
   }
 
   async deleteFile(fileKey: string) {
-    await this.s3.deleteObject({
+    const command = new DeleteObjectCommand({
       Bucket: this.bucket,
       Key: fileKey,
     });
+    const result = await this.s3.send(command);
+
+    return result;
   }
 }

@@ -5,7 +5,11 @@ import { DictionaryController } from './controllers/dictionary.controller';
 import { DictionaryService } from './services/dictionary.service';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Dictionary.name, schema: DictionarySchema }])],
+  imports: [
+    MongooseModule.forFeature([
+      { name: Dictionary.name, schema: DictionarySchema },
+    ]),
+  ],
   controllers: [DictionaryController],
   providers: [DictionaryService],
   exports: [],
