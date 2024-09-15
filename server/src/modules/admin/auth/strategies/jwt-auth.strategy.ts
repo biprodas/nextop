@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
@@ -10,7 +10,6 @@ import {
 import { UserStatus } from '@admin/user/enums/user-status.enum';
 import { ErrorType } from '@common/enums';
 import { UserService } from '@admin/user/services/user.service';
-import { UserEntity } from '@admin/user/entities/user.entity';
 import { AuthStrategy } from '../enums/auth-strategy.enum';
 import { AccessTokenPayload } from '@admin/token/dtos/access-token-payload.dto';
 import { TokenType } from '@admin/token/enums/token-type.enum';
@@ -25,13 +24,17 @@ export class JwtAuthStrategy extends PassportStrategy(
     public readonly userService: UserService,
     public readonly configService: ConfigService,
   ) {
+    const secretKey = configService.get<string>(
+      'auth.jwt.accessToken.secretKey',
+    );
+
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
         ExtractJwt.fromAuthHeaderAsBearerToken(),
         JwtAuthStrategy.extractJWT,
       ]),
       ignoreExpiration: false,
-      secretOrKey: configService.get('JWT_ACCESS_TOKEN_SECRET'),
+      secretOrKey: secretKey,
       // algorithms: ['RS256'],
       // signOptions: {
       //   expiresIn: configService.get('JWT_ACCESS_TOKEN_EXPIRES')

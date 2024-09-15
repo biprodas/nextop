@@ -58,9 +58,14 @@ export class UserService {
 
   @Transactional()
   async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
-    const newPassword = Math.random().toString(36).slice(-8);
+    let userPassword = createUserDto.password;
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const isGenerate = false;
+    if (isGenerate) {
+      userPassword = Math.random().toString(36).slice(-8);
+    }
+
+    const hashedPassword = await bcrypt.hash(userPassword, 10);
     const user = this.userRepo.create({
       ...createUserDto,
       password: hashedPassword,
@@ -75,14 +80,18 @@ export class UserService {
     //   .where({ email: user.email })
     //   .execute();
 
+    // validate email
+
     // console.log('send password to email', user.email, newPassword);
-    // if option is enabled
-    const credentialsMailDro = {
-      name: user.username,
-      email: user.email,
-      password: newPassword,
-    };
-    await this.authMailService.sendCredentialsEmail(credentialsMailDro);
+    const isSendCredentials = false;
+    if (isSendCredentials) {
+      const credentialsMailDro = {
+        name: user.username,
+        email: user.email,
+        password: createUserDto.password,
+      };
+      await this.authMailService.sendCredentialsEmail(credentialsMailDro);
+    }
 
     return user;
   }

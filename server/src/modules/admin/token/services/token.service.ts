@@ -211,9 +211,14 @@ export class TokenService {
   ): Promise<string> {
     console.log(`${this.generateAccessToken.name} Service called`);
 
-    const secret = this.configService.get('JWT_ACCESS_TOKEN_SECRET');
-    const expiresIn: number =
-      +this.configService.get('JWT_ACCESS_TOKEN_EXPIRES') || 60 * 60 * 5; // ttl in second
+    const secret = this.configService.get<string>(
+      'auth.jwt.accessToken.secretKey',
+    );
+    const expiresIn =
+      +this.configService.get<string>('auth.jwt.accessToken.expirationTime') *
+      1000;
+
+    // console.log('secretKey, expiresIn:', secret, expiresIn);
 
     const opts: JwtSignOptions = {
       ...BaseJwtSignOptions,
@@ -231,9 +236,18 @@ export class TokenService {
   ): Promise<string> {
     console.log(`${this.generateRefreshToken.name} Service called`);
 
-    const secret = this.configService.get('JWT_REFRESH_TOKEN_SECRET');
-    const expiresIn: number =
-      +this.configService.get('JWT_REFRESH_TOKEN_EXPIRES') || 60 * 60 * 24 * 7; // ttl in second
+    const secret = this.configService.get<string>(
+      'auth.jwt.refreshToken.secretKey',
+    );
+    const expiresIn =
+      +this.configService.get<string>('auth.jwt.refreshToken.expirationTime') *
+      1000;
+
+    // console.log('refresh secretKey, expiresIn:', secret, expiresIn);
+
+    // const secret = this.configService.get('JWT_REFRESH_TOKEN_SECRET_KEY');
+    // const expiresIn: number =
+    //   +this.configService.get('JWT_REFRESH_TOKEN_EXPIRES') || 60 * 60 * 24 * 7; // ttl in second
 
     const expiresAt = new Date();
     expiresAt.setTime(expiresAt.getTime() + expiresIn * 1000).toString();

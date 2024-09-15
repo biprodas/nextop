@@ -268,7 +268,8 @@ export class AuthController {
 
     const accessTokenCookieOptions = {
       expires: new Date(
-        Date.now() + +this.configService.get('JWT_ACCESS_TOKEN_EXPIRES') * 1000, // cookie expires in in ms
+        Date.now() +
+          this.configService.get('auth.jwt.accessToken.expirationTime') * 1000, // cookie expires in in ms
       ),
       // secure: config.SSL && config.NODE_ENV===env_mode.PRODUCTION
     };
@@ -277,7 +278,7 @@ export class AuthController {
       // domain: 'localhost',
       expires: new Date(
         Date.now() +
-          +this.configService.get('JWT_REFRESH_TOKEN_EXPIRES') * 1000, // cookie expires in in ms
+          this.configService.get('auth.jwt.refreshToken.expirationTime') * 1000, // cookie expires in in ms
       ),
       // secure: config.SSL && config.NODE_ENV===env_mode.PRODUCTION
     };

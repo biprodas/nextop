@@ -1,52 +1,42 @@
 import { registerAs } from '@nestjs/config';
-import { seconds } from '@common/helper/constants/helper.function';
+import ms from 'ms';
 
 export default registerAs(
   'auth',
   (): Record<string, any> => ({
-    accessToken: {
-      secretKey: process.env.AUTH_JWT_ACCESS_TOKEN_SECRET_KEY ?? '123456',
-      expirationTime: seconds(
-        process.env.AUTH_JWT_ACCESS_TOKEN_EXPIRED ?? '1h',
-      ), // 1 hours
-      notBeforeExpirationTime: seconds('0'), // immediately
+    jwt: {
+      accessToken: {
+        secretKey: process.env.JWT_ACCESS_TOKEN_SECRET_KEY ?? 'unsecureKey',
+        expirationTime: ms(process.env.JWT_ACCESS_TOKEN_EXPIRES ?? '1h') / 1000,
+      },
 
-      encryptKey: process.env.AUTH_JWT_PAYLOAD_ACCESS_TOKEN_ENCRYPT_KEY,
-      encryptIv: process.env.AUTH_JWT_PAYLOAD_ACCESS_TOKEN_ENCRYPT_IV,
+      refreshToken: {
+        secretKey: process.env.JWT_REFRESH_TOKEN_SECRET_KEY,
+        expirationTime:
+          ms(process.env.JWT_REFRESH_TOKEN_EXPIRES ?? '7d') / 1000,
+      },
+
+      subject: process.env.AUTH_JWT_SUBJECT ?? 'bold-desert',
+      audience: process.env.AUTH_JWT_AUDIENCE,
+      issuer: process.env.AUTH_JWT_ISSUER,
+      prefixAuthorization: 'Bearer',
     },
-
-    refreshToken: {
-      secretKey: process.env.AUTH_JWT_REFRESH_TOKEN_SECRET_KEY ?? '123456000',
-      expirationTime: seconds(
-        process.env.AUTH_JWT_REFRESH_TOKEN_EXPIRED ?? '14d',
-      ), // 14 days
-      notBeforeExpirationTime: seconds(
-        process.env.AUTH_JWT_REFRESH_TOKEN_NOT_BEFORE_EXPIRATION ?? '1h',
-      ), // 1 hours
-
-      encryptKey: process.env.AUTH_JWT_PAYLOAD_REFRESH_TOKEN_ENCRYPT_KEY,
-      encryptIv: process.env.AUTH_JWT_PAYLOAD_REFRESH_TOKEN_ENCRYPT_IV,
-    },
-
-    subject: process.env.AUTH_JWT_SUBJECT ?? 'ryDevelopment',
-    audience: process.env.AUTH_JWT_AUDIENCE ?? 'https://example.com',
-    issuer: process.env.AUTH_JWT_ISSUER ?? 'ry',
-    prefixAuthorization: 'Bearer',
-    payloadEncryption:
-      process.env.AUTH_JWT_PAYLOAD_ENCRYPT === 'true' ? true : false,
 
     password: {
       attempt: true,
       maxAttempt: 5,
       saltLength: 8,
-      expiredIn: seconds('182d'), // 182 days
+      expiredIn: ms('90d') / 1000,
     },
 
-    googleOAuth2: {
+    google: {
       clientId: process.env.SSO_GOOGLE_CLIENT_ID,
       clientSecret: process.env.SSO_GOOGLE_CLIENT_SECRET,
-      callbackUrlLogin: process.env.SSO_GOOGLE_CALLBACK_URL_LOGIN,
-      callbackUrlSignUp: process.env.SSO_GOOGLE_CALLBACK_URL_SIGN_UP,
+    },
+
+    apple: {
+      clientId: process.env.SSO_APPLE_CLIENT_ID,
+      signInClientId: process.env.SSO_APPLE_SIGN_IN_CLIENT_ID,
     },
   }),
 );

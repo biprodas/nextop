@@ -1,18 +1,25 @@
-import { Strategy } from 'passport-local';
-import { Request } from 'express';
-import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, Logger } from '@nestjs/common';
-import { AuthService } from '../services/auth.service';
-import { AuthStrategy } from '../enums';
-import { DisabledUserException, InvalidCredentialsException } from '@common/exceptions';
+import { PassportStrategy } from '@nestjs/passport';
+import { plainToClass } from 'class-transformer';
+import { Request } from 'express';
+import { Strategy } from 'passport-local';
+
+import { UserDto } from '@admin/user/dtos/user.dto';
 import { UserStatus } from '@admin/user/enums/user-status.enum';
 import { ErrorType } from '@common/enums';
-import { UserDto } from '@admin/user/dtos/user.dto';
-import { plainToClass } from 'class-transformer';
+import {
+  DisabledUserException,
+  InvalidCredentialsException,
+} from '@common/exceptions';
 import { createRequestContext } from '@common/utils/request-context';
+import { AuthStrategy } from '../enums';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy, AuthStrategy.Local) {
+export class LocalStrategy extends PassportStrategy(
+  Strategy,
+  AuthStrategy.Local,
+) {
   private logger = new Logger(LocalStrategy.name);
 
   constructor(private authService: AuthService) {
@@ -24,7 +31,11 @@ export class LocalStrategy extends PassportStrategy(Strategy, AuthStrategy.Local
     });
   }
 
-  async validate(request: Request, username: string, password: string): Promise<UserDto> {
+  async validate(
+    request: Request,
+    username: string,
+    password: string,
+  ): Promise<UserDto> {
     const ctx = createRequestContext(request);
     this.logger.log(`${this.validate.name} was called`);
 
@@ -32,7 +43,6 @@ export class LocalStrategy extends PassportStrategy(Strategy, AuthStrategy.Local
 
     if (!user) {
       throw new InvalidCredentialsException();
-      // throw new UnauthorizedException('Invalid login credentials');
     }
     if (user.status == UserStatus.Inactive) {
       throw new DisabledUserException(ErrorType.InactiveUser);

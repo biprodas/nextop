@@ -24,7 +24,7 @@ export class AppExceptionFilter<T> implements ExceptionFilter {
     const res: Response = ctx.getResponse<Response>();
     // const statusCode = +exception.getStatus();
 
-    // console.log('App Exception', exception);
+    console.log('App Exception', exception);
 
     // let stack: any;
     let statusCode: HttpStatus;

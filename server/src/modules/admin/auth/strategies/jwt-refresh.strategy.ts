@@ -1,16 +1,13 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Request } from 'express';
-import { DisabledUserException, InvalidCredentialsException } from '@common/exceptions';
-import { UserStatus } from '@admin/user/enums/user-status.enum';
-import { ErrorType } from '@common/enums';
+import { ExtractJwt, Strategy } from 'passport-jwt';
+
+import { TokenType } from '@admin/token/enums/token-type.enum';
+import { UserDto } from '@admin/user/dtos/user.dto';
 import { UserService } from '@admin/user/services/user.service';
 import { AuthStrategy } from '../enums/auth-strategy.enum';
-import { UserRefreshTokenClaims } from '../../token/dtos/auth-token-claims.dto';
-import { UserDto } from '@admin/user/dtos/user.dto';
-import { TokenType } from '@admin/token/enums/token-type.enum';
 
 // get tokenid/userid from payload and find token and user
 // check accessToken, if valid return user
@@ -19,18 +16,25 @@ import { TokenType } from '@admin/token/enums/token-type.enum';
 
 // not used yet
 @Injectable()
-export class JwtRefreshStrategy extends PassportStrategy(Strategy, AuthStrategy.JwtRefresh) {
+export class JwtRefreshStrategy extends PassportStrategy(
+  Strategy,
+  AuthStrategy.JwtRefresh,
+) {
   constructor(
     public readonly userService: UserService,
     public readonly configService: ConfigService,
   ) {
+    const secretKey = configService.get<string>(
+      'auth.jwt.accessToken.secretKey',
+    );
+
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
         ExtractJwt.fromBodyField(TokenType.RefreshToken),
         JwtRefreshStrategy.extractJWT,
       ]),
       ignoreExpiration: false,
-      secretOrKey: configService.get('JWT_ACCESS_TOKEN_SECRET'),
+      secretOrKey: secretKey,
       // signOptions: {
       //   expiresIn: configService.get('JWT_ACCESS_TOKEN_EXPIRES')
       // },

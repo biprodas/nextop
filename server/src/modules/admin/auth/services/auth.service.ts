@@ -5,24 +5,25 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { CreateUserDto } from '@admin/user/dtos/create-user.dto';
-import { UserEntity } from '@admin/user/entities/user.entity';
-import { UserService } from '@admin/user/services/user.service';
-import { TokenService } from '@admin/token/services/token.service';
-import { RequestContextDto } from '@common/dtos/request-context.dto';
-import { LoginCredentialsDto } from '../dtos/login-credentials.dto';
-import { RegisterCredentialsDto } from '../dtos/register-credentials.dto';
-import { AuthenticationResponseDto } from '../dtos/authentication-response.dto';
-import { TokenType } from '@admin/token/enums/token-type.enum';
+
 import { SecurityScheme } from '@admin/token/enums/auth-sceme.type';
-import { UserDto } from '@admin/user/dtos/user.dto';
-import { ResetPasswordDto } from '../dtos/reset-password.dto';
-import { ForgotPasswordDto } from '../dtos/forgot-password.dto';
-import { TokenRevokeBy } from '@admin/token/enums/token-revoke-by.dto';
 import { RevokeGrant } from '@admin/token/enums/revoke-grant.enum';
+import { TokenRevokeBy } from '@admin/token/enums/token-revoke-by.dto';
+import { TokenType } from '@admin/token/enums/token-type.enum';
+import { TokenService } from '@admin/token/services/token.service';
+import { CreateUserDto } from '@admin/user/dtos/create-user.dto';
 import { UpdatePasswordDto } from '@admin/user/dtos/update-password.dto';
 import { UpdateUserDto } from '@admin/user/dtos/update-user.dto';
+import { UserDto } from '@admin/user/dtos/user.dto';
+import { UserEntity } from '@admin/user/entities/user.entity';
+import { UserService } from '@admin/user/services/user.service';
+import { RequestContextDto } from '@common/dtos/request-context.dto';
 import { AuthMailService } from '@modules/mail/services/auth-mail.service';
+import { AuthenticationResponseDto } from '../dtos/authentication-response.dto';
+import { ForgotPasswordDto } from '../dtos/forgot-password.dto';
+import { LoginCredentialsDto } from '../dtos/login-credentials.dto';
+import { RegisterCredentialsDto } from '../dtos/register-credentials.dto';
+import { ResetPasswordDto } from '../dtos/reset-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -156,7 +157,7 @@ export class AuthService {
     ctx: RequestContextDto,
     resetPasswordDto: ResetPasswordDto,
   ): Promise<any> {
-    console.log(`${this.resetPassword.name}Service`);
+    console.log(`${this.resetPassword.name} Service`);
 
     const { resetPasswordToken, newPassword } = resetPasswordDto;
     const { user, rtoken } = await this.tokenService.resolveResetPasswordToken(
@@ -182,7 +183,7 @@ export class AuthService {
   }
 
   async validateCredentials(email: string, password: string): Promise<any> {
-    // console.log(`${this.validateCredentials.name}Service`);
+    // console.log(`${this.validateCredentials.name} Service`);
 
     const user = await this.userService.findUserByEmail(email);
 
