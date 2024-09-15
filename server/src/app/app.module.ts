@@ -18,6 +18,7 @@ import { MailModule } from '@modules/mail/mail.module';
 import { CountryModule } from '@modules/country/country.module';
 import { StateModule } from '@modules/state/state.module';
 import { UniversityModule } from '@modules/university/university.module';
+import { DepartmentModule } from '@modules/department/department.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { UniversityModule } from '@modules/university/university.module';
     CountryModule,
     StateModule,
     UniversityModule,
+    DepartmentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

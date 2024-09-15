@@ -1,0 +1,25 @@
+### Get list of all departments
+GET http://localhost:5000/api/v1/departments
+
+### Get single department
+GET http://localhost:5000/api/v1/departments/1
+
+### Create a new department
+POST  http://localhost:5000/api/v1/departments
+Content-Type: application/json
+
+{
+  "name": "Computer Science of Engineering",
+  "countryId": 1
+}
+
+### Update a department
+PUT  http://localhost:5000/api/v1/departments/1
+Content-Type: application/json
+
+{
+  "name": "CSE"
+}
+
+### Delete a department
+DELETE  http://localhost:5000/api/v1/departments/1

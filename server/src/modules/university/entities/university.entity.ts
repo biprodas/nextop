@@ -51,6 +51,6 @@ export class UniversityEntity {
 
   @AfterRemove()
   logRemove() {
-    console.log(`Removed University of id ${this.id}`);
+    console.log(`Removed University`);
   }
 }
