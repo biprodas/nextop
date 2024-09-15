@@ -17,6 +17,7 @@ import { AdminModule } from '@admin/admin.module';
 import { MailModule } from '@modules/mail/mail.module';
 import { CountryModule } from '@modules/country/country.module';
 import { StateModule } from '@modules/state/state.module';
+import { UniversityModule } from '@modules/university/university.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { StateModule } from '@modules/state/state.module';
     // new modules
     CountryModule,
     StateModule,
+    UniversityModule,
   ],
   controllers: [AppController],
   providers: [AppService],

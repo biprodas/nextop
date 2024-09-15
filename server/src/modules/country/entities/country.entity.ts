@@ -1,4 +1,5 @@
 import { StateEntity } from '@modules/state/entities/state.entity';
+import { UniversityEntity } from '@modules/university/entities/university.entity';
 import {
   AfterInsert,
   AfterRemove,
@@ -48,6 +49,9 @@ export class CountryEntity {
   // relations
   @OneToMany((_type) => StateEntity, (state) => state.country)
   states: StateEntity[];
+
+  @OneToMany((_type) => UniversityEntity, (university) => university.country)
+  universities: UniversityEntity[];
 
   // hooks
   @AfterInsert()

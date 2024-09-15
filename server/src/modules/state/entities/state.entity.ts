@@ -1,4 +1,5 @@
 import { CountryEntity } from '@modules/country/entities/country.entity';
+import { UniversityEntity } from '@modules/university/entities/university.entity';
 import {
   AfterInsert,
   AfterRemove,
@@ -7,6 +8,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -20,9 +22,13 @@ export class StateEntity {
 
   @Column({ name: 'country_id', type: 'number' })
   countryId: number;
-  @ManyToOne((_type) => CountryEntity, (log) => log.states)
+  @ManyToOne((_type) => CountryEntity, (country) => country.states)
   @JoinColumn({ name: 'country_id' })
   country: CountryEntity;
+
+  // relations
+  @OneToMany((_type) => UniversityEntity, (university) => university.state)
+  universities: UniversityEntity[];
 
   // hooks
   @AfterInsert()

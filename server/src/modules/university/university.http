@@ -1,0 +1,25 @@
+### Get list of all universities
+GET http://localhost:5000/api/v1/universities
+
+### Get single university
+GET http://localhost:5000/api/v1/universities/1
+
+### Create a new university
+POST  http://localhost:5000/api/v1/universities
+Content-Type: application/json
+
+{
+  "name": "University of Arizona",
+  "countryId": 1
+}
+
+### Update a university
+PUT  http://localhost:5000/api/v1/universities/1
+Content-Type: application/json
+
+{
+  "name": "Florida State University"
+}
+
+### Delete a university
+DELETE  http://localhost:5000/api/v1/universities/1
