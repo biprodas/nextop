@@ -1,9 +1,11 @@
+import { StateEntity } from '@modules/state/entities/state.entity';
 import {
   AfterInsert,
   AfterRemove,
   AfterUpdate,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -42,6 +44,10 @@ export class CountryEntity {
 
   @Column({ type: 'simple-array', nullable: true })
   languages: string[];
+
+  // relations
+  @OneToMany((_type) => StateEntity, (state) => state.country)
+  states: StateEntity[];
 
   // hooks
   @AfterInsert()

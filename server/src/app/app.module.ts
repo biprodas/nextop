@@ -16,6 +16,7 @@ import { LogModule } from '@modules/log/log.module';
 import { AdminModule } from '@admin/admin.module';
 import { MailModule } from '@modules/mail/mail.module';
 import { CountryModule } from '@modules/country/country.module';
+import { StateModule } from '@modules/state/state.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { CountryModule } from '@modules/country/country.module';
     JobsModule.forRoot(),
     // new modules
     CountryModule,
+    StateModule,
   ],
   controllers: [AppController],
   providers: [AppService],
