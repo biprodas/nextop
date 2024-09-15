@@ -1,0 +1,25 @@
+### Get list of all professors
+GET http://localhost:5000/api/v1/professors
+
+### Get single professor
+GET http://localhost:5000/api/v1/professors/1
+
+### Create a new professor
+POST  http://localhost:5000/api/v1/professors
+Content-Type: application/json
+
+{
+  "name": "Computer Science of Engineering",
+  "countryId": 1
+}
+
+### Update a professor
+PUT  http://localhost:5000/api/v1/professors/1
+Content-Type: application/json
+
+{
+  "name": "CSE"
+}
+
+### Delete a professor
+DELETE  http://localhost:5000/api/v1/professors/1
