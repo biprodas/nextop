@@ -20,6 +20,7 @@ import { StateModule } from '@modules/state/state.module';
 import { UniversityModule } from '@modules/university/university.module';
 import { DepartmentModule } from '@modules/department/department.module';
 import { ProfessorModule } from '@modules/professor/professor.module';
+import { ProgramModule } from '@modules/program/program.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { ProfessorModule } from '@modules/professor/professor.module';
     UniversityModule,
     DepartmentModule,
     ProfessorModule,
+    ProgramModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,0 +1,24 @@
+### Get list of all programs
+GET http://localhost:5000/api/v1/programs
+
+### Get single program
+GET http://localhost:5000/api/v1/programs/1
+
+### Create a new program
+POST  http://localhost:5000/api/v1/programs
+Content-Type: application/json
+
+{
+  "name": "Computer Science of Engineering",
+}
+
+### Update a program
+PUT  http://localhost:5000/api/v1/programs/1
+Content-Type: application/json
+
+{
+  "name": "CSE"
+}
+
+### Delete a program
+DELETE  http://localhost:5000/api/v1/programs/1
