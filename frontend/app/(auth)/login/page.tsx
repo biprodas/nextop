@@ -1,5 +1,5 @@
 import React from "react";
-import SignIn from "~/components/sign-in";
+import SignIn from "~/components/auth/signin-button";
 
 const LoginPage = () => {
   return (
