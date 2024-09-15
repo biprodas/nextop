@@ -1,0 +1,25 @@
+### Get list of all countries
+GET http://localhost:5000/api/v1/countries
+
+### Get single country
+GET http://localhost:5000/api/v1/countries/1
+
+### Create a new country
+POST  http://localhost:5000/api/v1/countries
+Content-Type: application/json
+
+{
+  "name": "Australia",
+  "alpha2": "AU"
+}
+
+### Update a country
+PUT  http://localhost:5000/api/v1/countries/1
+Content-Type: application/json
+
+{
+  "name": "Australia"
+}
+
+### Delete a country
+DELETE  http://localhost:5000/api/v1/countries/1

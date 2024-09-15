@@ -1,9 +1,7 @@
-import { ErrorType } from '@common/enums';
-import { Key } from '@common/enums/keys.enum';
 import {
-  ExceptionFilter,
-  Catch,
   ArgumentsHost,
+  Catch,
+  ExceptionFilter,
   HttpException,
   HttpStatus,
   Logger,
@@ -11,6 +9,8 @@ import {
 import { Reflector } from '@nestjs/core';
 import { AxiosError } from 'axios';
 import { Request, Response } from 'express';
+
+import { ErrorType, Key } from '@common/enums';
 
 @Catch()
 export class AppExceptionFilter<T> implements ExceptionFilter {
@@ -24,7 +24,7 @@ export class AppExceptionFilter<T> implements ExceptionFilter {
     const res: Response = ctx.getResponse<Response>();
     // const statusCode = +exception.getStatus();
 
-    console.log('App Exception', exception);
+    // console.log('App Exception', exception);
 
     // let stack: any;
     let statusCode: HttpStatus;
@@ -63,7 +63,7 @@ export class AppExceptionFilter<T> implements ExceptionFilter {
       errorName = exception.constructor.name;
       message = exception.message;
       // stack = exception.stack;
-      console.log('Error', exception.response?.data);
+      // console.log('Error', exception.response?.data);
     }
 
     // Set to internal server error in case it did not match above categories.
