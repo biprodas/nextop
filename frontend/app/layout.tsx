@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ThemeProvider from "~/components/theme-provider";
 import { siteConfig } from "~/config/site";
 import { geistMono, geistSans } from "~/font";
 import { cn } from "~/lib/utils";
@@ -25,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
@@ -33,7 +34,14 @@ export default function RootLayout({
           geistMono.variable
         )}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
