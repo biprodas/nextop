@@ -68,7 +68,7 @@ const Header = () => {
         </nav>
         <div className="flex space-x-5">
           <ModeToggle />
-          <LoginButton mode="modal" asChild>
+          <LoginButton asChild>
             <Button variant="outline">Sign In</Button>
           </LoginButton>
           <Button

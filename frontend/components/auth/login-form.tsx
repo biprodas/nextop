@@ -21,7 +21,8 @@ import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { FormError } from "~/components/form-error";
 import { FormSuccess } from "~/components/form-success";
-// import { login } from "@/actions/login";
+import { Label } from "../ui/label";
+import { login } from "~/actions/login";
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -45,10 +46,14 @@ export const LoginForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+  const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     setError("");
     setSuccess("");
     console.log("Credentials", values);
+
+    const result = await login(values, callbackUrl);
+
+    console.log("final result", result);
 
     // startTransition(() => {
     //   login(values, callbackUrl)
@@ -75,11 +80,11 @@ export const LoginForm = () => {
     <CardWrapper
       headerLabel="Welcome back"
       backButtonLabel="Don't have an account?"
-      backButtonHref="/auth/register"
+      backButtonHref="/register"
       showSocial
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
           <div className="space-y-4">
             {showTwoFactor && (
               <FormField
@@ -107,10 +112,11 @@ export const LoginForm = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <Label htmlFor={field.name}>Email</Label>
                       <FormControl>
                         <Input
                           {...field}
+                          id={field.name}
                           disabled={isPending}
                           placeholder="john.doe@example.com"
                           type="email"
@@ -125,24 +131,22 @@ export const LoginForm = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <Label htmlFor={field.name}>Password</Label>
                       <FormControl>
                         <Input
                           {...field}
+                          id={field.name}
                           disabled={isPending}
                           placeholder="********"
                           type="password"
                         />
                       </FormControl>
-                      <Button
-                        size="sm"
-                        variant="link"
-                        asChild
-                        className="px-0 font-normal flex justify-end"
-                      >
-                        <Link href="#">Forgot password?</Link>
-                      </Button>
                       <FormMessage />
+                      <div className="font-normal flex justify-end">
+                        <Button size="sm" variant="link" asChild>
+                          <Link href="#">Forgot password?</Link>
+                        </Button>
+                      </div>
                     </FormItem>
                   )}
                 />

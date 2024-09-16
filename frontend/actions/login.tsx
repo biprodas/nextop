@@ -20,11 +20,13 @@ export const login = async (
   const { email, password, code } = validatedFields.data;
 
   try {
-    await signIn("credentials", {
+    const result = await signIn("credentials", {
       email,
       password,
       redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
+    console.log("action login result", result);
+    return result;
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
