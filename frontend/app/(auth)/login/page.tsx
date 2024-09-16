@@ -1,13 +1,9 @@
-import React from "react";
-import SignIn from "~/components/auth/signin-button";
+import { LoginForm } from "~/components/auth/login-form";
 
 const LoginPage = () => {
   return (
-    <div className="p-5">
-      <h2>Login Page</h2>
-      <div>
-        <SignIn />
-      </div>
+    <div className="h-screen flex justify-center items-center">
+      <LoginForm />
     </div>
   );
 };

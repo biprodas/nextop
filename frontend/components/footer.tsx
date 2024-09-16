@@ -13,8 +13,11 @@ const Footer = () => {
             Copyright © {year} <strong>NextUp</strong>. All rights reserved.
           </small>
           <small>
-            Developed with <FaHeart size={12} className="inline-block" /> by{" "}
-            <Link href="">biprodas.ry</Link>
+            Developed with{" "}
+            <FaHeart size={12} className="inline-block text-red-500" /> by{" "}
+            <Link href="" className="hover:underline hover:text-blue-700">
+              biprodas.ry
+            </Link>
           </small>
         </div>
       </Container>

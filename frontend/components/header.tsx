@@ -1,22 +1,23 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { CiMenuKebab } from "react-icons/ci";
 import { FaRegCalendarAlt } from "react-icons/fa";
+
 import Container from "~/components/container";
+import { ModeToggle } from "~/components/mode-toggle";
 import NavLink from "~/components/nav-link";
 import { Button } from "~/components/ui/button";
-import { cn } from "~/lib/utils";
-import { CiMenuKebab } from "react-icons/ci";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { useRouter } from "next/navigation";
-import { ModeToggle } from "~/components/mode-toggle";
 import useScroll from "~/hooks/use-scroll";
+import { cn } from "~/lib/utils";
+import { LoginButton } from "./auth/login-button";
 
 const Header = () => {
   const scrolled = useScroll(50);
@@ -67,7 +68,9 @@ const Header = () => {
         </nav>
         <div className="flex space-x-5">
           <ModeToggle />
-          <Button variant="outline">Signin</Button>
+          <LoginButton mode="modal" asChild>
+            <Button variant="outline">Sign In</Button>
+          </LoginButton>
           <Button
             variant="outline"
             size="icon"
