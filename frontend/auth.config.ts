@@ -3,13 +3,17 @@ import Credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
-import { LoginSchema } from "~/schemas";
 import { siteConfig } from "./config/site";
 import { cookies } from "next/headers";
 
 // Define your configuration in a separate variable and pass it to NextAuth()
 // This way we can also 'export const config' for use later
 const authConfig = {
+  // trustHost: true,
+  secret: process.env.AUTH_SECRET,
+  pages: {
+    signIn: "/login",
+  },
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -22,23 +26,18 @@ const authConfig = {
     Credentials({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
       // e.g. domain, username, password, 2FA token, etc.
-      name: "NextUp",
+      // id: "credentials",
+      name: "Email Password Login",
       credentials: {
-        email: {
-          label: "Email",
-          type: "email",
-          placeholder: "john.doe@gmail.com",
-        },
+        email: { name: "email", type: "email", label: "Email", required: true },
         password: {
-          label: "Password",
+          name: "password",
           type: "password",
-          placeholder: "*******",
+          label: "Password",
+          required: true,
         },
       },
       async authorize(credentials) {
-        // const validatedFields = LoginSchema.safeParse(credentials);
-        // console.log("authorize.Credentials", credentials, validatedFields);
-
         const payload = {
           email: credentials.email,
           password: credentials.password,
@@ -57,14 +56,15 @@ const authConfig = {
           // console.error("API request error:", error);
           throw new Error(error.message);
         }
-        // If no error and we have user data, return it
-        if (res.ok && data) {
+
+        if (res.ok && data.user) {
           const user = {
             ...data.user,
-            // id: data.user.id,
-            // name: data.user.name,
-            accessToken: data.token,
-            refreshToken: data.tokenPayload.RefreshToken,
+            tokens: {
+              accessToken: data.tokenPayload.AccessToken,
+              refreshToken: data.tokenPayload.RefreshToken,
+              userId: data.user.id,
+            },
           };
 
           const prefix = process.env.NODE_ENV === "development" ? "__Dev-" : "";
@@ -81,155 +81,58 @@ const authConfig = {
           return user;
         }
 
-        // Return null if user data could not be retrieved
         return null;
-
-        // if (validatedFields.success) {
-        //   const { email, password } = validatedFields.data;
-
-        //   const user = await getUserByEmail(email);
-        //   if (!user || !user.password) return null;
-
-        //   const passwordsMatch = await bcrypt.compare(password, user.password);
-
-        //   if (passwordsMatch) return user;
-        // }
-
-        // let user = null;
-
-        // logic to verify if the user exists
-        // user = { name: "Biprodas", id: "test_id_123" }; // await getUserFromDb(credentials.email, pwHash);
-
-        // if (!user) {
-        //   // No user found, so this is their first attempt to login
-        //   // meaning this is also the place you could do registration
-        //   throw new Error("User not found.");
-        // }
-
-        // return user object with their profile data
-        // return user;
       },
     }),
   ],
-  secret: process.env.JWT_SECRET,
-  pages: {
-    signIn: "/login",
-  },
   callbacks: {
-    // async signIn({ user, account }) {
-    //   console.log("calbacks.signIn", user, account);
+    async signIn({ user, account, credentials }) {
+      // console.log("calbacks.signIn", user, account, credentials);
 
-    //   // Allow OAuth without email verification
-    //   if (account?.provider !== "credentials") return true;
-
-    //   // const existingUser = await getUserById(user.id);
-
-    //   // // Prevent sign in without email verification
-    //   // if (!existingUser?.emailVerified) return false;
-
-    //   // //2FA check
-    //   // if (existingUser.isTwoFactorEnabled) {
-    //   //   const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
-    //   //     existingUser.id
-    //   //   );
-
-    //   //   if (!twoFactorConfirmation) return false;
-
-    //   //   //Delete the two factor confirmation for next sign in
-    //   //   await db.twoFactorConfirmation.delete({
-    //   //     where: { id: twoFactorConfirmation.id },
-    //   //   });
-    //   // }
-
-    //   return true;
-    // },
-    async jwt({ token, user, account }) {
-      console.log("calbacks.jwt", token, user, account);
-
-      // if (!token.sub) return token;
-
-      if (account && user) {
-        token.user = user;
-        // token.id = user.id;
-        token.accessToken = user.accessToken;
-        token.refreshToken = user.refreshToken;
-        // token.role = "Unknown"; // the user role
-
-        // const decodedAccessToken = JSON.parse(
-        //   Buffer.from(user.accessToken.split(".")[1], "base64").toString()
-        // );
-
-        // if (decodedAccessToken) {
-        //   token.userId = decodedAccessToken["sub"] as string;
-        //   token.accessTokenExpires = decodedAccessToken["exp"] * 1000;
-        // }
-
-        // // get some info about user from the id token
-        // const decodedIdToken = JSON.parse(
-        //   Buffer.from(user.idToken.split(".")[1], "base64").toString()
-        // );
-
-        // if (decodedIdToken) {
-        //   token.email = decodedIdToken["email"];
-        //   token.cognitoGroups = decodedIdToken["cognito:groups"];
-        //   token.role = decodedIdToken["cognito:groups"].length
-        //     ? decodedIdToken["cognito:groups"][0]
-        //     : "Unknown";
-        // }
+      if (account?.provider === "google") {
+        console.log("Login with google");
+        // const res = await socialLogin({
+        //   provider: "google",
+        //   accessToken: account.access_token as string,
+        // });
+        // if (!res.ok) return false;
       }
 
-      // const existingUser = await getUserById(token.sub);
+      return true;
+    },
+    async jwt({ token, user, account, trigger, session }) {
+      // console.log("calbacks.jwt", token, user, account, trigger, session);
 
-      // if (!existingUser) return token;
+      if (account?.provider === "google") {
+        // const res = await socialLogin({ provider: "google", access_token: account.access_token as string });
+        // const userRes = await queryClient.fetchQuery(getUserQuery(res.data.access_token))
+        // return userRes ? { ...token, tokens: res.data, user: { ...userRes.data, tokens: res.data } } : token;
+      }
 
-      // const existingAccount = await getAccountByUserId(existingUser.id);
+      // if (isTokenExpired(token.tokens.access_token)) {
+      //   const refreshedTokens = await refreshToken(token.tokens.refresh_token);
+      //   return { ...token, tokens: refreshedTokens.data, user: token.user };
+      // }
 
-      // token.isOAuth = !!existingAccount;
-      // token.name = existingUser.name;
-      // token.email = existingUser.email;
-      // token.role = existingUser.role;
-      // token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
+      if (user) {
+        token.user = user;
+        token.tokens = user.tokens;
+      }
 
       return token;
     },
     async session({ session, token }: any) {
-      console.log("calbacks.session", session, token);
+      // console.log("calbacks.session", session, token);
 
-      session.user = token.user;
-
-      session.user.accessToken = token.accessToken;
-      session.user.refreshToken = token.refreshToken;
-      session.user.accessTokenExpires = token.accessTokenExpires;
-
-      const newSession = {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id as string,
-          email: token.email as string,
-          accessToken: token.accessToken as string,
-          accessTokenExpires: token.accessTokenExpires as number,
-          refreshToken: token.refreshToken as string,
-          role: token.role as string,
-          // image: user.image,
-        },
-        error: token.error,
-      };
-
-      // if (token.sub && session.user) {
-      //   session.user.id = token.sub;
-      // }
-
-      // if (token.role && session.user) {
-      //   session.user.role = token.role as UserRole;
-      // }
-
-      // if (session.user) {
-      //   session.user.name = token.name;
-      //   session.user.email = token.email;
-      //   session.user.isOAuth = token.isOAuth as boolean;
-      //   session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
-      // }
+      if (token) {
+        session.user = token.user;
+        // session.user = {
+        //   ...token.user,
+        //   tokens: token.tokens,
+        //   id: token.user.id.toString(),
+        // };
+        session.isValid = !!token.user.email;
+      }
 
       return session;
     },
@@ -267,13 +170,16 @@ const authConfig = {
     //   return true;
     // },
   },
-  session: { strategy: "jwt" },
-  // theme: {
-  //   colorScheme: "auto", // "auto" | "dark" | "light"
-  //   brandColor: "", // Hex color code #33FF5D
-  //   logo: "/logo.png", // Absolute URL to image
-  // },
-  // // Enable debug messages in the console if you are having problems
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60,
+  },
+  theme: {
+    colorScheme: "auto", // "auto" | "dark" | "light"
+    brandColor: "", // Hex color code #33FF5D
+    logo: "/logo.png", // Absolute URL to image
+  },
+  // Enable debug messages in the console if you are having problems
   debug: process.env.NODE_ENV === "development",
 } satisfies NextAuthConfig;
 

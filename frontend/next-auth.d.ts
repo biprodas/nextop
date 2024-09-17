@@ -1,34 +1,26 @@
-import NextAuth, { type DefaultSession } from "next-auth";
-
-// export type ExtendedUser = DefaultSession["user"] & {
-//   //   role: UserRole;
-//   isTwoFactorEnabled: boolean;
-//   isOAuth: boolean;
-//   accessToken: string;
-//   refreshToken: string;
-// };
-
-// declare module "next-auth" {
-//   interface Session {
-//     user: ExtendedUser;
-//   }
-// }
+import { type DefaultSession } from "next-auth";
+import { ITokenResponse, IUser } from "./types";
 
 declare module "next-auth" {
-  interface User {
-    id: string;
-    email: string;
-    photo: string;
-    accessToken: string;
-    refreshToken: string;
-    idToken: string;
-    exp: number;
-    role: string;
+  interface User extends IUser {
+    tokens: ITokenResponse;
+    // isTwoFactorEnabled: boolean;
+    // isOAuth: boolean;
+    // accessToken: string;
+    // refreshToken: string;
   }
 
   interface Session {
-    user: User & DefaultSession["user"];
-    expires: string;
-    error: string;
+    // user: IUser & DefaultSession["user"];
+    user: IUser & { tokens: ITokenResponse };
+    isValid: boolean;
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    // user: IUser & DefaultSession["user"];
+    user: IUser;
+    tokens?: ITokenResponse;
   }
 }
