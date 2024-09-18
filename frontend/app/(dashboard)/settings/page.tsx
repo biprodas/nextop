@@ -9,6 +9,7 @@ const SettingsPage = async () => {
   if (!user) {
     return <div>Not authenticated</div>;
   }
+
   return (
     <div className="p-3">
       <h4>SettingsPage</h4>

@@ -4,7 +4,6 @@ import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
 import { siteConfig } from "./config/site";
-import { cookies } from "next/headers";
 
 // Define your configuration in a separate variable and pass it to NextAuth()
 // This way we can also 'export const config' for use later
@@ -66,17 +65,6 @@ const authConfig = {
               userId: data.user.id,
             },
           };
-
-          const prefix = process.env.NODE_ENV === "development" ? "__Dev-" : "";
-
-          // we set http only cookie here to store refresh token information as we will not append it to our session to avoid maximum size warning for the session cookie (4096 bytes)
-          cookies().set({
-            name: `${prefix}xxx.refresh-token`,
-            value: data.tokenPayload.refreshToken,
-            httpOnly: true,
-            sameSite: "strict",
-            secure: true,
-          } as any);
 
           return user;
         }

@@ -13,10 +13,6 @@ import { UserRole } from '../enums/user-role.enum';
 import { UserStatus } from '../enums/user-status.enum';
 
 export class CreateUserDto {
-  @IsEnum(UserRole)
-  @IsDefined()
-  type: UserRole;
-
   @IsEmail()
   @IsDefined()
   email: string;
