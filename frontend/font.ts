@@ -1,5 +1,17 @@
 import localFont from "next/font/local";
-import { Karla, Spectral } from "next/font/google";
+import { Karla, Nunito, Poppins, Spectral } from "next/font/google";
+
+export const feather = localFont({
+  src: "./assets/fonts/Feather-Bold.woff",
+  variable: "--font-feather-bold",
+  weight: "100 900",
+});
+
+export const vagRounded = localFont({
+  src: "./assets/fonts/VAGRoundedStd-Bold.woff",
+  variable: "--font-vag-rounded",
+  weight: "100 900",
+});
 
 export const geistSans = localFont({
   src: "./assets/fonts/GeistVF.woff",
@@ -24,4 +36,15 @@ export const karla = Karla({
   display: "swap",
   variable: "--font-sans",
   adjustFontFallback: false,
+});
+
+export const nunito = Nunito({
+  subsets: ["latin"],
+  variable: "--nunito-mono",
+});
+
+export const font = Poppins({
+  subsets: ["latin"],
+  variable: "--poppins-sans",
+  weight: ["600"],
 });

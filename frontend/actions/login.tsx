@@ -36,7 +36,6 @@ export const login = async (
           return { error: "Something went wrong!" };
       }
     }
-
     throw error;
   }
 };
