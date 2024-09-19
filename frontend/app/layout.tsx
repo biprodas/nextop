@@ -5,7 +5,9 @@ import ThemeProvider from "~/components/theme-provider";
 import { siteConfig } from "~/config/site";
 import { geistMono, geistSans } from "~/font";
 import { cn } from "~/lib/utils";
-import ReactQueryProvider from "~/providers/react-query-provider";
+import ReactQueryProvider from "~/utils/react-query";
+import { Toaster } from "~/components/ui/sonner";
+
 import "~/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -48,6 +50,7 @@ export default async function RootLayout({
               disableTransitionOnChange
             >
               {children}
+              <Toaster />
             </ThemeProvider>
           </ReactQueryProvider>
         </body>

@@ -1,41 +1,31 @@
 import { LogoutButton } from "~/components/auth/logout-button";
 import { Button } from "~/components/ui/button";
 import { currentUser } from "~/lib/auth";
-import apiClient from "~/utils/axios";
 import Users from "./_components/Users";
-
-interface IUser {
-  id: number;
-  name: string;
-}
-
-interface UserResponse {
-  success: boolean;
-  statusCode: number;
-  message: string;
-  data: IUser[];
-}
-
-const getUsers = async () => {
-  try {
-    const res = await apiClient.get<UserResponse>("/api/v1/users");
-    console.log("res data", res.data);
-    return res.data;
-  } catch (error: any) {
-    console.log("res error", error);
-    // throw new Error(error.message);
-  }
-};
+import { getUsers } from "~/apis/user/service";
+import { IUser } from "~/types";
+import ErrorHandler from "~/components/error-handler";
 
 const UsersPage = async () => {
-  const data = await getUsers();
+  let users: IUser[] = [];
+  let errorMsg = null;
 
-  console.log("user list", data);
+  try {
+    const data = await getUsers();
+    if (data.data) users = data.data;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    errorMsg = "Failed to fetch users.";
+  }
+
+  console.log("user list", users, errorMsg);
 
   const user = await currentUser();
   if (!user) {
     return <div>Not authenticated</div>;
   }
+
+  if (errorMsg) return <ErrorHandler error={errorMsg} />;
 
   return (
     <div className="p-3">
@@ -45,7 +35,7 @@ const UsersPage = async () => {
         <div className="border p-3 my-3">
           <h4>User List (SSR)</h4>
           <ul>
-            {data?.data.map((user, idx) => (
+            {users.map((user, idx) => (
               <li key={user.id}>
                 {idx + 1}. {user.name}
               </li>

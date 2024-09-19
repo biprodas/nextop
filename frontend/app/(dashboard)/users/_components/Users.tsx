@@ -1,11 +1,11 @@
 "use client";
 
-import useGetUsers from "../use-get-users";
+import useGetUsers from "~/apis/user/use-get-users";
 
 const Users = () => {
   const { data, error, isLoading } = useGetUsers();
 
-  console.log("data", data);
+  // console.log("data", data);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
