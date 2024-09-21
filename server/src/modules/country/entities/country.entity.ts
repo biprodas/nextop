@@ -46,6 +46,8 @@ export class CountryEntity {
   @Column({ type: 'simple-array', nullable: true })
   languages: string[];
 
+  // flag
+
   // relations
   @OneToMany((_type) => StateEntity, (state) => state.country)
   states: StateEntity[];
