@@ -9,6 +9,7 @@ import ReactQueryProvider from "~/utils/react-query";
 import { Toaster } from "~/components/ui/sonner";
 
 import "~/styles/globals.css";
+import { ToasterProvider } from "~/providers/toast-provider";
 
 export const metadata: Metadata = {
   title: siteConfig.title,
@@ -49,6 +50,7 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
+              <ToasterProvider />
               {children}
               <Toaster />
             </ThemeProvider>

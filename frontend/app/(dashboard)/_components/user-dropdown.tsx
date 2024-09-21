@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { TfiUser } from "react-icons/tfi";
+import { LogoutButton } from "~/components/auth/logout-button";
 import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
@@ -29,7 +30,7 @@ const UserDropdown = () => {
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Link href="/login">Logout</Link>
+          <LogoutButton>Logout</LogoutButton>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

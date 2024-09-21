@@ -10,6 +10,10 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
+import { FaUniversity, FaUserTie } from "react-icons/fa";
+import { GiGraduateCap } from "react-icons/gi";
+import { TbWorldCheck } from "react-icons/tb";
+
 import { cn } from "~/lib/utils";
 
 interface DashboardNavProps {
@@ -23,32 +27,42 @@ export default function DashboardNav({ setOpen }: DashboardNavProps) {
     {
       name: "Dashboard",
       path: "/dashboard",
-      icon: <LayoutDashboard className="w-4 h-4 " />,
+      icon: <LayoutDashboard className="size-4" />,
     },
     {
       name: "My Programs",
       path: "/programs",
-      icon: <List className="w-4 h-4 " />,
-    },
-    {
-      name: "Universities",
-      path: "/universities",
-      icon: <List className="w-4 h-4 " />,
+      icon: <GiGraduateCap className="size-5" />,
     },
     {
       name: "Professors",
       path: "/professors",
-      icon: <List className="w-4 h-4 " />,
+      icon: <FaUserTie className="size-4" />,
+    },
+    {
+      name: "Universities",
+      path: "/universities",
+      icon: <FaUniversity className="size-4" />,
+    },
+    {
+      name: "Country",
+      path: "/countries",
+      icon: <TbWorldCheck className="size-4" />,
+    },
+    {
+      name: "States",
+      path: "/states",
+      icon: <TbWorldCheck className="size-4" />,
     },
     {
       name: "Log Monitor",
       path: "/log-monitor",
-      icon: <MonitorDot className="w-4 h-4 " />,
+      icon: <MonitorDot className="size-4" />,
     },
     {
-      name: "Account Settings",
-      path: "/account",
-      icon: <Settings className="w-4 h-4 " />,
+      name: "Settings",
+      path: "/settings",
+      icon: <Settings className="size-4" />,
     },
   ];
 
