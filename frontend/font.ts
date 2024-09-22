@@ -43,7 +43,7 @@ export const nunito = Nunito({
   variable: "--nunito-mono",
 });
 
-export const font = Poppins({
+export const poppins = Poppins({
   subsets: ["latin"],
   variable: "--poppins-sans",
   weight: ["600"],
