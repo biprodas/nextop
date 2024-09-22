@@ -1,6 +1,6 @@
 "use client";
 
-import { DataTable } from "~/components/ui/data-table";
+import { DataTable } from "~/components/data-table";
 import { columns } from "./columns";
 import useGetCountries from "~/apis/country/queries";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";

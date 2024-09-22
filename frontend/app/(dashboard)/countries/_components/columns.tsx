@@ -2,6 +2,10 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { CellAction } from "./cell-action";
+import { Button } from "~/components/ui/button";
+import { ArrowUpDown } from "lucide-react";
+import { Checkbox } from "~/components/ui/checkbox";
+import { DataTableColumnHeader } from "~/components/data-table-column-header";
 
 export type CountryColumn = {
   id: string;
@@ -17,8 +21,41 @@ export type CountryColumn = {
 
 export const columns: ColumnDef<CountryColumn>[] = [
   {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
     accessorKey: "name",
-    header: "Name",
+    // header: "Name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "code",
@@ -26,8 +63,24 @@ export const columns: ColumnDef<CountryColumn>[] = [
     cell: ({ row }) => row.original.capital,
   },
   {
+    accessorKey: "amount",
+    header: () => <div className="text-right">Amount</div>,
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue("amount") || "0");
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(amount);
+
+      return <div className="text-right font-medium">{formatted}</div>;
+    },
+  },
+  {
     accessorKey: "phone",
-    header: "Phone",
+    // header: "Phone",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Phone" />
+    ),
   },
   {
     accessorKey: "alpha2",
