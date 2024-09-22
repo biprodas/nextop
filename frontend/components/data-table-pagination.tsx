@@ -41,7 +41,7 @@ export function DataTablePagination<TData>({
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent side="top">
-              {[10, 20, 30, 40, 50].map((pageSize) => (
+              {[10, 20, 50, 100, 200].map((pageSize) => (
                 <SelectItem key={pageSize} value={`${pageSize}`}>
                   {pageSize}
                 </SelectItem>
@@ -72,6 +72,27 @@ export function DataTablePagination<TData>({
             <span className="sr-only">Go to previous page</span>
             <ChevronLeftIcon className="h-4 w-4" />
           </Button>
+
+          {/* {Array.from(
+            { length: table.getPageCount() },
+            (_, idx) => idx + 1
+          ).map((v) => (
+            <Button
+              key={v}
+              onClick={() => {
+                table.setPageIndex(v - 1);
+              }}
+              variant={
+                table.getState().pagination.pageIndex == v - 1
+                  ? "secondary"
+                  : "ghost"
+              }
+              size="sm"
+            >
+              {v}
+            </Button>
+          ))} */}
+
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
