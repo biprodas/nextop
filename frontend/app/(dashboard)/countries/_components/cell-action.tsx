@@ -15,11 +15,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { CountryColumn } from "./columns";
 import { AlertModal } from "~/components/modals/alert-modal";
+import { ICountry } from "~/apis/country/dto";
+import DeleteCountryModal from "./delete-country";
+import { useDeleteCountryMutation } from "~/apis/country/queries";
 
 interface CellActionProps {
-  data: CountryColumn;
+  data: ICountry;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -29,6 +31,8 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
+  const { mutateAsync: deleteCountry, isPending } = useDeleteCountryMutation();
+
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
     toast.success("Country ID copied to the clipboard.");
@@ -37,13 +41,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
-      router.refresh();
+      await deleteCountry(1);
       toast.success(`Country removed!`);
     } catch (error) {
-      toast.error(
-        "Make sure you remove all products using this country first."
-      );
+      toast.error("Error occured");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -52,7 +53,13 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   return (
     <>
-      <AlertModal
+      {/* <AlertModal
+        isOpen={open}
+        loading={loading}
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
+      /> */}
+      <DeleteCountryModal
         isOpen={open}
         loading={loading}
         onClose={() => setOpen(false)}

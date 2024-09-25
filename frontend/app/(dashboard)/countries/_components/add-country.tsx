@@ -27,8 +27,15 @@ import {
 } from "~/components/ui/form";
 import { CountrySchema } from "~/schemas/country";
 import { FaPlus } from "react-icons/fa6";
+import { useAddCountryMutation } from "~/apis/country/queries";
+import { LuLoader, LuLoader2 } from "react-icons/lu";
+import { LucideLoader2 } from "lucide-react";
+import { useState } from "react";
 
 export function AddCountry() {
+  const [open, setOpen] = useState(false);
+  const { mutateAsync: addCountry, isPending } = useAddCountryMutation();
+
   const isNew = true;
 
   const form = useForm<z.infer<typeof CountrySchema>>({
@@ -49,12 +56,15 @@ export function AddCountry() {
     form.reset();
   };
 
-  const onSubmit = (values: z.infer<typeof CountrySchema>) => {
+  const onSubmit = async (values: z.infer<typeof CountrySchema>) => {
     console.log("values", values);
+    const result = await addCountry(values);
+    console.log("result", result);
+    setOpen(false);
   };
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button className="rounded-full">
           <FaPlus size={12} className="me-1" /> <span>Add New</span>
@@ -62,7 +72,7 @@ export function AddCountry() {
       </SheetTrigger>
       <SheetContent className="sm:max-w-[450px]">
         <SheetHeader>
-          <SheetTitle>{isNew ? "Add New Country" : "Edit Country"}</SheetTitle>
+          <SheetTitle>{isNew ? "Add Country" : "Edit Country"}</SheetTitle>
           <SheetDescription>
             Enter country details here. Click save when you&apos;re done.
           </SheetDescription>
@@ -229,12 +239,17 @@ export function AddCountry() {
 
               <SheetFooter>
                 <SheetClose asChild>
-                  <Button variant="outline" onClick={handleClose}>
+                  <Button
+                    variant="outline"
+                    className="w-24"
+                    onClick={handleClose}
+                  >
                     Cancel
                   </Button>
                 </SheetClose>
-                <Button type="submit">
-                  {isNew ? "Create" : "Save changes"}
+                <Button type="submit" disabled={isPending} className="w-24">
+                  <span>{isNew ? "Save" : "Save changes"}</span>
+                  {isPending && <LuLoader2 className="ml-2 animate-spin" />}
                 </Button>
               </SheetFooter>
             </form>

@@ -2,7 +2,7 @@
 
 import { DataTable } from "~/components/data-table";
 import { columns } from "./columns";
-import useGetCountries from "~/apis/country/queries";
+import { useGetCountriesQuery } from "~/apis/country/queries";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { Loader2 } from "lucide-react";
 import { Skeleton } from "~/components/ui/skeleton";
@@ -14,7 +14,7 @@ const CountryClient = () => {
     isPending,
     isError,
     error,
-  } = useGetCountries();
+  } = useGetCountriesQuery();
 
   const isDisabled = isLoading || isPending;
 

@@ -6,20 +6,21 @@ import { Button } from "~/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { Checkbox } from "~/components/ui/checkbox";
 import { DataTableColumnHeader } from "~/components/data-table-column-header";
+import { ICountry } from "~/apis/country/dto";
 
-export type CountryColumn = {
-  id: string;
-  flag: string;
-  name: string;
-  code: string;
-  phone: string;
-  alpha2: string;
-  alpha3: string;
-  capital: string;
-  createdAt?: string;
-};
+// export type CountryColumn = {
+//   id: string;
+//   flag?: string;
+//   name?: string;
+//   code?: string;
+//   phone?: string;
+//   alpha2?: string;
+//   alpha3?: string;
+//   capital?: string;
+//   createdAt?: string;
+// };
 
-export const columns: ColumnDef<CountryColumn>[] = [
+export const columns: ColumnDef<ICountry>[] = [
   {
     id: "select",
     header: ({ table }) => (
