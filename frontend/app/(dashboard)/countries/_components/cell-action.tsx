@@ -1,8 +1,6 @@
 "use client";
 
-import axios from "axios";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -25,10 +23,6 @@ interface CellActionProps {
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
-  const router = useRouter();
-  const params = useParams();
-
-  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
   const { mutateAsync: deleteCountry, isPending } = useDeleteCountryMutation();
@@ -40,14 +34,11 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onDelete = async () => {
     try {
-      setLoading(true);
-      await deleteCountry(1);
+      await deleteCountry(data.id);
+      setOpen(false);
       toast.success(`Country removed!`);
     } catch (error) {
       toast.error("Error occured");
-    } finally {
-      setLoading(false);
-      setOpen(false);
     }
   };
 
@@ -61,40 +52,31 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       /> */}
       <DeleteCountryModal
         isOpen={open}
-        loading={loading}
+        loading={isPending}
         onClose={() => setOpen(false)}
         onConfirm={onDelete}
       />
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
+          <Button variant="ghost" className="size-8 p-0">
             <span className="sr-only">Open menu</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-
           <DropdownMenuItem onClick={() => onCopy(data.id)}>
-            <Copy className="mr-2 h-4 w-4" />
+            <Copy className="size-4 mr-2" />
             Copy Id
           </DropdownMenuItem>
-
           <DropdownMenuSeparator />
-
-          <DropdownMenuItem
-            onClick={() =>
-              router.push(`/${params.storeId}/categories/${data.id}`)
-            }
-          >
-            <Edit className="mr-2 h-4 w-4" />
+          <DropdownMenuItem onClick={() => null}>
+            <Edit className="size-4 mr-2" />
             Update
           </DropdownMenuItem>
-
           <DropdownMenuItem onClick={() => setOpen(true)}>
-            <Trash className="mr-2 h-4 w-4" />
+            <Trash className="size-4 mr-2" />
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>

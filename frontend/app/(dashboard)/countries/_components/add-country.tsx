@@ -32,6 +32,8 @@ import { LuLoader, LuLoader2 } from "react-icons/lu";
 import { LucideLoader2 } from "lucide-react";
 import { useState } from "react";
 
+interface AddCountryProps {}
+
 export function AddCountry() {
   const [open, setOpen] = useState(false);
   const { mutateAsync: addCountry, isPending } = useAddCountryMutation();

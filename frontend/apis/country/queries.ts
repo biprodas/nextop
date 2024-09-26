@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import apiClient from "~/utils/axios";
 import { IAddCountry, ICountryResponse } from "./dto";
 
@@ -15,12 +15,14 @@ export const useGetCountriesQuery = () => {
 };
 
 export const useAddCountryMutation = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["add-country"],
     mutationFn: async (body: IAddCountry) =>
       (await apiClient.post("/api/v1/countries", body)).data,
     onSuccess: (data) => {
       // Handle success (e.g., refetch queries, reset form, etc.)
+      queryClient.invalidateQueries({ queryKey: ["countries"] });
       console.log("Country added:", data);
     },
     onError: (error) => {
@@ -31,12 +33,14 @@ export const useAddCountryMutation = () => {
 };
 
 export const useDeleteCountryMutation = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["delete-country"],
-    mutationFn: async (id: number) =>
-      (await apiClient.delete(`/api/v1/countries/${id}`)).data,
+    mutationFn: async (id: string | number) =>
+      (await apiClient.delete(`/api/v1/countries/${id}`))?.data,
     onSuccess: (data) => {
       // Handle success (e.g., refetch queries, reset form, etc.)
+      queryClient.invalidateQueries({ queryKey: ["countries"] });
       console.log("Country deleted:", data);
     },
     onError: (error) => {
