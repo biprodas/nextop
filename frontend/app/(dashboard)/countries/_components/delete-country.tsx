@@ -1,34 +1,48 @@
 import { ReactNode } from "react";
+import toast from "react-hot-toast";
 import { LuLoader2 } from "react-icons/lu";
+import { useDeleteCountryMutation } from "~/apis/country/queries";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
+import { useCountryModal } from "~/hooks/use-country-modal";
 
 interface DeleteModalProps {
   isOpen: boolean;
   loading: boolean;
   onConfirm: () => void;
   onClose: () => void;
-  // trigger: ReactNode;
+  trigger: ReactNode;
 }
 
-const DeleteCountryModal = ({
-  isOpen,
-  loading,
-  onClose,
-  onConfirm,
-}: DeleteModalProps) => {
+const DeleteCountryModal = () => {
+  const countryModal = useCountryModal();
+
+  const { mutateAsync: deleteCountry, isPending } = useDeleteCountryMutation();
+
+  const handleClose = () => {
+    countryModal.onClose();
+  };
+
+  const handleConfirm = async () => {
+    try {
+      await deleteCountry(countryModal.data?.id ?? "");
+      countryModal.onClose();
+      toast.success(`Country removed!`);
+    } catch (error) {
+      toast.error("Error occured");
+    }
+  };
+
   return (
-    <AlertDialog open={isOpen}>
+    <AlertDialog open={countryModal.open === "delete"}>
       {/* {trigger && <AlertDialogTrigger>{trigger}</AlertDialogTrigger>} */}
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -39,13 +53,17 @@ const DeleteCountryModal = ({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={onClose} disabled={loading}>
+          <AlertDialogCancel onClick={handleClose} disabled={isPending}>
             Cancel
           </AlertDialogCancel>
           {/* <AlertDialogAction onClick={onConfirm}>Delete</AlertDialogAction> */}
-          <Button variant="destructive" onClick={onConfirm} disabled={loading}>
+          <Button
+            variant="destructive"
+            onClick={handleConfirm}
+            disabled={isPending}
+          >
             <span>Delete</span>
-            {loading && <LuLoader2 className="ml-2 animate-spin" />}
+            {isPending && <LuLoader2 className="ml-2 animate-spin" />}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

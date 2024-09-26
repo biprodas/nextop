@@ -27,18 +27,24 @@ import {
 } from "~/components/ui/form";
 import { CountrySchema } from "~/schemas/country";
 import { FaPlus } from "react-icons/fa6";
-import { useAddCountryMutation } from "~/apis/country/queries";
-import { LuLoader, LuLoader2 } from "react-icons/lu";
-import { LucideLoader2 } from "lucide-react";
-import { useState } from "react";
-
-interface AddCountryProps {}
+import {
+  useAddCountryMutation,
+  useUpdateCountryMutation,
+} from "~/apis/country/queries";
+import { LuLoader2 } from "react-icons/lu";
+import { useEffect, useState } from "react";
+import { useCountryModal } from "~/hooks/use-country-modal";
+import DeleteCountryModal from "./delete-country";
 
 export function AddCountry() {
-  const [open, setOpen] = useState(false);
-  const { mutateAsync: addCountry, isPending } = useAddCountryMutation();
+  const countryModal = useCountryModal();
 
-  const isNew = true;
+  const { mutateAsync: addCountry, isPending: isCreating } =
+    useAddCountryMutation();
+  const { mutateAsync: updateCountry, isPending: isUpdating } =
+    useUpdateCountryMutation();
+
+  const isLoading = isCreating || isUpdating;
 
   const form = useForm<z.infer<typeof CountrySchema>>({
     resolver: zodResolver(CountrySchema),
@@ -53,6 +59,18 @@ export function AddCountry() {
     },
   });
 
+  useEffect(() => {
+    // console.log("add country", data);
+    form.reset({
+      name: countryModal.data?.name || "",
+      alpha2: countryModal.data?.alpha2 || "",
+      alpha3: countryModal.data?.alpha3 || "",
+      code: countryModal.data?.code || "",
+      phone: countryModal.data?.phone || "",
+      capital: countryModal.data?.capital || "",
+    });
+  }, [countryModal, form]);
+
   const handleClose = () => {
     console.log("handleClose called");
     form.reset();
@@ -60,21 +78,32 @@ export function AddCountry() {
 
   const onSubmit = async (values: z.infer<typeof CountrySchema>) => {
     console.log("values", values);
-    const result = await addCountry(values);
+    const result =
+      countryModal.open === "edit"
+        ? await updateCountry({ ...values, id: countryModal.data?.id })
+        : await addCountry(values);
     console.log("result", result);
-    setOpen(false);
+    countryModal.onClose();
   };
 
+  if (countryModal.open === "view") return <span>View Modal</span>;
+  if (countryModal.open === "delete") return <DeleteCountryModal />;
+
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <Button className="rounded-full">
-          <FaPlus size={12} className="me-1" /> <span>Add New</span>
-        </Button>
-      </SheetTrigger>
+    <Sheet open={countryModal.isOpen} onOpenChange={countryModal.onOpenChange}>
+      {!countryModal.data && (
+        <SheetTrigger asChild>
+          <Button className="rounded-full">
+            <FaPlus size={12} className="me-1" />
+            <span>Add New</span>
+          </Button>
+        </SheetTrigger>
+      )}
       <SheetContent className="sm:max-w-[450px]">
         <SheetHeader>
-          <SheetTitle>{isNew ? "Add Country" : "Edit Country"}</SheetTitle>
+          <SheetTitle>
+            {countryModal.open === "edit" ? "Edit Country" : "Add Country"}
+          </SheetTitle>
           <SheetDescription>
             Enter country details here. Click save when you&apos;re done.
           </SheetDescription>
@@ -249,9 +278,11 @@ export function AddCountry() {
                     Cancel
                   </Button>
                 </SheetClose>
-                <Button type="submit" disabled={isPending} className="w-24">
-                  <span>{isNew ? "Save" : "Save changes"}</span>
-                  {isPending && <LuLoader2 className="ml-2 animate-spin" />}
+                <Button type="submit" disabled={isLoading} className="w-min-24">
+                  <span>
+                    {countryModal.open === "edit" ? "Save Changes" : "Save"}
+                  </span>
+                  {isLoading && <LuLoader2 className="ml-2 animate-spin" />}
                 </Button>
               </SheetFooter>
             </form>

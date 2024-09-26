@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import apiClient from "~/utils/axios";
-import { IAddCountry, ICountryResponse } from "./dto";
+import { IAddCountry, ICountryResponse, IUpdateCountry } from "./dto";
 
 export const useGetCountriesQuery = () => {
   const { data, error, isLoading, isPending, isFetching, isError } = useQuery<
@@ -28,6 +28,24 @@ export const useAddCountryMutation = () => {
     onError: (error) => {
       // Handle error (e.g., show notification)
       console.error("Error creating country:", error);
+    },
+  });
+};
+
+export const useUpdateCountryMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["update-country"],
+    mutationFn: async ({ id, ...patch }: IUpdateCountry) =>
+      (await apiClient.put(`/api/v1/countries/${id}`, patch)).data,
+    onSuccess: (data) => {
+      // Handle success (e.g., refetch queries, reset form, etc.)
+      queryClient.invalidateQueries({ queryKey: ["countries"] });
+      console.log("Country updated:", data);
+    },
+    onError: (error) => {
+      // Handle error (e.g., show notification)
+      console.error("Error updating country:", error);
     },
   });
 };

@@ -17,29 +17,18 @@ import { AlertModal } from "~/components/modals/alert-modal";
 import { ICountry } from "~/apis/country/dto";
 import DeleteCountryModal from "./delete-country";
 import { useDeleteCountryMutation } from "~/apis/country/queries";
+import { useCountryModal } from "~/hooks/use-country-modal";
 
 interface CellActionProps {
   data: ICountry;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
-  const [open, setOpen] = useState(false);
-
-  const { mutateAsync: deleteCountry, isPending } = useDeleteCountryMutation();
+  const countryModal = useCountryModal();
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
     toast.success("Country ID copied to the clipboard.");
-  };
-
-  const onDelete = async () => {
-    try {
-      await deleteCountry(data.id);
-      setOpen(false);
-      toast.success(`Country removed!`);
-    } catch (error) {
-      toast.error("Error occured");
-    }
   };
 
   return (
@@ -50,12 +39,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         onClose={() => setOpen(false)}
         onConfirm={onDelete}
       /> */}
-      <DeleteCountryModal
-        isOpen={open}
-        loading={isPending}
-        onClose={() => setOpen(false)}
-        onConfirm={onDelete}
-      />
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -71,11 +54,11 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             Copy Id
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => null}>
+          <DropdownMenuItem onClick={() => countryModal.onOpen("edit", data)}>
             <Edit className="size-4 mr-2" />
             Update
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpen(true)}>
+          <DropdownMenuItem onClick={() => countryModal.onOpen("delete", data)}>
             <Trash className="size-4 mr-2" />
             Delete
           </DropdownMenuItem>
