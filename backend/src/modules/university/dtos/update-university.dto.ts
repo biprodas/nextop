@@ -6,9 +6,9 @@ export class UpdateUniversityDto {
   name: string;
 
   @IsNumber()
-  countryId: number;
+  countryId: string;
 
   @IsNumber()
   @IsOptional()
-  stateId: number;
+  stateId: string;
 }

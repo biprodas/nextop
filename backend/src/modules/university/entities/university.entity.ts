@@ -24,14 +24,14 @@ export class UniversityEntity {
   // no of student
   // category: [Public, Private]
 
-  @Column({ name: 'country_id', type: 'number' })
-  countryId: number;
+  @Column({ name: 'country_id', type: 'string' })
+  countryId: string;
   @ManyToOne((_type) => CountryEntity, (country) => country.universities)
   @JoinColumn({ name: 'country_id' })
   country: CountryEntity;
 
-  @Column({ name: 'state_id', type: 'number', nullable: true })
-  stateId: number;
+  @Column({ name: 'state_id', type: 'string', nullable: true })
+  stateId: string;
   @ManyToOne((_type) => StateEntity, (state) => state.universities, {
     onDelete: 'SET NULL',
   })

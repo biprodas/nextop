@@ -8,8 +8,8 @@ export class UniversityResponseDto {
   name: string;
 
   @Expose()
-  countryId: number;
+  countryId: string;
 
   @Expose()
-  stateId: number;
+  stateId: string;
 }

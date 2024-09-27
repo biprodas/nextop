@@ -12,8 +12,8 @@ import {
 
 @Entity('countries')
 export class CountryEntity {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   name: string;

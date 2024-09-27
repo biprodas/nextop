@@ -2,11 +2,11 @@ import { Expose } from 'class-transformer';
 
 export class StateResponseDto {
   @Expose()
-  id: number;
+  id: string;
 
   @Expose()
   name: string;
 
   @Expose()
-  countryId: number;
+  countryId: string;
 }

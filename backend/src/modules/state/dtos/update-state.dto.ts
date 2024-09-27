@@ -6,5 +6,5 @@ export class UpdateStateDto {
   name: string;
 
   @IsNumber()
-  countryId: number;
+  countryId: string;
 }

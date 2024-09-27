@@ -6,6 +6,7 @@ import {
   Logger,
   Param,
   ParseIntPipe,
+  ParseUUIDPipe,
   Post,
   Put,
   Query,
@@ -56,7 +57,7 @@ export class StateController {
   @Get('/:id')
   async getState(
     @RequestContext() ctx: RequestContextDto,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
   ): Promise<BaseApiSuccessResponse<StateResponseDto>> {
     this.logger.verbose(
       `User "${ctx.user?.email}" retieving state details. Id: ${id}`,
@@ -96,7 +97,7 @@ export class StateController {
   @Put('/:id')
   async updateState(
     @RequestContext() ctx: RequestContextDto,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateStateDto,
   ): Promise<BaseApiSuccessResponse<StateResponseDto>> {
     this.logger.verbose(`User "${ctx.user?.email}" updating a state. Id ${id}`);
@@ -114,7 +115,7 @@ export class StateController {
   @Delete('/:id')
   async deleteState(
     @RequestContext() ctx: RequestContextDto,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
   ): Promise<BaseApiSuccessResponse<StateResponseDto>> {
     this.logger.verbose(
       `User "${ctx.user?.email}" deleting a state. Id: ${id}`,

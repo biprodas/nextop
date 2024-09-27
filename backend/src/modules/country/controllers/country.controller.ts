@@ -6,6 +6,7 @@ import {
   Logger,
   Param,
   ParseIntPipe,
+  ParseUUIDPipe,
   Post,
   Put,
   Query,
@@ -55,7 +56,7 @@ export class CountryController {
   @Get('/:id')
   async getCountry(
     @RequestContext() ctx: RequestContextDto,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
   ): Promise<BaseApiSuccessResponse<CountryResponseDto>> {
     this.logger.verbose(
       `User "${ctx.user?.email}" retieving country details. Id: ${id}`,
@@ -95,7 +96,7 @@ export class CountryController {
   @Put('/:id')
   async updateCountry(
     @RequestContext() ctx: RequestContextDto,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateCountryDto,
   ): Promise<BaseApiSuccessResponse<CountryResponseDto>> {
     this.logger.verbose(
@@ -115,7 +116,7 @@ export class CountryController {
   @Delete('/:id')
   async deleteCountry(
     @RequestContext() ctx: RequestContextDto,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
   ): Promise<BaseApiSuccessResponse<CountryResponseDto>> {
     this.logger.verbose(
       `User "${ctx.user?.email}" deleting a country. Id: ${id}`,

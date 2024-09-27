@@ -29,7 +29,7 @@ export class StateService {
     return this.stateRepo.find({ where: reqQuery });
   }
 
-  async getState(_ctx: RequestContextDto, id: number): Promise<StateEntity> {
+  async getState(_ctx: RequestContextDto, id: string): Promise<StateEntity> {
     this.logger.log(`${this.getState.name} Service Called`);
 
     const state = await this.stateRepo.findOne({ where: { id } });
@@ -53,7 +53,7 @@ export class StateService {
 
   async updateState(
     ctx: RequestContextDto,
-    id: number,
+    id: string,
     dto: UpdateStateDto,
   ): Promise<StateEntity> {
     this.logger.log(`${this.updateState.name} Service Called`);
@@ -64,7 +64,7 @@ export class StateService {
     return this.stateRepo.save(state);
   }
 
-  async deleteState(ctx: RequestContextDto, id: number): Promise<StateEntity> {
+  async deleteState(ctx: RequestContextDto, id: string): Promise<StateEntity> {
     this.logger.log(`${this.deleteState.name} Service Called`);
 
     const state = await this.getState(ctx, id);

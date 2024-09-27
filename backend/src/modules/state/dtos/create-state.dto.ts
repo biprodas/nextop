@@ -8,5 +8,5 @@ export class CreateStateDto {
 
   @IsNumber()
   @IsDefined()
-  countryId: number;
+  countryId: string;
 }

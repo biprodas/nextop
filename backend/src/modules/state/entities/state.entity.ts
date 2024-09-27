@@ -14,14 +14,14 @@ import {
 
 @Entity('states')
 export class StateEntity {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   name: string;
 
-  @Column({ name: 'country_id', type: 'number' })
-  countryId: number;
+  @Column({ name: 'country_id', type: 'string' })
+  countryId: string;
   @ManyToOne((_type) => CountryEntity, (country) => country.states)
   @JoinColumn({ name: 'country_id' })
   country: CountryEntity;

@@ -31,7 +31,7 @@ export class CountryService {
 
   async getCountry(
     _ctx: RequestContextDto,
-    id: number,
+    id: string,
   ): Promise<CountryEntity> {
     this.logger.log(`${this.getCountry.name} Service Called`);
 
@@ -56,7 +56,7 @@ export class CountryService {
 
   async updateCountry(
     ctx: RequestContextDto,
-    id: number,
+    id: string,
     dto: UpdateCountryDto,
   ): Promise<CountryEntity> {
     this.logger.log(`${this.updateCountry.name} Service Called`);
@@ -69,7 +69,7 @@ export class CountryService {
 
   async deleteCountry(
     ctx: RequestContextDto,
-    id: number,
+    id: string,
   ): Promise<CountryEntity> {
     this.logger.log(`${this.deleteCountry.name} Service Called`);
 

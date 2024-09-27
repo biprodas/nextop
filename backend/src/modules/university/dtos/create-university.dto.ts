@@ -14,9 +14,9 @@ export class CreateUniversityDto {
 
   @IsNumber()
   @IsDefined()
-  countryId: number;
+  countryId: string;
 
   @IsNumber()
   @IsOptional()
-  stateId: number;
+  stateId: string;
 }
