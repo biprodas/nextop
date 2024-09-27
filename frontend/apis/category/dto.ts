@@ -4,20 +4,27 @@ export interface ICategory {
   description?: string;
 }
 
-export interface IAddCategory {
+export interface ICreateCategory {
   name: string;
   desription?: string;
 }
 
 export interface IUpdateCategory {
-  id: number;
+  id: string;
   name?: string;
   description?: string;
+}
+
+export interface ICategoriesResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: ICategory[];
 }
 
 export interface ICategoryResponse {
   success: boolean;
   statusCode: number;
   message: string;
-  data: ICategory[];
+  data: ICategory;
 }

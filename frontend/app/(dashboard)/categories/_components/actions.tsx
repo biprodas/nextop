@@ -18,12 +18,13 @@ type Props = {
 };
 
 export const Actions = ({ id }: Props) => {
+  const { onOpen } = useOpenCategory();
+
   const [ConfirmationDialog, confirm] = useConfirm(
     "Are you sure?",
     "You are about to delete this category."
   );
   const deleteMutation = useDeleteCategoryMutation();
-  const { onOpen } = useOpenCategory();
 
   const handleDelete = async () => {
     const ok = await confirm();

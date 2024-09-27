@@ -4,6 +4,7 @@ import Sidebar from "./_components/sidebar";
 import Header from "./_components/header";
 import Footer from "./_components/footer";
 import { SheetProvider } from "~/providers/sheet-provider";
+import { Toaster } from "~/components/ui/sonner";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -14,6 +15,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <ScrollArea className="flex flex-col w-full h-[calc(100vh-64px-64px)] md:h-[calc(100vh-80px-64px)] lg:h-[calc(100vh-100px-64px)]">
           <main className="lg:container lg:mx-auto p-3 flex-grow">
             <SheetProvider />
+            <Toaster />
             {children}
           </main>
           <div className="sticky bottom-0"></div>

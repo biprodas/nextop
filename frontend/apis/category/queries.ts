@@ -1,15 +1,37 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import apiClient from "~/utils/axios";
-import { IAddCategory, ICategoryResponse, IUpdateCategory } from "./dto";
+import {
+  ICreateCategory,
+  ICategoryResponse,
+  IUpdateCategory,
+  ICategoriesResponse,
+} from "./dto";
 
-export const useGetCategoriesQuery = () => {
+export const useGetCategoriesQuery = (filters?: { name?: string }) => {
+  const { data, error, isLoading, isPending, isFetching, isError } = useQuery<
+    ICategoriesResponse,
+    Error
+  >({
+    queryKey: ["category"],
+    queryFn: async () =>
+      (
+        await apiClient.get<ICategoriesResponse>("/api/v1/categories", {
+          params: filters,
+        })
+      ).data,
+  });
+  return { data, error, isError, isLoading, isPending, isFetching };
+};
+
+export const useGetCategoryQuery = (id: number | string) => {
   const { data, error, isLoading, isPending, isFetching, isError } = useQuery<
     ICategoryResponse,
     Error
   >({
-    queryKey: ["categories"],
+    queryKey: ["category", id],
+    enabled: !!id,
     queryFn: async () =>
-      (await apiClient.get<ICategoryResponse>("/api/v1/categories")).data,
+      (await apiClient.get<ICategoryResponse>(`/api/v1/categories/${id}`)).data,
   });
   return { data, error, isError, isLoading, isPending, isFetching };
 };
@@ -18,11 +40,11 @@ export const useCreateCategoryMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["add-category"],
-    mutationFn: async (body: IAddCategory) =>
+    mutationFn: async (body: ICreateCategory) =>
       (await apiClient.post("/api/v1/categories", body)).data,
     onSuccess: (data) => {
       // Handle success (e.g., refetch queries, reset form, etc.)
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ["category"] });
       console.log("Category added:", data);
     },
     onError: (error) => {
@@ -40,7 +62,7 @@ export const useUpdateCategoryMutation = () => {
       (await apiClient.put(`/api/v1/categories/${id}`, patch)).data,
     onSuccess: (data) => {
       // Handle success (e.g., refetch queries, reset form, etc.)
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ["category"] });
       console.log("Category updated:", data);
     },
     onError: (error) => {
@@ -58,7 +80,7 @@ export const useDeleteCategoryMutation = () => {
       (await apiClient.delete(`/api/v1/categories/${id}`))?.data,
     onSuccess: (data) => {
       // Handle success (e.g., refetch queries, reset form, etc.)
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ["category"] });
       console.log("Category deleted:", data);
     },
     onError: (error) => {
@@ -76,7 +98,7 @@ export const useBulkDeleteCategoryMutation = () => {
       (await apiClient.delete(`/api/v1/categories/${id}`))?.data,
     onSuccess: (data) => {
       // Handle success (e.g., refetch queries, reset form, etc.)
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ["category"] });
       console.log("Category deleted:", data);
     },
     onError: (error) => {

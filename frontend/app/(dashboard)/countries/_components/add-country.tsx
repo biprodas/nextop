@@ -80,7 +80,7 @@ export function AddCountry() {
     console.log("values", values);
     const result =
       countryModal.open === "edit"
-        ? await updateCountry({ ...values, id: countryModal.data?.id })
+        ? await updateCountry({ ...values, id: countryModal.data?.id || "" })
         : await addCountry(values);
     console.log("result", result);
     countryModal.onClose();

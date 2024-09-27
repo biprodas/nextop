@@ -15,7 +15,11 @@ const CategoriesPage = () => {
       <div className="flex justify-between items-center border-b mb-3">
         <Heading title="Category" description="List of categories" />
         <div>
-          <Button onClick={newCategory.onOpen} size="sm">
+          <Button
+            onClick={newCategory.onOpen}
+            size="sm"
+            className="rounded-full"
+          >
             <Plus className="size-4 mr-2" />
             Add new
           </Button>

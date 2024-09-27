@@ -1,97 +1,102 @@
-// import { Loader2 } from "lucide-react";
-// import { z } from "zod";
+import { Loader2 } from "lucide-react";
+import { z } from "zod";
 
-// import {
-//   Sheet,
-//   SheetContent,
-//   SheetDescription,
-//   SheetHeader,
-//   SheetTitle,
-// } from "@/components/ui/sheet";
-// import { insertCategorySchema } from "@/db/schema";
-// import { useConfirm } from "@/hooks/use-confirm";
-// import { useDeleteCategory } from "../api/use-delete-category";
-// import { useEditCategory } from "../api/use-edit-category";
-// import { useGetCategory } from "../api/use-get-category";
-// import { useOpenCategory } from "../hooks/use-open-category";
-// import { CategoryForm } from "./category-form";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "~/components/ui/sheet";
+import { useConfirm } from "~/hooks/use-confirm";
+import { useOpenCategory } from "../hooks/use-open-category";
+import { CategoryForm } from "./category-form";
+import {
+  useDeleteCategoryMutation,
+  useGetCategoryQuery,
+  useUpdateCategoryMutation,
+} from "~/apis/category/queries";
 
-// const formSchema = insertCategorySchema.pick({
-//   name: true,
-// });
+export const formSchema = z.object({
+  name: z.string().min(1, {
+    message: "Country name is required",
+  }),
+  description: z.string().optional(),
+});
 
-// type FormValues = z.infer<typeof formSchema>;
+type FormValues = z.infer<typeof formSchema>;
 
-// export const EditCategorySheet = () => {
-//   const { isOpen, onClose, id } = useOpenCategory();
+export const EditCategorySheet = () => {
+  const { isOpen, onClose, id } = useOpenCategory();
 
-//   const [ConfirmDialog, confirm] = useConfirm(
-//     "Are you sure?",
-//     "You are about to delete this category."
-//   );
+  const [ConfirmDialog, confirm] = useConfirm(
+    "Are you sure?",
+    "You are about to delete this category."
+  );
 
-//   const categoryQuery = useGetCategory(id);
-//   const editMutation = useEditCategory(id);
-//   const deleteMutation = useDeleteCategory(id);
+  const categoryQuery = useGetCategoryQuery(id);
+  const editMutation = useUpdateCategoryMutation();
+  const deleteMutation = useDeleteCategoryMutation();
 
-//   const isPending = editMutation.isPending || deleteMutation.isPending;
+  const defaultValues = {
+    name: categoryQuery.data?.data.name || "",
+    description: categoryQuery.data?.data.description || "",
+  };
 
-//   const isLoading = categoryQuery.isLoading;
+  const isPending = editMutation.isPending || deleteMutation.isPending;
 
-//   const onSubmit = (values: FormValues) => {
-//     editMutation.mutate(values, {
-//       onSuccess: () => {
-//         onClose();
-//       },
-//     });
-//   };
+  const isLoading = categoryQuery.isLoading;
 
-//   const defaultValues = categoryQuery.data
-//     ? {
-//         name: categoryQuery.data.name,
-//       }
-//     : {
-//         name: "",
-//       };
+  const onSubmit = (values: FormValues) => {
+    console.log("values", values);
+    editMutation.mutate(
+      { ...values, id },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      }
+    );
+  };
 
-//   const onDelete = async () => {
-//     const ok = await confirm();
+  const onDelete = async () => {
+    const ok = await confirm();
 
-//     if (ok) {
-//       deleteMutation.mutate(undefined, {
-//         onSuccess: () => {
-//           onClose();
-//         },
-//       });
-//     }
-//   };
+    if (ok) {
+      deleteMutation.mutate(id, {
+        onSuccess: () => {
+          onClose();
+        },
+      });
+    }
+  };
 
-//   return (
-//     <>
-//       <ConfirmDialog />
-//       <Sheet open={isOpen || isPending} onOpenChange={onClose}>
-//         <SheetContent className="space-y-4">
-//           <SheetHeader>
-//             <SheetTitle>Edit Category</SheetTitle>
+  return (
+    <>
+      <ConfirmDialog />
+      <Sheet open={isOpen || isPending} onOpenChange={onClose}>
+        <SheetContent className="space-y-4">
+          <SheetHeader>
+            <SheetTitle>Edit Category</SheetTitle>
 
-//             <SheetDescription>Edit an existing category.</SheetDescription>
-//           </SheetHeader>
+            <SheetDescription>Edit an existing category.</SheetDescription>
+          </SheetHeader>
 
-//           {isLoading ? (
-//             <div className="absolute inset-0 flex items-center justify-center">
-//               <Loader2 className="size-4 animate-spin text-muted-foreground" />
-//             </div>
-//           ) : (
-//             <CategoryForm
-//               id={id}
-//               defaultValues={defaultValues}
-//               onSubmit={onSubmit}
-//               disabled={isPending}
-//               onDelete={onDelete}
-//             />
-//           )}
-//         </SheetContent>
-//       </Sheet>
-//     </>
-//   );
-// };
+          {isLoading ? (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Loader2 className="size-4 animate-spin text-muted-foreground" />
+            </div>
+          ) : (
+            <CategoryForm
+              id={id}
+              defaultValues={defaultValues}
+              onSubmit={onSubmit}
+              disabled={isPending}
+              onDelete={onDelete}
+            />
+          )}
+        </SheetContent>
+      </Sheet>
+    </>
+  );
+};

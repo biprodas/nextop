@@ -1,12 +1,12 @@
 import apiClient from "~/utils/axios";
-import { IAddCategory, ICategoryResponse } from "./dto";
+import { ICreateCategory, ICategoryResponse } from "./dto";
 
 export const getCountries = async () => {
   const res = await apiClient.get<ICategoryResponse>("/api/v1/countries");
   return res.data;
 };
 
-const createCategory = async (data: IAddCategory) => {
+const createCategory = async (data: ICreateCategory) => {
   const res = await apiClient.post("/api/v1/countries", data);
   return res.data;
 };

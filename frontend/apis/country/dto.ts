@@ -10,7 +10,7 @@ export interface ICountry {
 }
 
 export interface IAddCountry {
-  id?: number;
+  id?: string | number;
   name?: string;
   alpha2?: string;
   alpha3?: string;
@@ -21,7 +21,7 @@ export interface IAddCountry {
 }
 
 export interface IUpdateCountry {
-  id: number;
+  id: string | number;
   name?: string;
   alpha2?: string;
   alpha3?: string;
