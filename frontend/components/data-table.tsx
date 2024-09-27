@@ -24,7 +24,7 @@ import {
 } from "~/components/ui/table";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
-import { LuDownload, LuFilter } from "react-icons/lu";
+import { LuDownload, LuFilter, LuTrash, LuTrash2 } from "react-icons/lu";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -33,6 +33,7 @@ import {
 } from "./ui/dropdown-menu";
 import { DataTableViewOptions } from "./data-table-view-options";
 import { DataTablePagination } from "./data-table-pagination";
+import { Trash, Trash2, TrashIcon } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -82,6 +83,11 @@ export function DataTable<TData, TValue>({
         />
 
         <div className="flex space-x-2">
+          {!!table.getFilteredSelectedRowModel().rows.length && (
+            <Button size="sm" variant="destructive" disabled>
+              <LuTrash2 className="size-4 mr-2" /> Delete
+            </Button>
+          )}
           <Button size="sm" variant="outline">
             <LuFilter className="size-4 mr-2" /> Filter
           </Button>

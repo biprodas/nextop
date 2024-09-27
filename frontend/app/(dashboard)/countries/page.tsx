@@ -5,15 +5,12 @@ import CountryClient from "./_components/client";
 const CountryPage = () => {
   return (
     <div>
-      <div className="flex justify-between items-center border-b mb-3">
-        <Heading title="Country" description="List of countries" />
-        <div>
-          <AddCountry />
-        </div>
-      </div>
-      <div>
-        <CountryClient />
-      </div>
+      <Heading
+        title="Country"
+        description="List of countries"
+        extra={<AddCountry />}
+      />
+      <CountryClient />
     </div>
   );
 };

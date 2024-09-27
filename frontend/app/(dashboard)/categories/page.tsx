@@ -12,22 +12,17 @@ const CategoriesPage = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center border-b mb-3">
-        <Heading title="Category" description="List of categories" />
-        <div>
-          <Button
-            onClick={newCategory.onOpen}
-            size="sm"
-            className="rounded-full"
-          >
+      <Heading
+        title="Category"
+        description="List of categories"
+        extra={
+          <Button onClick={newCategory.onOpen} className="rounded-full">
             <Plus className="size-4 mr-2" />
             Add new
           </Button>
-        </div>
-      </div>
-      <div>
-        <CategoryClient />
-      </div>
+        }
+      />
+      <CategoryClient />
     </div>
   );
 };
