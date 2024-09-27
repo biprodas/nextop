@@ -4,6 +4,7 @@ import {
   DollarSign,
   LayoutDashboard,
   List,
+  ListCheck,
   MonitorDot,
   Settings,
 } from "lucide-react";
@@ -53,6 +54,11 @@ export default function DashboardNav({ setOpen }: DashboardNavProps) {
       name: "States",
       path: "/states",
       icon: <TbWorldCheck className="size-4" />,
+    },
+    {
+      name: "Categories",
+      path: "/categories",
+      icon: <ListCheck className="size-4" />,
     },
     {
       name: "Log Monitor",

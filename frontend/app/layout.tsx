@@ -6,7 +6,6 @@ import { siteConfig } from "~/config/site";
 import { geistMono, geistSans } from "~/font";
 import { cn } from "~/lib/utils";
 import ReactQueryProvider from "~/utils/react-query";
-import { Toaster } from "~/components/ui/sonner";
 
 import "~/styles/globals.css";
 import { ToasterProvider } from "~/providers/toast-provider";
@@ -52,7 +51,6 @@ export default async function RootLayout({
             >
               <ToasterProvider />
               {children}
-              <Toaster />
             </ThemeProvider>
           </ReactQueryProvider>
         </body>

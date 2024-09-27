@@ -17,7 +17,7 @@ import {
 } from "~/components/ui/dropdown-menu";
 import useScroll from "~/hooks/use-scroll";
 import { cn } from "~/lib/utils";
-import { LoginButton } from "./auth/login-button";
+import { LoginButton } from "~/components/auth/login-button";
 
 const Header = () => {
   const scrolled = useScroll(50);
