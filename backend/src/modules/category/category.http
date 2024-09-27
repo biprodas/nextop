@@ -1,0 +1,25 @@
+### Get list of all categories
+GET http://localhost:5000/api/v1/categories
+
+### Get single category
+GET http://localhost:5000/api/v1/categories/1
+
+### Create a new category
+POST  http://localhost:5000/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "Category 1",
+  "description": 1
+}
+
+### Update a category
+PUT  http://localhost:5000/api/v1/categories/1
+Content-Type: application/json
+
+{
+  "name": "Cat 2"
+}
+
+### Delete a category
+DELETE  http://localhost:5000/api/v1/categories/1

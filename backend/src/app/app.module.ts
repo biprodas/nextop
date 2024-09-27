@@ -21,6 +21,7 @@ import { UniversityModule } from '@modules/university/university.module';
 import { DepartmentModule } from '@modules/department/department.module';
 import { ProfessorModule } from '@modules/professor/professor.module';
 import { ProgramModule } from '@modules/program/program.module';
+import { CategoryModule } from '@modules/category/department.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { ProgramModule } from '@modules/program/program.module';
     MailModule,
     JobsModule.forRoot(),
     // new modules
+    CategoryModule,
     CountryModule,
     StateModule,
     UniversityModule,

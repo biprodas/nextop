@@ -5,7 +5,6 @@ import {
   Get,
   Logger,
   Param,
-  ParseIntPipe,
   ParseUUIDPipe,
   Post,
   Put,
