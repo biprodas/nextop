@@ -12,8 +12,9 @@ import {
 
 export const useConfirm = (
   title: string,
-  message: string
+  description: string
 ): [() => JSX.Element, () => Promise<unknown>] => {
+  const [loading, setLoading] = useState(false);
   const [promise, setPromise] = useState<{
     resolve: (value: boolean) => void;
   } | null>(null);
@@ -42,13 +43,18 @@ export const useConfirm = (
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{message}</DialogDescription>
+          {/* <DialogDescription>{description}</DialogDescription> */}
         </DialogHeader>
+        <p className="text-sm font-light">{description}</p>
         <DialogFooter className="pt-2">
           <Button onClick={handleCancel} variant="outline">
             Cancel
           </Button>
-          <Button onClick={handleConfirm} variant="outline">
+          <Button
+            onClick={handleConfirm}
+            variant="destructive"
+            disabled={loading}
+          >
             Confirm
           </Button>
         </DialogFooter>

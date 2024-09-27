@@ -12,6 +12,10 @@ import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useConfirm } from "~/hooks/use-confirm";
 import { useDeleteCategoryMutation } from "~/apis/category/queries";
 import { useOpenCategory } from "~/features/category/hooks/use-open-category";
+import { useConfirmDialog } from "~/hooks/use-confirm-dialog";
+import { ConfirmDialog } from "~/components/modals/confirm-dialog";
+import { useConfirmStore } from "~/hooks/use-confirm-store";
+import toast from "react-hot-toast";
 
 type Props = {
   id: string;
@@ -25,6 +29,24 @@ export const Actions = ({ id }: Props) => {
     "You are about to delete this category."
   );
   const deleteMutation = useDeleteCategoryMutation();
+
+  const { openConfirm } = useConfirmStore();
+
+  const handleDeleteClick = () => {
+    openConfirm(async () => {
+      // await deleteCategory(id);
+      // toast.success("Category deleted successfully");
+      deleteMutation.mutate(id, {
+        onSuccess: () => {
+          toast.success("Category deleted successfully");
+          console.log("Category deleted successfully");
+        },
+        onError: (error) => {
+          console.error("Failed to delete category:", error);
+        },
+      });
+    });
+  };
 
   const handleDelete = async () => {
     const ok = await confirm();
@@ -42,7 +64,8 @@ export const Actions = ({ id }: Props) => {
 
   return (
     <>
-      <ConfirmationDialog />
+      {/* <ConfirmationDialog /> */}
+      <ConfirmDialog loading={deleteMutation.isPending} />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="size-8 p-0">
@@ -59,7 +82,7 @@ export const Actions = ({ id }: Props) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             disabled={deleteMutation.isPending}
-            onClick={handleDelete}
+            onClick={handleDeleteClick}
           >
             <Trash className="size-4 mr-2" />
             Delete
