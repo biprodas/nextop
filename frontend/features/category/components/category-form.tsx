@@ -66,8 +66,10 @@ export const CategoryForm = ({
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <div className="flex flex-col space-y-1">
-                <Label htmlFor={field.name}>Name</Label>
+              <div>
+                <Label htmlFor={field.name} className="mb-2">
+                  Name <span className="text-destructive">*</span>
+                </Label>
                 <div className="relative">
                   <FormControl>
                     <Input
@@ -89,8 +91,10 @@ export const CategoryForm = ({
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <div className="flex flex-col space-y-1">
-                <Label htmlFor={field.name}>Description</Label>
+              <div>
+                <Label htmlFor={field.name} className="mb-2">
+                  Description
+                </Label>
                 <div className="relative">
                   <FormControl>
                     <Textarea

@@ -1,5 +1,7 @@
 "use client";
 
+import { Edit, MoreHorizontal, Trash } from "lucide-react";
+
 import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
@@ -7,15 +9,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useConfirm } from "~/hooks/use-confirm";
-import { useDeleteCategoryMutation } from "~/apis/category/queries";
+import DeleteCategoryModal from "~/features/category/components/delete-category";
+import { useDeleteCategory } from "~/features/category/hooks/use-delete-category";
 import { useOpenCategory } from "~/features/category/hooks/use-open-category";
-import { useConfirmDialog } from "~/hooks/use-confirm-dialog";
-import { ConfirmDialog } from "~/components/modals/confirm-dialog";
-import { useConfirmStore } from "~/hooks/use-confirm-store";
-import toast from "react-hot-toast";
 
 type Props = {
   id: string;
@@ -23,49 +19,15 @@ type Props = {
 
 export const Actions = ({ id }: Props) => {
   const { onOpen } = useOpenCategory();
-
-  const [ConfirmationDialog, confirm] = useConfirm(
-    "Are you sure?",
-    "You are about to delete this category."
-  );
-  const deleteMutation = useDeleteCategoryMutation();
-
-  const { openConfirm } = useConfirmStore();
-
-  const handleDeleteClick = () => {
-    openConfirm(async () => {
-      // await deleteCategory(id);
-      // toast.success("Category deleted successfully");
-      deleteMutation.mutate(id, {
-        onSuccess: () => {
-          toast.success("Category deleted successfully");
-          console.log("Category deleted successfully");
-        },
-        onError: (error) => {
-          console.error("Failed to delete category:", error);
-        },
-      });
-    });
-  };
-
-  const handleDelete = async () => {
-    const ok = await confirm();
-    if (ok) {
-      deleteMutation.mutate(id, {
-        onSuccess: () => {
-          console.log("delete success");
-        },
-        onError: () => {
-          console.log("delete error");
-        },
-      });
-    }
-  };
+  const categoryModal = useDeleteCategory();
 
   return (
     <>
-      {/* <ConfirmationDialog /> */}
-      <ConfirmDialog loading={deleteMutation.isPending} />
+      <DeleteCategoryModal
+        title="Delete Category"
+        description="Are you to delete this category? This will permanently remove this
+          category from our servers. This action cannot be undone."
+      />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="size-8 p-0">
@@ -73,17 +35,11 @@ export const Actions = ({ id }: Props) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem
-            disabled={deleteMutation.isPending}
-            onClick={() => onOpen(id)}
-          >
+          <DropdownMenuItem onClick={() => onOpen(id)}>
             <Edit className="size-4 mr-2" />
             Edit
           </DropdownMenuItem>
-          <DropdownMenuItem
-            disabled={deleteMutation.isPending}
-            onClick={handleDeleteClick}
-          >
+          <DropdownMenuItem onClick={() => categoryModal.onOpen(id)}>
             <Trash className="size-4 mr-2" />
             Delete
           </DropdownMenuItem>

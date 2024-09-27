@@ -14,7 +14,6 @@ export const useConfirm = (
   title: string,
   description: string
 ): [() => JSX.Element, () => Promise<unknown>] => {
-  const [loading, setLoading] = useState(false);
   const [promise, setPromise] = useState<{
     resolve: (value: boolean) => void;
   } | null>(null);
@@ -50,11 +49,7 @@ export const useConfirm = (
           <Button onClick={handleCancel} variant="outline">
             Cancel
           </Button>
-          <Button
-            onClick={handleConfirm}
-            variant="destructive"
-            disabled={loading}
-          >
+          <Button onClick={handleConfirm} variant="destructive">
             Confirm
           </Button>
         </DialogFooter>
