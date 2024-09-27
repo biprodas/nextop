@@ -1,10 +1,10 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class UpdateStateDto {
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @IsNumber()
+  @IsUUID('4')
   countryId: string;
 }

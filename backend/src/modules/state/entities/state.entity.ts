@@ -20,7 +20,7 @@ export class StateEntity {
   @Column()
   name: string;
 
-  @Column({ name: 'country_id', type: 'string' })
+  @Column({ name: 'country_id' })
   countryId: string;
   @ManyToOne((_type) => CountryEntity, (country) => country.states)
   @JoinColumn({ name: 'country_id' })

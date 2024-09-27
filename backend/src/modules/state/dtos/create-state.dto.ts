@@ -1,4 +1,4 @@
-import { IsDefined, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsDefined, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreateStateDto {
   @IsString()
@@ -6,7 +6,7 @@ export class CreateStateDto {
   @IsDefined()
   name: string;
 
-  @IsNumber()
+  @IsUUID('4')
   @IsDefined()
   countryId: string;
 }

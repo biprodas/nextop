@@ -1,9 +1,9 @@
 import {
   IsDefined,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   IsString,
+  IsUUID,
 } from 'class-validator';
 
 export class CreateUniversityDto {
@@ -12,11 +12,11 @@ export class CreateUniversityDto {
   @IsDefined()
   name: string;
 
-  @IsNumber()
+  @IsUUID('4')
   @IsDefined()
   countryId: string;
 
-  @IsNumber()
+  @IsUUID('4')
   @IsOptional()
   stateId: string;
 }
