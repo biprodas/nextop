@@ -1,9 +1,11 @@
+import { ProgramEntity } from '@modules/program/entities/program.entity';
 import {
   AfterInsert,
   AfterRemove,
   AfterUpdate,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -17,6 +19,10 @@ export class DepartmentEntity {
 
   @Column({ nullable: true })
   acronym: string;
+
+  // relations
+  @OneToMany((_type) => ProgramEntity, (program) => program.department)
+  programs: ProgramEntity[];
 
   // hooks
   @AfterInsert()

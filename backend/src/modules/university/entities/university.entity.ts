@@ -1,4 +1,5 @@
 import { CountryEntity } from '@modules/country/entities/country.entity';
+import { ProgramEntity } from '@modules/program/entities/program.entity';
 import { StateEntity } from '@modules/state/entities/state.entity';
 import {
   AfterInsert,
@@ -8,6 +9,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -37,6 +39,12 @@ export class UniversityEntity {
   })
   @JoinColumn({ name: 'state_id' })
   state: StateEntity;
+
+  // relations
+
+  // relations
+  @OneToMany((_type) => ProgramEntity, (program) => program.university)
+  programs: ProgramEntity[];
 
   // hooks
   @AfterInsert()

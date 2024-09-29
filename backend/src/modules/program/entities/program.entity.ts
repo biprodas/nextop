@@ -4,8 +4,15 @@ import {
   AfterUpdate,
   Column,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { SeasonEnum } from '../enums/season.enum';
+import { DegreeEnum } from '../enums/degree.enum';
+import { DepartmentEntity } from '@modules/department/entities/department.entity';
+import { UniversityEntity } from '@modules/university/entities/university.entity';
+import { PriorityEnum } from '../enums/priority.enum';
 
 @Entity('programs')
 export class ProgramEntity {
@@ -16,18 +23,52 @@ export class ProgramEntity {
   name: string;
 
   // program name: BSc, MS, PhD
-  // departmentId
-  // universityId
-  // season: Fall, Spring
-  // year
-  // ielts
-  // duolingo
-  // tofel
-  // pte
-  // gre
-  // notes / remarks
-  // priority
+  @Column({ type: 'enum', enum: DegreeEnum, nullable: true })
+  degree: DegreeEnum;
+
+  @Column({ type: 'enum', enum: SeasonEnum, nullable: true })
+  season: SeasonEnum;
+
+  // @Column()
+  // year: string;
+
+  @Column({ name: 'department_id' })
+  departmentId: string;
+  @ManyToOne((_type) => DepartmentEntity, (department) => department.programs)
+  @JoinColumn({ name: 'department_id' })
+  department: DepartmentEntity;
+
+  @Column({ name: 'university_id' })
+  universityId: string;
+  @ManyToOne((_type) => UniversityEntity, (university) => university.programs)
+  @JoinColumn({ name: 'university_id' })
+  university: UniversityEntity;
+
+  @Column({ type: 'enum', enum: PriorityEnum, nullable: true })
+  priority: PriorityEnum;
+
+  @Column()
+  ielts: string;
+
+  @Column()
+  toefl: string;
+
+  @Column()
+  duolingo: string;
+
+  @Column()
+  pte: string;
+
+  @Column()
+  gre: string;
+
   // list of professors
+
+  // targetDate
+  // endDate
+
+  @Column({ nullable: true })
+  notes: string;
 
   // hooks
   @AfterInsert()
