@@ -4,6 +4,8 @@ import { useMountedState } from "react-use";
 
 import { EditCategorySheet } from "~/features/category/components/edit-category-sheet";
 import { NewCategorySheet } from "~/features/category/components/new-category-sheet";
+import { EditDepartmentSheet } from "~/features/department/components/edit-department-sheet";
+import { NewDepartmentSheet } from "~/features/department/components/new-department-sheet";
 import { EditProfessorSheet } from "~/features/professor/components/edit-professor-sheet";
 import { NewProfessorSheet } from "~/features/professor/components/new-professor-sheet";
 import { EditStateSheet } from "~/features/state/components/edit-state-sheet";
@@ -26,6 +28,9 @@ export const SheetProvider = () => {
 
       <NewUniversitySheet />
       <EditUniversitySheet />
+
+      <NewDepartmentSheet />
+      <EditDepartmentSheet />
 
       <NewProfessorSheet />
       <EditProfessorSheet />
