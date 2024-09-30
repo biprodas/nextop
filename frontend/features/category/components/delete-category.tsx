@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import toast from "react-hot-toast";
-import { LuLoader2 } from "react-icons/lu";
-import { useDeleteCategoryMutation } from "~/apis/category/queries";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,6 +13,7 @@ import {
 } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
 import { useDeleteCategory } from "../hooks/use-delete-category";
+import { useDeleteCategoryMutation } from "../api/queries";
 
 interface DeleteModalProps {
   // isOpen: boolean;
@@ -46,7 +46,7 @@ const DeleteCategoryModal = ({
     try {
       await deleteCategory(categoryModal.id ?? "");
       categoryModal.onClose();
-      toast.success(`Country removed!`);
+      toast.success(`Category removed!`);
     } catch (error) {
       toast.error("Error occured");
     }

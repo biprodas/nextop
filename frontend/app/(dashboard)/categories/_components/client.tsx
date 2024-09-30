@@ -1,9 +1,9 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
-import { useGetCategoriesQuery } from "~/apis/category/queries";
 import { DataTable } from "~/components/data-table";
 import { columns } from "./columns";
+import { useGetCategoriesQuery } from "~/features/category/api/queries";
 
 const CategoryClient = () => {
   const { data: category, isLoading, isError, error } = useGetCategoriesQuery();
@@ -14,13 +14,7 @@ const CategoryClient = () => {
   if (isError) return <div>{error?.message}</div>;
 
   return (
-    <div>
-      <DataTable
-        columns={columns}
-        data={category?.data || []}
-        searchKey="name"
-      />
-    </div>
+    <DataTable columns={columns} data={category?.data || []} searchKey="name" />
   );
 };
 

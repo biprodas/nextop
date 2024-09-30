@@ -1,11 +1,11 @@
 "use client";
 
-import { Button } from "~/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUp, ArrowUpDown } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
+import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
+import { ICategory } from "~/features/category/api/dto";
 import { Actions } from "./actions";
-import { ICategory } from "~/apis/category/dto";
 
 export const columns: ColumnDef<ICategory>[] = [
   {

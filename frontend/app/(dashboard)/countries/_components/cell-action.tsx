@@ -1,9 +1,9 @@
 "use client";
 
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useState } from "react";
 import toast from "react-hot-toast";
 
+import { ICountry } from "~/apis/country/dto";
 import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
@@ -13,10 +13,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { AlertModal } from "~/components/modals/alert-modal";
-import { ICountry } from "~/apis/country/dto";
-import DeleteCountryModal from "./delete-country";
-import { useDeleteCountryMutation } from "~/apis/country/queries";
 import { useCountryModal } from "~/hooks/use-country-modal";
 
 interface CellActionProps {

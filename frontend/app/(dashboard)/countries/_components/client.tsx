@@ -1,22 +1,14 @@
 "use client";
 
-import { DataTable } from "~/components/data-table";
-import { columns } from "./columns";
-import { useGetCountriesQuery } from "~/apis/country/queries";
-import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { Loader2 } from "lucide-react";
+import { useGetCountriesQuery } from "~/apis/country/queries";
+import { DataTable } from "~/components/data-table";
+import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { Skeleton } from "~/components/ui/skeleton";
+import { columns } from "./columns";
 
 const CountryClient = () => {
-  const {
-    data: country,
-    isLoading,
-    isPending,
-    isError,
-    error,
-  } = useGetCountriesQuery();
-
-  const isDisabled = isLoading || isPending;
+  const { data: country, isLoading, isError, error } = useGetCountriesQuery();
 
   if (isLoading) {
     return (

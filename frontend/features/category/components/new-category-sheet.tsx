@@ -9,11 +9,11 @@ import {
 } from "~/components/ui/sheet";
 import { useNewCategory } from "../hooks/use-new-category";
 import { CategoryForm } from "./category-form";
-import { useCreateCategoryMutation } from "~/apis/category/queries";
+import { useCreateCategoryMutation } from "../api/queries";
 
 export const formSchema = z.object({
   name: z.string().min(1, {
-    message: "Country name is required",
+    message: "Category name is required",
   }),
   description: z.string().optional(),
 });
