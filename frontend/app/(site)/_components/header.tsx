@@ -18,6 +18,7 @@ import {
 import useScroll from "~/hooks/use-scroll";
 import { cn } from "~/lib/utils";
 import { LoginButton } from "~/components/auth/login-button";
+import { LuLogIn, LuUser } from "react-icons/lu";
 
 const Header = () => {
   const scrolled = useScroll(50);
@@ -78,7 +79,7 @@ const Header = () => {
               "size-9": scrolled,
             })}
           >
-            <FaRegCalendarAlt className="size-5" />
+            <LuLogIn className="size-5" />
           </Button>
         </div>
       </Container>

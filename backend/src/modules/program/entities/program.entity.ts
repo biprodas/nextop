@@ -32,13 +32,13 @@ export class ProgramEntity {
   // @Column()
   // year: string;
 
-  @Column({ name: 'department_id' })
+  @Column({ name: 'department_id', nullable: true })
   departmentId: string;
   @ManyToOne((_type) => DepartmentEntity, (department) => department.programs)
   @JoinColumn({ name: 'department_id' })
   department: DepartmentEntity;
 
-  @Column({ name: 'university_id' })
+  @Column({ name: 'university_id', nullable: true })
   universityId: string;
   @ManyToOne((_type) => UniversityEntity, (university) => university.programs)
   @JoinColumn({ name: 'university_id' })
@@ -47,19 +47,19 @@ export class ProgramEntity {
   @Column({ type: 'enum', enum: PriorityEnum, nullable: true })
   priority: PriorityEnum;
 
-  @Column()
+  @Column({ nullable: true })
   ielts: string;
 
-  @Column()
+  @Column({ nullable: true })
   toefl: string;
 
-  @Column()
+  @Column({ nullable: true })
   duolingo: string;
 
-  @Column()
+  @Column({ nullable: true })
   pte: string;
 
-  @Column()
+  @Column({ nullable: true })
   gre: string;
 
   // list of professors
@@ -68,7 +68,7 @@ export class ProgramEntity {
   // endDate
 
   @Column({ nullable: true })
-  notes: string;
+  note: string;
 
   // hooks
   @AfterInsert()
