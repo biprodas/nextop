@@ -12,12 +12,13 @@ import { useCreateStateMutation } from "../apis/queries";
 import { StateForm } from "./state-form";
 
 export const formSchema = z.object({
-  name: z.string().min(1, {
-    message: "Name is required",
-  }),
   countryId: z.string().min(1, {
     message: "Country is required",
   }),
+  name: z.string().min(1, {
+    message: "Name is required",
+  }),
+  acronym: z.string().optional(),
 });
 
 type FormValues = z.input<typeof formSchema>;
@@ -51,6 +52,7 @@ export const NewStateSheet = () => {
           disabled={mutation.isPending}
           defaultValues={{
             name: "",
+            acronym: undefined,
             countryId: "",
           }}
         />

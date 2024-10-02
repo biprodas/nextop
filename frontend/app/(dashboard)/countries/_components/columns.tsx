@@ -45,55 +45,47 @@ export const columns: ColumnDef<ICountry>[] = [
   },
   {
     accessorKey: "name",
-    // header: "Name",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
-  {
-    accessorKey: "code",
-    header: "Code",
-    cell: ({ row }) => row.original.capital,
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount") || "0");
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
-    },
-  },
-  {
-    accessorKey: "phone",
-    // header: "Phone",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Phone" />
+      <DataTableColumnHeader column={column} title="Name" />
     ),
   },
   {
+    accessorKey: "code",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Code" />
+    ),
+    cell: ({ row }) => row.original.code,
+  },
+  // {
+  //   accessorKey: "amount",
+  //   header: () => <div className="text-right">Amount</div>,
+  //   cell: ({ row }) => {
+  //     const amount = parseFloat(row.getValue("amount") || "0");
+  //     const formatted = new Intl.NumberFormat("en-US", {
+  //       style: "currency",
+  //       currency: "USD",
+  //     }).format(amount);
+
+  //     return <div className="text-right font-medium">{formatted}</div>;
+  //   },
+  // },
+  {
     accessorKey: "alpha2",
-    header: "Alpha 2",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Alpha 2" />
+    ),
   },
   {
     accessorKey: "alpha3",
-    header: "Alpha 3",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Alpha 3" />
+    ),
   },
   {
     accessorKey: "capital",
-    header: "Capital",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Capital" />
+    ),
   },
   {
     id: "actions",

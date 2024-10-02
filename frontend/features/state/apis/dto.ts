@@ -1,17 +1,20 @@
 export interface IState {
   id: string;
   name: string;
+  acronym?: string;
   countryId: string;
 }
 
 export interface ICreateState {
   name: string;
+  acronym?: string;
   countryId: string;
 }
 
 export interface IUpdateState {
   id: string;
   name?: string;
+  acronym?: string;
   countryId?: string;
 }
 

@@ -20,6 +20,10 @@ export class StateEntity {
   @Column()
   name: string;
 
+  // short name / abbreviation
+  @Column({ nullable: true })
+  acronym: string;
+
   @Column({ name: 'country_id' })
   countryId: string;
   @ManyToOne((_type) => CountryEntity, (country) => country.states)

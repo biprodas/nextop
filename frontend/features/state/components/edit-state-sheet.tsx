@@ -13,12 +13,13 @@ import { useOpenState } from "../hooks/use-open-state";
 import { StateForm } from "./state-form";
 
 export const formSchema = z.object({
-  name: z.string().min(1, {
-    message: "Name is required",
-  }),
   countryId: z.string().min(1, {
     message: "Country is required",
   }),
+  name: z.string().min(1, {
+    message: "Name is required",
+  }),
+  acronym: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -31,6 +32,7 @@ export const EditStateSheet = () => {
 
   const defaultValues = {
     name: stateQuery.data?.data.name || "",
+    acronym: stateQuery.data?.data.acronym || "",
     countryId: stateQuery.data?.data.countryId || "",
   };
 

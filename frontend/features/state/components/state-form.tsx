@@ -25,12 +25,13 @@ import {
 import { useGetCountriesQuery } from "~/features/country/api/queries";
 
 export const formSchema = z.object({
-  name: z.string().min(1, {
-    message: "Name is required",
-  }),
   countryId: z.string().min(1, {
     message: "Country is required",
   }),
+  name: z.string().min(1, {
+    message: "Name is required",
+  }),
+  acronym: z.string().optional(),
 });
 
 type FormValues = z.input<typeof formSchema>;
@@ -69,38 +70,13 @@ export const StateForm = ({
         className="space-y-6 py-5"
       >
         <FormField
-          name="name"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <div>
-                <Label htmlFor={field.name} className="mb-2">
-                  Name <span className="text-destructive">*</span>
-                </Label>
-                <div className="relative">
-                  <FormControl>
-                    <Input
-                      {...field}
-                      id={field.name}
-                      disabled={disabled}
-                      placeholder="Enter state name"
-                    />
-                  </FormControl>
-                  <FormMessage className="absolute" />
-                </div>
-              </div>
-            </FormItem>
-          )}
-        />
-
-        <FormField
           name="countryId"
           control={form.control}
           render={({ field }) => (
             <FormItem>
               <div>
                 <Label htmlFor={field.name} className="mb-2">
-                  Country
+                  Country <span className="text-destructive">*</span>
                 </Label>
                 <div className="relative">
                   <FormControl>
@@ -139,8 +115,58 @@ export const StateForm = ({
           )}
         />
 
+        <FormField
+          name="name"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <div>
+                <Label htmlFor={field.name} className="mb-2">
+                  State/Region Name <span className="text-destructive">*</span>
+                </Label>
+                <div className="relative">
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id={field.name}
+                      disabled={disabled}
+                      placeholder="Enter state name"
+                    />
+                  </FormControl>
+                  <FormMessage className="absolute" />
+                </div>
+              </div>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="acronym"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <div>
+                <Label htmlFor={field.name} className="mb-2">
+                  Short Name
+                </Label>
+                <div className="relative">
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id={field.name}
+                      disabled={disabled}
+                      placeholder="Enter acronym / abbreviation"
+                    />
+                  </FormControl>
+                  <FormMessage className="absolute" />
+                </div>
+              </div>
+            </FormItem>
+          )}
+        />
+
         <Button className="w-full" disabled={disabled}>
-          {id ? "Save changes" : "Create Category"}
+          {id ? "Save changes" : "Create State"}
         </Button>
       </form>
     </Form>

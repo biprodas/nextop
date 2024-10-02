@@ -6,6 +6,7 @@ import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
 import { IState } from "~/features/state/apis/dto";
 import { Actions } from "./actions";
+import { DataTableColumnHeader } from "~/components/data-table-column-header";
 
 export const columns: ColumnDef<IState>[] = [
   {
@@ -32,21 +33,21 @@ export const columns: ColumnDef<IState>[] = [
   },
   {
     accessorKey: "name",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Name" />
+    ),
+  },
+  {
+    accessorKey: "acronym",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Acronym" />
+    ),
   },
   {
     accessorKey: "countryId",
-    header: "Country",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Country" />
+    ),
     cell: ({ row }) => row.original.countryId.slice(0, 8),
   },
   {

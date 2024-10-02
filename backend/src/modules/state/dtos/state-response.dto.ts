@@ -8,5 +8,8 @@ export class StateResponseDto {
   name: string;
 
   @Expose()
+  acronym: string;
+
+  @Expose()
   countryId: string;
 }
