@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ICountry } from "~/apis/country/dto";
+import { ICountry } from "~/features/country/api/dto";
 
 type ModalType = "view" | "add" | "edit" | "delete";
 

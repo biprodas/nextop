@@ -6,10 +6,6 @@ import { useForm } from "react-hook-form";
 import { FaPlus } from "react-icons/fa6";
 import { LuLoader2 } from "react-icons/lu";
 import { z } from "zod";
-import {
-  useAddCountryMutation,
-  useUpdateCountryMutation,
-} from "~/apis/country/queries";
 import { Button } from "~/components/ui/button";
 import {
   Form,
@@ -33,6 +29,10 @@ import {
 import { useCountryModal } from "~/hooks/use-country-modal";
 import { CountrySchema } from "~/schemas/country";
 import DeleteCountryModal from "./delete-country";
+import {
+  useAddCountryMutation,
+  useUpdateCountryMutation,
+} from "~/features/country/api/queries";
 
 export function AddCountry() {
   const countryModal = useCountryModal();

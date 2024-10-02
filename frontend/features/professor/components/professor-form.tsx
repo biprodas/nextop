@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useGetCountriesQuery } from "~/apis/country/queries";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -41,8 +40,6 @@ export const ProfessorForm = ({
   loading,
   disabled,
 }: Props) => {
-  const { data: country, isLoading } = useGetCountriesQuery();
-
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues,

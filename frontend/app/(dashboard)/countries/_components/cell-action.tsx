@@ -3,7 +3,6 @@
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import toast from "react-hot-toast";
 
-import { ICountry } from "~/apis/country/dto";
 import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
@@ -13,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import { ICountry } from "~/features/country/api/dto";
 import { useCountryModal } from "~/hooks/use-country-modal";
 
 interface CellActionProps {

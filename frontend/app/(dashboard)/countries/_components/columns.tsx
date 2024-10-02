@@ -6,7 +6,7 @@ import { Button } from "~/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { Checkbox } from "~/components/ui/checkbox";
 import { DataTableColumnHeader } from "~/components/data-table-column-header";
-import { ICountry } from "~/apis/country/dto";
+import { ICountry } from "~/features/country/api/dto";
 
 // export type CountryColumn = {
 //   id: string;

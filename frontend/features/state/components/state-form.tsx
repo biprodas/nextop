@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { LuLoader2 } from "react-icons/lu";
 import { z } from "zod";
-import { useGetCountriesQuery } from "~/apis/country/queries";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -23,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { useGetCountriesQuery } from "~/features/country/api/queries";
 
 export const formSchema = z.object({
   name: z.string().min(1, {
