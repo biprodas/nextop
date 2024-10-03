@@ -1,12 +1,22 @@
 export interface IUniversity {
   id: string;
   name: string;
+  acronym?: string;
+  type?: string; // "Public" | "Private";
+  website?: string;
+  ranking?: string;
+  details?: string;
   countryId: string;
   stateId?: string;
 }
 
 export interface ICreateUniversity {
   name: string;
+  acronym?: string;
+  type?: string; // "Public" | "Private";
+  website?: string;
+  ranking?: string;
+  details?: string;
   countryId: string;
   stateId?: string;
 }
@@ -14,6 +24,11 @@ export interface ICreateUniversity {
 export interface IUpdateUniversity {
   id: string;
   name?: string;
+  acronym?: string;
+  type?: string; // "Public" | "Private";
+  website?: string;
+  ranking?: string;
+  details?: string;
   countryId?: string;
   stateId?: string;
 }

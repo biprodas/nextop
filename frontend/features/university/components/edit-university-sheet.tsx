@@ -19,12 +19,16 @@ export const formSchema = z.object({
   name: z.string().min(1, {
     message: "Name is required",
   }),
+  acronym: z.string().optional(),
+  type: z.string().optional(),
+  website: z.string().optional(),
+  ranking: z.string().optional(),
+  details: z.string().optional(),
   countryId: z.string().min(1, {
     message: "Country is required",
   }),
   stateId: z.string().optional(),
 });
-
 type FormValues = z.infer<typeof formSchema>;
 
 export const EditUniversitySheet = () => {
@@ -35,7 +39,13 @@ export const EditUniversitySheet = () => {
 
   const defaultValues = {
     name: universityQuery.data?.data.name || "",
+    acronym: universityQuery.data?.data.acronym || "",
+    type: universityQuery.data?.data.type || "",
+    website: universityQuery.data?.data.website || "",
+    ranking: universityQuery.data?.data.ranking || "",
+    details: universityQuery.data?.data.details || "",
     countryId: universityQuery.data?.data.countryId || "",
+    stateId: universityQuery.data?.data.stateId || "",
   };
 
   const isLoading = universityQuery.isLoading;

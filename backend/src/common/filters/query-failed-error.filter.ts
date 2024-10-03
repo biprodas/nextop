@@ -22,7 +22,7 @@ export class QueryFailedErrorFilter
     const request = ctx.getResponse<Request>();
     const response = ctx.getResponse<Response>();
 
-    // console.log('Exception', exception);
+    console.log('Exception', exception);
 
     // TODO: Query filter a ar ki ki ace dekte hobe
     const status = exception.constraint?.startsWith('UQ')

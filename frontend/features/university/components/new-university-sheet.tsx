@@ -15,6 +15,11 @@ export const formSchema = z.object({
   name: z.string().min(1, {
     message: "Name is required",
   }),
+  acronym: z.string().optional(),
+  type: z.string().optional(),
+  website: z.string().optional(),
+  ranking: z.string().optional(),
+  details: z.string().optional(),
   countryId: z.string().min(1, {
     message: "Country is required",
   }),
@@ -39,7 +44,7 @@ export const NewUniversitySheet = () => {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="space-y-4">
+      <SheetContent className="sm:max-w-[450px] space-y-4">
         <SheetHeader>
           <SheetTitle>New University</SheetTitle>
           <SheetDescription>
@@ -52,6 +57,11 @@ export const NewUniversitySheet = () => {
           disabled={mutation.isPending}
           defaultValues={{
             name: "",
+            acronym: "",
+            type: "",
+            website: "",
+            ranking: "",
+            details: "",
             countryId: "",
             stateId: "",
           }}
