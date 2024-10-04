@@ -6,6 +6,7 @@ import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
 import { Actions } from "./actions";
 import { IProfessor } from "~/features/professor/apis/dto";
+import { DataTableColumnHeader } from "~/components/data-table-column-header";
 
 export const columns: ColumnDef<IProfessor>[] = [
   {
@@ -32,21 +33,43 @@ export const columns: ColumnDef<IProfessor>[] = [
   },
   {
     accessorKey: "name",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Name" />
+    ),
   },
   {
     accessorKey: "email",
-    header: "Email",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Email" />
+    ),
+  },
+  {
+    accessorKey: "website",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Website" />
+    ),
+  },
+  {
+    accessorKey: "details",
+    header: () => (
+      <Button variant="ghost" size="sm">
+        Details
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "departmentId",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Department" />
+    ),
+    cell: ({ row }) => row.original.departmentId?.slice(0, 8),
+  },
+  {
+    accessorKey: "universityId",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="University" />
+    ),
+    cell: ({ row }) => row.original.universityId?.slice(0, 8),
   },
   {
     id: "actions",

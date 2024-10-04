@@ -1,3 +1,4 @@
+import { ProfessorEntity } from '@modules/professor/entities/professor.entity';
 import { ProgramEntity } from '@modules/program/entities/program.entity';
 import {
   AfterInsert,
@@ -23,6 +24,9 @@ export class DepartmentEntity {
   // relations
   @OneToMany((_type) => ProgramEntity, (program) => program.department)
   programs: ProgramEntity[];
+
+  @OneToMany((_type) => ProfessorEntity, (professor) => professor.department)
+  professors: ProfessorEntity[];
 
   // hooks
   @AfterInsert()

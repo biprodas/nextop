@@ -18,6 +18,10 @@ export const formSchema = z.object({
   email: z.string().min(1, {
     message: "Email is required",
   }),
+  website: z.string().optional(),
+  details: z.string().optional(),
+  universityId: z.string().optional(),
+  departmentId: z.string().optional(),
 });
 
 type FormValues = z.input<typeof formSchema>;
@@ -38,7 +42,7 @@ export const NewProfessorSheet = () => {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="space-y-4">
+      <SheetContent className="sm:max-w-[450px] space-y-4">
         <SheetHeader>
           <SheetTitle>New Professor</SheetTitle>
           <SheetDescription>
@@ -52,6 +56,10 @@ export const NewProfessorSheet = () => {
           defaultValues={{
             name: "",
             email: "",
+            website: "",
+            details: "",
+            universityId: "",
+            departmentId: "",
           }}
         />
       </SheetContent>

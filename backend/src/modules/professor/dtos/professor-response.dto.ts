@@ -9,4 +9,16 @@ export class ProfessorResponseDto {
 
   @Expose()
   email: string;
+
+  @Expose()
+  website: string;
+
+  @Expose()
+  details: string;
+
+  @Expose()
+  universityId: string;
+
+  @Expose()
+  departmentId: string;
 }

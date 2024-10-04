@@ -22,6 +22,10 @@ export const formSchema = z.object({
   email: z.string().min(1, {
     message: "Email is required",
   }),
+  website: z.string().optional(),
+  details: z.string().optional(),
+  universityId: z.string().optional(),
+  departmentId: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -35,6 +39,10 @@ export const EditProfessorSheet = () => {
   const defaultValues = {
     name: professorQuery.data?.data.name || "",
     email: professorQuery.data?.data.email || "",
+    website: professorQuery.data?.data.website || "",
+    details: professorQuery.data?.data.details || "",
+    universityId: professorQuery.data?.data.universityId || "",
+    departmentId: professorQuery.data?.data.departmentId || "",
   };
 
   const isLoading = professorQuery.isLoading;
@@ -53,7 +61,7 @@ export const EditProfessorSheet = () => {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="space-y-4">
+      <SheetContent className="sm:max-w-[450px] space-y-4">
         <SheetHeader>
           <SheetTitle>Edit Professor</SheetTitle>
 

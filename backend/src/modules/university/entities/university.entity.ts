@@ -13,6 +13,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UniversityType } from '../enums/university-type.enum';
+import { ProfessorEntity } from '@modules/professor/entities/professor.entity';
 
 @Entity('universities')
 export class UniversityEntity {
@@ -58,6 +59,9 @@ export class UniversityEntity {
   // relations
   @OneToMany((_type) => ProgramEntity, (program) => program.university)
   programs: ProgramEntity[];
+
+  @OneToMany((_type) => ProfessorEntity, (professor) => professor.university)
+  professors: ProfessorEntity[];
 
   // hooks
   @AfterInsert()
