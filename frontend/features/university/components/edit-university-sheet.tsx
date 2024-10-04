@@ -64,7 +64,7 @@ export const EditUniversitySheet = () => {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="space-y-4">
+      <SheetContent className="sm:max-w-[450px] space-y-4">
         <SheetHeader>
           <SheetTitle>Edit University</SheetTitle>
 

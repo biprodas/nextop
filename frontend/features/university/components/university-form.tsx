@@ -22,7 +22,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-import { Textarea } from "~/components/ui/textarea";
 import { useGetCountriesQuery } from "~/features/country/api/queries";
 import { useGetStatesQuery } from "~/features/state/apis/queries";
 
@@ -77,120 +76,20 @@ export const UniversityForm = ({
         onSubmit={form.handleSubmit(handleSubmit)}
         className="space-y-5 py-5"
       >
-        <div className="flex gap-3">
-          <div className="flex-1">
-            <FormField
-              name="countryId"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <div>
-                    <Label htmlFor={field.name} className="mb-2">
-                      Country <span className="text-destructive">*</span>
-                    </Label>
-                    <div className="relative">
-                      <FormControl>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          disabled={disabled}
-                        >
-                          <SelectTrigger className="">
-                            {/* <SelectValue placeholder="Select Country" /> */}
-                            <SelectValue
-                              placeholder={
-                                isCountryLoading
-                                  ? "Loading..."
-                                  : "Select Country"
-                              }
-                            />
-                            {isCountryLoading && (
-                              <LuLoader2 className="size-4 animate-spin" />
-                            )}
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectLabel>Countries</SelectLabel>
-                              {(country?.data || []).map((item) => (
-                                <SelectItem key={item.id} value={item.id}>
-                                  {item.name}
-                                </SelectItem>
-                              ))}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage className="absolute" />
-                    </div>
-                  </div>
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="flex-1">
-            <FormField
-              name="stateId"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <div>
-                    <Label htmlFor={field.name} className="mb-2">
-                      State
-                    </Label>
-                    <div className="relative">
-                      <FormControl>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          disabled={disabled}
-                        >
-                          <SelectTrigger className="">
-                            {/* <SelectValue placeholder="Select Country" /> */}
-                            <SelectValue
-                              placeholder={
-                                isStatesLoading ? "Loading..." : "Select State"
-                              }
-                            />
-                            {isStatesLoading && (
-                              <LuLoader2 className="size-4 animate-spin" />
-                            )}
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectLabel>Countries</SelectLabel>
-                              {(state?.data || []).map((item) => (
-                                <SelectItem key={item.id} value={item.id}>
-                                  {item.name}
-                                </SelectItem>
-                              ))}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage className="absolute" />
-                    </div>
-                  </div>
-                </FormItem>
-              )}
-            />
-          </div>
-        </div>
-
         <FormField
-          name="name"
           control={form.control}
+          name="name"
           render={({ field }) => (
             <FormItem>
-              <div>
-                <Label htmlFor={field.name} className="mb-2">
-                  University Name <span className="text-destructive">*</span>
+              <div className="grid grid-cols-4 items-center gap-3">
+                <Label htmlFor={field.name} className="col-span-1 text-right">
+                  Name <span className="text-red-400">*</span>
                 </Label>
-                <div className="relative">
+                <div className="col-span-3 relative">
                   <FormControl>
                     <Input
                       {...field}
                       id={field.name}
-                      disabled={disabled}
                       placeholder="Enter university name"
                     />
                   </FormControl>
@@ -201,144 +100,129 @@ export const UniversityForm = ({
           )}
         />
 
-        <div className="flex gap-3">
-          <div className="flex-1">
-            <FormField
-              name="acronym"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <div>
-                    <Label htmlFor={field.name} className="mb-2">
-                      Short Name
-                    </Label>
-                    <div className="relative">
-                      <FormControl>
-                        <Input
-                          {...field}
-                          id={field.name}
-                          disabled={disabled}
-                          placeholder="Enter short name"
-                        />
-                      </FormControl>
-                      <FormMessage className="absolute" />
-                    </div>
-                  </div>
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="flex-1">
-            <FormField
-              name="type"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <div>
-                    <Label htmlFor={field.name} className="mb-2">
-                      Type
-                    </Label>
-                    <div className="relative">
-                      <FormControl>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          disabled={disabled}
-                        >
-                          <SelectTrigger className="">
-                            <SelectValue placeholder="Select" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectLabel>Countries</SelectLabel>
-                              {["Public", "Private"].map((item) => (
-                                <SelectItem key={item} value={item}>
-                                  {item}
-                                </SelectItem>
-                              ))}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage className="absolute" />
-                    </div>
-                  </div>
-                </FormItem>
-              )}
-            />
-          </div>
-        </div>
-
-        <div className="flex gap-3">
-          <div className="basis-1/3">
-            <FormField
-              name="website"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <div>
-                    <Label htmlFor={field.name} className="mb-2">
-                      Website
-                    </Label>
-                    <div className="relative">
-                      <FormControl>
-                        <Input
-                          {...field}
-                          id={field.name}
-                          disabled={disabled}
-                          placeholder="Enter web url"
-                        />
-                      </FormControl>
-                      <FormMessage className="absolute" />
-                    </div>
-                  </div>
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="basis-1/4">
-            <FormField
-              name="ranking"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <div>
-                    <Label htmlFor={field.name} className="mb-2">
-                      Ranking
-                    </Label>
-                    <div className="relative">
-                      <FormControl>
-                        <Input
-                          {...field}
-                          id={field.name}
-                          disabled={disabled}
-                          placeholder="Enter web url"
-                        />
-                      </FormControl>
-                      <FormMessage className="absolute" />
-                    </div>
-                  </div>
-                </FormItem>
-              )}
-            />
-          </div>
-        </div>
-
         <FormField
-          name="details"
           control={form.control}
+          name="acronym"
           render={({ field }) => (
             <FormItem>
-              <div>
-                <Label htmlFor={field.name} className="mb-2">
-                  Details
+              <div className="grid grid-cols-4 items-center gap-3">
+                <Label htmlFor={field.name} className="col-span-1 text-right">
+                  Short Name
                 </Label>
-                <div className="relative">
+                <div className="col-span-3 relative">
                   <FormControl>
-                    <Textarea
+                    <Input
                       {...field}
                       id={field.name}
+                      placeholder="Enter short name"
+                    />
+                  </FormControl>
+                  <FormMessage className="absolute" />
+                </div>
+              </div>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="website"
+          render={({ field }) => (
+            <FormItem>
+              <div className="grid grid-cols-4 items-center gap-3">
+                <Label htmlFor={field.name} className="col-span-1 text-right">
+                  Website
+                </Label>
+                <div className="col-span-3 relative">
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id={field.name}
+                      placeholder="Enter website url"
+                    />
+                  </FormControl>
+                  <FormMessage className="absolute" />
+                </div>
+              </div>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="type"
+          render={({ field }) => (
+            <FormItem>
+              <div className="grid grid-cols-4 items-center gap-3">
+                <Label htmlFor={field.name} className="col-span-1 text-right">
+                  Type
+                </Label>
+                <div className="col-span-3 relative">
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
                       disabled={disabled}
+                    >
+                      <SelectTrigger className="">
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {["Public", "Private"].map((item) => (
+                            <SelectItem key={item} value={item}>
+                              {item}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage className="absolute" />
+                </div>
+              </div>
+            </FormItem>
+          )}
+        />
+
+        {/* <FormField
+          control={form.control}
+          name="ranking"
+          render={({ field }) => (
+            <FormItem>
+              <div className="grid grid-cols-4 items-center gap-3">
+                <Label htmlFor={field.name} className="col-span-1 text-right">
+                  Ranking
+                </Label>
+                <div className="col-span-3 relative">
+                  <FormControl>
+                    <Input
+                      placeholder="Enter ranking"
+                      id={field.name}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="absolute" />
+                </div>
+              </div>
+            </FormItem>
+          )}
+        /> */}
+
+        <FormField
+          control={form.control}
+          name="details"
+          render={({ field }) => (
+            <FormItem>
+              <div className="grid grid-cols-4 items-center gap-3">
+                <Label htmlFor={field.name} className="col-span-1 text-right">
+                  Details
+                </Label>
+                <div className="col-span-3 relative">
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id={field.name}
                       placeholder="Enter details"
                     />
                   </FormControl>
@@ -349,9 +233,106 @@ export const UniversityForm = ({
           )}
         />
 
-        <Button className="w-full" disabled={disabled}>
-          {id ? "Save changes" : "Create University"}
-        </Button>
+        <FormField
+          control={form.control}
+          name="countryId"
+          render={({ field }) => (
+            <FormItem>
+              <div className="grid grid-cols-4 items-center gap-3">
+                <Label htmlFor={field.name} className="col-span-1 text-right">
+                  Country <span className="text-red-400">*</span>
+                </Label>
+                <div className="col-span-3 relative">
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={disabled}
+                    >
+                      <SelectTrigger className="">
+                        {/* <SelectValue placeholder="Select Country" /> */}
+                        <SelectValue
+                          placeholder={
+                            isCountryLoading ? "Loading..." : "Select Country"
+                          }
+                        />
+                        {isCountryLoading && (
+                          <LuLoader2 className="size-4 animate-spin" />
+                        )}
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Countries</SelectLabel>
+                          {(country?.data || []).map((item) => (
+                            <SelectItem key={item.id} value={item.id}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage className="absolute" />
+                </div>
+              </div>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="stateId"
+          render={({ field }) => (
+            <FormItem>
+              <div className="grid grid-cols-4 items-center gap-3">
+                <Label htmlFor={field.name} className="col-span-1 text-right">
+                  State
+                </Label>
+                <div className="col-span-3 relative">
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={disabled}
+                    >
+                      <SelectTrigger className="">
+                        {/* <SelectValue placeholder="Select Country" /> */}
+                        <SelectValue
+                          placeholder={
+                            isStatesLoading ? "Loading..." : "Select State"
+                          }
+                        />
+                        {isStatesLoading && (
+                          <LuLoader2 className="size-4 animate-spin" />
+                        )}
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Countries</SelectLabel>
+                          {(state?.data || []).map((item) => (
+                            <SelectItem key={item.id} value={item.id}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage className="absolute" />
+                </div>
+              </div>
+            </FormItem>
+          )}
+        />
+
+        <div className="flex justify-end gap-3">
+          {/* <Button variant="outline" className="w-24" disabled={loading}>
+            Cancel
+          </Button> */}
+          <Button type="submit" disabled={loading} className="w-min-24">
+            {id ? "Save changes" : "Create University"}
+          </Button>
+        </div>
       </form>
     </Form>
   );

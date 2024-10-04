@@ -44,31 +44,31 @@ export const columns: ColumnDef<IUniversity>[] = [
     ),
   },
   {
-    accessorKey: "type",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Type" />
-    ),
-  },
-  {
     accessorKey: "website",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Website" />
     ),
   },
   {
-    accessorKey: "ranking",
+    accessorKey: "type",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Ranking" />
+      <DataTableColumnHeader column={column} title="Type" />
     ),
   },
   // {
-  //   accessorKey: "details",
+  //   accessorKey: "ranking",
   //   header: ({ column }) => (
-  //     <Button variant="ghost" size="sm">
-  //       Details
-  //     </Button>
+  //     <DataTableColumnHeader column={column} title="Ranking" />
   //   ),
   // },
+  {
+    accessorKey: "details",
+    header: () => (
+      <Button variant="ghost" size="sm">
+        Details
+      </Button>
+    ),
+  },
   {
     accessorKey: "countryId",
     header: ({ column }) => (
