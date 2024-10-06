@@ -1,0 +1,25 @@
+### Get list of all degrees
+GET http://localhost:5000/api/v1/degrees
+
+### Get single degree
+GET http://localhost:5000/api/v1/degrees/1
+
+### Create a new degree
+POST  http://localhost:5000/api/v1/degrees
+Content-Type: application/json
+
+{
+  "name": "Computer Science of Engineering",
+  "countryId": 1
+}
+
+### Update a degree
+PUT  http://localhost:5000/api/v1/degrees/1
+Content-Type: application/json
+
+{
+  "name": "CSE"
+}
+
+### Delete a degree
+DELETE  http://localhost:5000/api/v1/degrees/1

@@ -22,15 +22,17 @@ export class ProgramEntity {
   @Column()
   name: string;
 
-  // program name: BSc, MS, PhD
+  // degree/certificates: BSc, MSc, PhD
   @Column({ type: 'enum', enum: DegreeEnum, nullable: true })
   degree: DegreeEnum;
 
+  // Fall
   @Column({ type: 'enum', enum: SeasonEnum, nullable: true })
   season: SeasonEnum;
 
-  // @Column()
-  // year: string;
+  // 2025
+  @Column({ nullable: true })
+  year: string;
 
   @Column({ name: 'department_id', nullable: true })
   departmentId: string;
