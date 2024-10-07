@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { LuLoader2 } from "react-icons/lu";
 import { z } from "zod";
 
 import { Button } from "~/components/ui/button";
@@ -12,7 +13,18 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
 import { Textarea } from "~/components/ui/textarea";
+import { useGetDepartmentsQuery } from "~/features/department/apis/queries";
+import { useGetUniversitiesQuery } from "~/features/university/apis/queries";
 
 export const formSchema = z.object({
   name: z.string().min(1, {
@@ -39,6 +51,11 @@ export const ProgramForm = ({
   loading,
   disabled,
 }: Props) => {
+  const { data: university, isLoading: isUniversityLoading } =
+    useGetUniversitiesQuery();
+  const { data: department, isLoading: isDepartmentLoading } =
+    useGetDepartmentsQuery();
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues,
@@ -52,15 +69,15 @@ export const ProgramForm = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
-        className="space-y-6 py-5"
+        className="space-y-4 py-5"
       >
-        <FormField
+        {/* <FormField
           name="name"
           control={form.control}
           render={({ field }) => (
             <FormItem>
               <div>
-                <Label htmlFor={field.name} className="mb-2">
+                <Label htmlFor={field.name}>
                   Name <span className="text-destructive">*</span>
                 </Label>
                 <div className="relative">
@@ -77,7 +94,359 @@ export const ProgramForm = ({
               </div>
             </FormItem>
           )}
+        /> */}
+
+        <div className="flex gap-3">
+          <div className="flex-1">
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <div>
+                    <Label htmlFor={field.name} className="">
+                      Program <span className="text-destructive">*</span>
+                    </Label>
+                    <div className="relative">
+                      <FormControl>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          disabled={disabled}
+                        >
+                          <SelectTrigger className="">
+                            <SelectValue placeholder="Select Program" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {["M.Sc", "PhD"].map((item) => (
+                                <SelectItem key={item} value={item}>
+                                  {item}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage className="absolute" />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="flex-1">
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <div>
+                    <Label htmlFor={field.name}>
+                      Subject / Area of Study
+                      <span className="text-destructive">*</span>
+                    </Label>
+                    <div className="relative">
+                      <FormControl>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          disabled={disabled}
+                        >
+                          <SelectTrigger className="">
+                            <SelectValue placeholder="Select Subject" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {[
+                                "Computer Science",
+                                "Software Engineering",
+                                "Cyber Security",
+                              ].map((item) => (
+                                <SelectItem key={item} value={item}>
+                                  {item}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage className="absolute" />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+
+        {/* <FormField
+          name="name"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <div>
+                <Label htmlFor={field.name}>
+                  Department
+                  <span className="text-destructive">*</span>
+                </Label>
+                <div className="relative">
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={disabled}
+                    >
+                      <SelectTrigger className="">
+                        <SelectValue
+                          placeholder={
+                            isDepartmentLoading
+                              ? "Loading..."
+                              : "Select Department"
+                          }
+                        />
+                        {isDepartmentLoading && (
+                          <LuLoader2 className="size-4 animate-spin" />
+                        )}
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Departments</SelectLabel>
+                          {(department?.data || []).map((item) => (
+                            <SelectItem key={item.id} value={item.id}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage className="absolute" />
+                </div>
+              </div>
+            </FormItem>
+          )}
+        /> */}
+
+        <FormField
+          name="name"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <div>
+                <Label htmlFor={field.name}>
+                  University <span className="text-destructive">*</span>
+                </Label>
+                <div className="relative">
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={disabled}
+                    >
+                      <SelectTrigger className="">
+                        <SelectValue
+                          placeholder={
+                            isUniversityLoading
+                              ? "Loading..."
+                              : "Select University"
+                          }
+                        />
+                        {isUniversityLoading && (
+                          <LuLoader2 className="size-4 animate-spin" />
+                        )}
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Universities</SelectLabel>
+                          {(university?.data || []).map((item) => (
+                            <SelectItem key={item.id} value={item.id}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage className="absolute" />
+                </div>
+              </div>
+            </FormItem>
+          )}
         />
+
+        <FormField
+          name="name"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <div>
+                <Label htmlFor={field.name}>GRE</Label>
+                <div className="relative">
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id={field.name}
+                      disabled={disabled}
+                      placeholder="Enter"
+                    />
+                  </FormControl>
+                  <FormMessage className="absolute" />
+                </div>
+              </div>
+            </FormItem>
+          )}
+        />
+
+        <div className="flex gap-2">
+          <div className="flex-1">
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <div>
+                    <Label htmlFor={field.name}>IELTS</Label>
+                    <div className="relative">
+                      <FormControl>
+                        <Input
+                          {...field}
+                          id={field.name}
+                          disabled={disabled}
+                          placeholder="Enter"
+                        />
+                      </FormControl>
+                      <FormMessage className="absolute" />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="flex-1">
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <div>
+                    <Label htmlFor={field.name}>DUOLINGO</Label>
+                    <div className="relative">
+                      <FormControl>
+                        <Input
+                          {...field}
+                          id={field.name}
+                          disabled={disabled}
+                          placeholder="Enter"
+                        />
+                      </FormControl>
+                      <FormMessage className="absolute" />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="flex-1">
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <div>
+                    <Label htmlFor={field.name}>TOEFL</Label>
+                    <div className="relative">
+                      <FormControl>
+                        <Input
+                          {...field}
+                          id={field.name}
+                          disabled={disabled}
+                          placeholder="Enter"
+                        />
+                      </FormControl>
+                      <FormMessage className="absolute" />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="flex-1">
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <div>
+                    <Label htmlFor={field.name}>PTE</Label>
+                    <div className="relative">
+                      <FormControl>
+                        <Input
+                          {...field}
+                          id={field.name}
+                          disabled={disabled}
+                          placeholder="Enter"
+                        />
+                      </FormControl>
+                      <FormMessage className="absolute" />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+
+        <div className="flex gap-2">
+          <div className="flex-1">
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <div>
+                    <Label htmlFor={field.name}>Priority Date</Label>
+                    <div className="relative">
+                      <FormControl>
+                        <Input
+                          {...field}
+                          id={field.name}
+                          disabled={disabled}
+                          placeholder="Enter"
+                        />
+                      </FormControl>
+                      <FormMessage className="absolute" />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="flex-1">
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <div>
+                    <Label htmlFor={field.name}>Deadline</Label>
+                    <div className="relative">
+                      <FormControl>
+                        <Input
+                          {...field}
+                          id={field.name}
+                          disabled={disabled}
+                          placeholder="Enter"
+                        />
+                      </FormControl>
+                      <FormMessage className="absolute" />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
 
         <FormField
           name="note"
@@ -105,7 +474,7 @@ export const ProgramForm = ({
         />
 
         <Button className="w-full" disabled={disabled}>
-          {id ? "Save changes" : "Create Category"}
+          {id ? "Save changes" : "Create Program"}
         </Button>
       </form>
     </Form>

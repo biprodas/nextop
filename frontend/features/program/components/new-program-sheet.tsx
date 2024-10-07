@@ -10,6 +10,7 @@ import {
 import { useNewProgram } from "../hooks/use-new-program";
 import { useCreateProgramMutation } from "../apis/queries";
 import { ProgramForm } from "./program-form";
+import { ScrollArea } from "~/components/ui/scroll-area";
 
 export const formSchema = z.object({
   name: z.string().min(1, {
@@ -36,11 +37,12 @@ export const NewProgramSheet = () => {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="space-y-4">
+      <SheetContent className="sm:max-w-[450px]">
         <SheetHeader>
           <SheetTitle>New Program</SheetTitle>
           <SheetDescription>Create your desired program</SheetDescription>
         </SheetHeader>
+        {/* <ScrollArea className="h-[550px]"> */}
         <ProgramForm
           onSubmit={onSubmit}
           loading={mutation.isPending}
@@ -50,6 +52,7 @@ export const NewProgramSheet = () => {
             note: "",
           }}
         />
+        {/* </ScrollArea> */}
       </SheetContent>
     </Sheet>
   );

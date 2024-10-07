@@ -48,7 +48,7 @@ export const EditProgramSheet = () => {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="space-y-4">
+      <SheetContent className="space-y-4 sm:max-w-[450px] ">
         <SheetHeader>
           <SheetTitle>Edit Program</SheetTitle>
 
