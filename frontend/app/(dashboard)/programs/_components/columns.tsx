@@ -6,6 +6,7 @@ import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
 import { IProgram } from "~/features/program/apis/dto";
 import { Actions } from "./actions";
+import { DataTableColumnHeader } from "~/components/data-table-column-header";
 
 export const columns: ColumnDef<IProgram>[] = [
   {
@@ -32,21 +33,87 @@ export const columns: ColumnDef<IProgram>[] = [
   },
   {
     accessorKey: "name",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Program Name" />
+    ),
+  },
+  // {
+  //   accessorKey: "degree",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Degree" />
+  //   ),
+  // },
+  // {
+  //   accessorKey: "subject",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Subject" />
+  //   ),
+  // },
+  {
+    accessorKey: "departmentId",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Department" />
+    ),
+    cell: ({ row }) => row.original.departmentId?.slice(0, 8),
+  },
+  {
+    accessorKey: "universityId",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="University" />
+    ),
+    cell: ({ row }) => row.original.universityId?.slice(0, 8),
+  },
+  {
+    accessorKey: "session",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Session" />
+    ),
+  },
+  {
+    accessorKey: "language_proficiency",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Language Proficiency" />
+    ),
+    cell: ({ row }) => (
+      <ul className="flex">
+        <li>
+          <small>IELTS</small>: {row.original.ielts}
+        </li>
+        {row.original.duolingo && (
+          <li>
+            <small>DUO</small>: {row.original.duolingo}
+          </li>
+        )}
+        {row.original.toefl && (
+          <li>
+            <small>TOEFL</small>: {row.original.toefl}
+          </li>
+        )}
+        {row.original.pte && (
+          <li>
+            <small>PTE</small>: {row.original.pte}
+          </li>
+        )}
+      </ul>
+    ),
   },
   {
     accessorKey: "note",
-    header: "Note",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Notes" />
+    ),
+  },
+  {
+    accessorKey: "priorityDate",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Priority Date" />
+    ),
+  },
+  {
+    accessorKey: "endDate",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Deadline" />
+    ),
   },
   {
     id: "actions",

@@ -10,14 +10,8 @@ import {
 import { useNewProgram } from "../hooks/use-new-program";
 import { useCreateProgramMutation } from "../apis/queries";
 import { ProgramForm } from "./program-form";
-import { ScrollArea } from "~/components/ui/scroll-area";
-
-export const formSchema = z.object({
-  name: z.string().min(1, {
-    message: "Name is required",
-  }),
-  note: z.string().optional(),
-});
+import { ScrollArea, ScrollBar } from "~/components/ui/scroll-area";
+import { ProgramSchema as formSchema } from "../apis/schema";
 
 type FormValues = z.input<typeof formSchema>;
 
@@ -37,18 +31,31 @@ export const NewProgramSheet = () => {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="sm:max-w-[450px]">
+      <SheetContent style={{ maxWidth: "50vw" }}>
         <SheetHeader>
           <SheetTitle>New Program</SheetTitle>
           <SheetDescription>Create your desired program</SheetDescription>
         </SheetHeader>
-        {/* <ScrollArea className="h-[550px]"> */}
+        {/* <ScrollArea className="h-[500px] pe-3"> */}
         <ProgramForm
           onSubmit={onSubmit}
           loading={mutation.isPending}
           disabled={mutation.isPending}
           defaultValues={{
-            name: "",
+            degree: "",
+            subject: "",
+            departmentId: "",
+            universityId: "",
+            session: "",
+            year: "",
+            priority: "",
+            gre: "",
+            ielts: "",
+            toefl: "",
+            duolingo: "",
+            pte: "",
+            priorityDate: "",
+            endDate: "",
             note: "",
           }}
         />

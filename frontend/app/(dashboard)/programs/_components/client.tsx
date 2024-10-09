@@ -13,7 +13,13 @@ const ProgramClient = () => {
   if (isError) return <div>{error?.message}</div>;
 
   return (
-    <DataTable columns={columns} data={program?.data || []} searchKey="name" />
+    <div>
+      <DataTable
+        columns={columns}
+        data={program?.data || []}
+        searchKey="name"
+      />
+    </div>
   );
 };
 

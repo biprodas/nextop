@@ -12,12 +12,7 @@ import { useGetProgramQuery, useUpdateProgramMutation } from "../apis/queries";
 import { useOpenProgram } from "../hooks/use-open-program";
 import { ProgramForm } from "./program-form";
 
-export const formSchema = z.object({
-  name: z.string().min(1, {
-    message: "Name is required",
-  }),
-  countryId: z.string().optional(),
-});
+import { ProgramSchema as formSchema } from "../apis/schema";
 
 type FormValues = z.infer<typeof formSchema>;
 
@@ -29,6 +24,19 @@ export const EditProgramSheet = () => {
 
   const defaultValues = {
     name: programQuery.data?.data.name || "",
+    degree: programQuery.data?.data.degree || "",
+    subject: programQuery.data?.data.subject || "",
+    departmentId: programQuery.data?.data.departmentId || "",
+    universityId: programQuery.data?.data.universityId || "",
+    session: programQuery.data?.data.session || "",
+    year: programQuery.data?.data.year || "",
+    priority: programQuery.data?.data.priority || "",
+    ielts: programQuery.data?.data.ielts || "",
+    toefl: programQuery.data?.data.toefl || "",
+    duolingo: programQuery.data?.data.duolingo || "",
+    pte: programQuery.data?.data.pte || "",
+    priorityDate: programQuery.data?.data.priorityDate || "",
+    endDate: programQuery.data?.data.endDate || "",
     note: programQuery.data?.data.note || "",
   };
 

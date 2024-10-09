@@ -25,13 +25,7 @@ import {
 import { Textarea } from "~/components/ui/textarea";
 import { useGetDepartmentsQuery } from "~/features/department/apis/queries";
 import { useGetUniversitiesQuery } from "~/features/university/apis/queries";
-
-export const formSchema = z.object({
-  name: z.string().min(1, {
-    message: "Name is required",
-  }),
-  note: z.string().optional(),
-});
+import { ProgramSchema as formSchema } from "../apis/schema";
 
 type FormValues = z.input<typeof formSchema>;
 
@@ -69,7 +63,7 @@ export const ProgramForm = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
-        className="space-y-4 py-5"
+        className="space-y-4 py-5 px-px"
       >
         {/* <FormField
           name="name"
@@ -96,16 +90,16 @@ export const ProgramForm = ({
           )}
         /> */}
 
-        <div className="flex gap-3">
-          <div className="flex-1">
+        <div className="grid grid-cols-12 gap-3">
+          <div className="col-span-4">
             <FormField
-              name="name"
+              name="degree"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
                   <div>
                     <Label htmlFor={field.name} className="">
-                      Program <span className="text-destructive">*</span>
+                      Program Name <span className="text-destructive">*</span>
                     </Label>
                     <div className="relative">
                       <FormControl>
@@ -135,9 +129,9 @@ export const ProgramForm = ({
               )}
             />
           </div>
-          <div className="flex-1">
+          <div className="col-span-8">
             <FormField
-              name="name"
+              name="subject"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
@@ -180,103 +174,105 @@ export const ProgramForm = ({
           </div>
         </div>
 
-        {/* <FormField
-          name="name"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <div>
-                <Label htmlFor={field.name}>
-                  Department
-                  <span className="text-destructive">*</span>
-                </Label>
-                <div className="relative">
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      disabled={disabled}
-                    >
-                      <SelectTrigger className="">
-                        <SelectValue
-                          placeholder={
-                            isDepartmentLoading
-                              ? "Loading..."
-                              : "Select Department"
-                          }
-                        />
-                        {isDepartmentLoading && (
-                          <LuLoader2 className="size-4 animate-spin" />
-                        )}
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectLabel>Departments</SelectLabel>
-                          {(department?.data || []).map((item) => (
-                            <SelectItem key={item.id} value={item.id}>
-                              {item.name}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage className="absolute" />
-                </div>
-              </div>
-            </FormItem>
-          )}
-        /> */}
+        <div className="grid grid-cols-12 gap-3">
+          <div className="col-span-7">
+            <FormField
+              name="universityId"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <div>
+                    <Label htmlFor={field.name}>
+                      University <span className="text-destructive">*</span>
+                    </Label>
+                    <div className="relative">
+                      <FormControl>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          disabled={disabled}
+                        >
+                          <SelectTrigger className="">
+                            <SelectValue
+                              placeholder={
+                                isUniversityLoading
+                                  ? "Loading..."
+                                  : "Select University"
+                              }
+                            />
+                            {isUniversityLoading && (
+                              <LuLoader2 className="size-4 animate-spin" />
+                            )}
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Universities</SelectLabel>
+                              {(university?.data || []).map((item) => (
+                                <SelectItem key={item.id} value={item.id}>
+                                  {item.name}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage className="absolute" />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="col-span-5">
+            <FormField
+              name="departmentId"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <div>
+                    <Label htmlFor={field.name}>Department</Label>
+                    <div className="relative">
+                      <FormControl>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          disabled={disabled}
+                        >
+                          <SelectTrigger className="">
+                            <SelectValue
+                              placeholder={
+                                isDepartmentLoading
+                                  ? "Loading..."
+                                  : "Select Department"
+                              }
+                            />
+                            {isDepartmentLoading && (
+                              <LuLoader2 className="size-4 animate-spin" />
+                            )}
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Departments</SelectLabel>
+                              {(department?.data || []).map((item) => (
+                                <SelectItem key={item.id} value={item.id}>
+                                  {item.name}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage className="absolute" />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
 
         <FormField
-          name="name"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <div>
-                <Label htmlFor={field.name}>
-                  University <span className="text-destructive">*</span>
-                </Label>
-                <div className="relative">
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      disabled={disabled}
-                    >
-                      <SelectTrigger className="">
-                        <SelectValue
-                          placeholder={
-                            isUniversityLoading
-                              ? "Loading..."
-                              : "Select University"
-                          }
-                        />
-                        {isUniversityLoading && (
-                          <LuLoader2 className="size-4 animate-spin" />
-                        )}
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectLabel>Universities</SelectLabel>
-                          {(university?.data || []).map((item) => (
-                            <SelectItem key={item.id} value={item.id}>
-                              {item.name}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage className="absolute" />
-                </div>
-              </div>
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          name="name"
+          name="gre"
           control={form.control}
           render={({ field }) => (
             <FormItem>
@@ -301,7 +297,7 @@ export const ProgramForm = ({
         <div className="flex gap-2">
           <div className="flex-1">
             <FormField
-              name="name"
+              name="ielts"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
@@ -325,7 +321,32 @@ export const ProgramForm = ({
           </div>
           <div className="flex-1">
             <FormField
-              name="name"
+              name="toefl"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <div>
+                    <Label htmlFor={field.name}>TOEFL</Label>
+                    <div className="relative">
+                      <FormControl>
+                        <Input
+                          {...field}
+                          id={field.name}
+                          disabled={disabled}
+                          placeholder="Enter"
+                        />
+                      </FormControl>
+                      <FormMessage className="absolute" />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="flex-1">
+            <FormField
+              name="duolingo"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
@@ -349,31 +370,7 @@ export const ProgramForm = ({
           </div>
           <div className="flex-1">
             <FormField
-              name="name"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <div>
-                    <Label htmlFor={field.name}>TOEFL</Label>
-                    <div className="relative">
-                      <FormControl>
-                        <Input
-                          {...field}
-                          id={field.name}
-                          disabled={disabled}
-                          placeholder="Enter"
-                        />
-                      </FormControl>
-                      <FormMessage className="absolute" />
-                    </div>
-                  </div>
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="flex-1">
-            <FormField
-              name="name"
+              name="pte"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
@@ -397,55 +394,87 @@ export const ProgramForm = ({
           </div>
         </div>
 
-        <div className="flex gap-2">
-          <div className="flex-1">
-            <FormField
-              name="name"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <div>
-                    <Label htmlFor={field.name}>Priority Date</Label>
-                    <div className="relative">
-                      <FormControl>
-                        <Input
-                          {...field}
-                          id={field.name}
-                          disabled={disabled}
-                          placeholder="Enter"
-                        />
-                      </FormControl>
-                      <FormMessage className="absolute" />
-                    </div>
+        <div className="grid grid-cols-3 gap-2">
+          <FormField
+            name="session"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <div>
+                  <Label htmlFor={field.name} className="">
+                    Session
+                  </Label>
+                  <div className="relative">
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        disabled={disabled}
+                      >
+                        <SelectTrigger className="">
+                          <SelectValue placeholder="Select Session" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {["Fall", "Spring", "Summer"].map((item) => (
+                              <SelectItem key={item} value={item}>
+                                {item}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage className="absolute" />
                   </div>
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="flex-1">
-            <FormField
-              name="name"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <div>
-                    <Label htmlFor={field.name}>Deadline</Label>
-                    <div className="relative">
-                      <FormControl>
-                        <Input
-                          {...field}
-                          id={field.name}
-                          disabled={disabled}
-                          placeholder="Enter"
-                        />
-                      </FormControl>
-                      <FormMessage className="absolute" />
-                    </div>
+                </div>
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="priorityDate"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <div>
+                  <Label htmlFor={field.name}>Priority Date</Label>
+                  <div className="relative">
+                    <FormControl>
+                      <Input
+                        {...field}
+                        id={field.name}
+                        disabled={disabled}
+                        placeholder="Enter"
+                      />
+                    </FormControl>
+                    <FormMessage className="absolute" />
                   </div>
-                </FormItem>
-              )}
-            />
-          </div>
+                </div>
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="endDate"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <div>
+                  <Label htmlFor={field.name}>Deadline</Label>
+                  <div className="relative">
+                    <FormControl>
+                      <Input
+                        {...field}
+                        id={field.name}
+                        disabled={disabled}
+                        placeholder="Enter"
+                      />
+                    </FormControl>
+                    <FormMessage className="absolute" />
+                  </div>
+                </div>
+              </FormItem>
+            )}
+          />
         </div>
 
         <FormField
@@ -460,6 +489,7 @@ export const ProgramForm = ({
                 <div className="relative">
                   <FormControl>
                     <Textarea
+                      rows={1}
                       {...field}
                       id={field.name}
                       disabled={disabled}
