@@ -51,6 +51,8 @@ export class ProgramService {
 
     const program = this.programRepo.create(dto);
 
+    program.name = dto.degree + ' in ' + dto.subject;
+
     return this.programRepo.save(program);
   }
 

@@ -8,19 +8,19 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { SeasonEnum } from '../enums/season.enum';
 import { DegreeEnum } from '../enums/degree.enum';
 import { DepartmentEntity } from '@modules/department/entities/department.entity';
 import { UniversityEntity } from '@modules/university/entities/university.entity';
 import { PriorityEnum } from '../enums/priority.enum';
 import { SubjectEnum } from '../enums/subject.enum';
+import { SessionEnum } from '../enums/session.enum';
 
 @Entity('programs')
 export class ProgramEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  // [degree] in [subject]
+  // [degree] in [field]
   @Column()
   name: string;
 
@@ -31,14 +31,6 @@ export class ProgramEntity {
   // Field / field of study (another entity)
   @Column({ type: 'enum', enum: SubjectEnum })
   subject: SubjectEnum;
-
-  // Fall
-  // @Column({ type: 'enum', enum: SeasonEnum, nullable: true })
-  // season: SeasonEnum;
-
-  // 2025
-  // @Column({ nullable: true })
-  // year: string;
 
   // Majors
   @Column({ name: 'department_id', type: 'uuid', nullable: true })
@@ -52,6 +44,14 @@ export class ProgramEntity {
   @ManyToOne((_type) => UniversityEntity, (university) => university.programs)
   @JoinColumn({ name: 'university_id' })
   university: UniversityEntity;
+
+  // Fall
+  @Column({ type: 'enum', enum: SessionEnum, nullable: true })
+  session: SessionEnum;
+
+  // 2025
+  @Column({ nullable: true })
+  year: string;
 
   @Column({ type: 'enum', enum: PriorityEnum, nullable: true })
   priority: PriorityEnum;
@@ -73,8 +73,12 @@ export class ProgramEntity {
 
   // list of professors
 
-  // targetDate
-  // endDate
+  @Column({ nullable: true })
+  priorityDate: Date;
+
+  // deadline
+  @Column({ nullable: true })
+  endDate: Date;
 
   @Column({ nullable: true })
   note: string;

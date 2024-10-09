@@ -1,4 +1,4 @@
-export enum SeasonEnum {
+export enum SessionEnum {
   Fall,
   Spring,
   Winter,
