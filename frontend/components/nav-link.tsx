@@ -22,7 +22,7 @@ const NavLink = ({ href, children }: Props) => {
   return (
     <Link
       href={href}
-      className={`hover:underline underline-offset-8 decoration-2 ${
+      className={`hover:underline underline-offset-4 ${
         isActive ? "underline" : ""
       }`}
     >
