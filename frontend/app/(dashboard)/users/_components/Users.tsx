@@ -1,6 +1,6 @@
 "use client";
 
-import useGetUsers from "~/apis/user/use-get-users";
+import useGetUsers from "~/features/user/use-get-users";
 
 const Users = () => {
   const { data, error, isLoading } = useGetUsers();

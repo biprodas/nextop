@@ -74,7 +74,7 @@ export const LoginScreen = () => {
   return (
     <CardWrapper
       headerLabel="Login"
-      headerDescription="Welcome back"
+      headerDescription="Login to your account"
       backButtonLabel="Don't have an account?"
       backButtonHref="/register"
       showSocial

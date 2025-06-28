@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { authSession } from "~/auth";
-import { RegisterForm } from "~/features/auth/register-form";
+import { RegisterScreen } from "~/features/auth/ui/register-screen";
 
 const RegisterPage = async () => {
   const session = await authSession();
@@ -9,7 +9,7 @@ const RegisterPage = async () => {
     redirect("/dashboard");
   }
 
-  return <RegisterForm />
+  return <RegisterScreen />
 };
 
 export default RegisterPage;

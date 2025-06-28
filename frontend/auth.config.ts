@@ -42,6 +42,7 @@ const authConfig = {
           password: credentials.password,
         };
 
+        // TODO: implement function to call the api
         const res = await fetch(`${siteConfig.apiBaseUrl}/api/v1/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },

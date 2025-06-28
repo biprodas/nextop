@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { UserResponse } from "~/apis/user/dto";
+import { UserResponse } from "~/features/user/dto";
 import { getUsers } from "./service";
 
 // const getUsers = async () => {

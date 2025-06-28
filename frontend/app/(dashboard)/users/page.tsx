@@ -2,7 +2,7 @@ import { LogoutButton } from "~/features/auth/logout-button";
 import { Button } from "~/components/ui/button";
 import { currentUser } from "~/lib/auth";
 import Users from "./_components/Users";
-import { getUsers } from "~/apis/user/service";
+import { getUsers } from "~/features/user/service";
 import { IUser } from "~/types";
 import ErrorHandler from "~/components/error-handler";
 
