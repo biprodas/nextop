@@ -7,7 +7,7 @@ import { ModeSelect } from "~/components/mode-select";
 
 export default function Header() {
   return (
-    <header className="flex items-center gap-4 h-16 md:h-20 lg:h-[100px] px-3 md:px-8 lg:px-10">
+    <header className="flex items-center gap-4 h-16 lg:h-20 px-3 lg:px-10">
       <MobileSidebar />
       <div className="w-full flex-1">
         {/* <Logo width={24} height={24} className="lg:hidden" /> */}

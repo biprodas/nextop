@@ -11,7 +11,7 @@ const DashboardPage = async () => {
   }
 
   return (
-    <div className="p-3">
+    <div className="">
       <h4>SettingsPage</h4>
       <div>Name: {user?.name}</div>
       <div className="border">

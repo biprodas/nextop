@@ -14,7 +14,7 @@ export default function Sidebar() {
   return (
     <aside className="relative border-r rounded-3xl hidden lg:block">
       <div
-        className={cn("flex w-72 h-full max-h-screen flex-col", {
+        className={cn("flex w-72 h-full max-h-screen flex-col transition-all duration-300 ease-in-out", {
           "w-24": !unfold,
         })}
       >
