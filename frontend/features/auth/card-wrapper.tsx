@@ -1,8 +1,8 @@
 "use client";
 
-import { BackButton } from "~/components/auth/back-button";
-import { Header } from "~/components/auth/header";
-import { Social } from "~/components/auth/social";
+import { BackButton } from "~/features/auth/back-button";
+import { Header } from "~/features/auth/header";
+import { Social } from "~/features/auth/social";
 import {
   Card,
   CardContent,

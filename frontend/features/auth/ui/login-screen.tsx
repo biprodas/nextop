@@ -1,8 +1,8 @@
 "use client";
 
 import * as z from "zod";
-import { useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -16,18 +16,19 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
-import { CardWrapper } from "~/components/auth/card-wrapper";
+import { CardWrapper } from "~/features/auth/card-wrapper";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { FormError } from "~/components/form-error";
 import { FormSuccess } from "~/components/form-success";
-import { Label } from "../ui/label";
-import { login } from "~/actions/login";
+import { Label } from "~/components/ui/label";
+import { Checkbox } from "~/components/ui/checkbox";
+import { signIn } from "next-auth/react";
 
-export const LoginForm = () => {
+export const LoginScreen = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
-
+  const router = useRouter();
   const errorUrl =
     searchParams.get("error") === "OAuthAccountNotLinked"
       ? "Email already in use with a different provider"
@@ -36,7 +37,7 @@ export const LoginForm = () => {
   const [showTwoFactor, setShowTwoFactor] = useState(false);
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -51,29 +52,23 @@ export const LoginForm = () => {
     setSuccess("");
     console.log("Credentials", values);
 
-    const result = await login(values, callbackUrl);
+    setIsPending(true);
 
-    console.log("final result", result);
+    // const result = await login(values, callbackUrl);
+    const res = await signIn("credentials", {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+      // callbackUrl: absoluteUrl("/dashboard"),
+    });
 
-    // startTransition(() => {
-    //   login(values, callbackUrl)
-    //     .then((data) => {
-    //       if (data?.error) {
-    //         form.reset();
-    //         setError(data.error);
-    //       }
+    if (res?.error) {
+      setError("Invalid email or password");
+    } else {
+      router.push(callbackUrl || "/dashboard");
+    }
 
-    //       if (data?.success) {
-    //         form.reset();
-    //         setSuccess(data.success);
-    //       }
-
-    //       if (data?.twoFactor) {
-    //         setShowTwoFactor(true);
-    //       }
-    //     })
-    //     .catch(() => setError("Something went wrong!"));
-    // });
+    setIsPending(false);
   };
 
   return (
@@ -143,7 +138,16 @@ export const LoginForm = () => {
                         />
                       </FormControl>
                       <FormMessage />
-                      <div className="font-normal flex justify-end">
+                      <div className="flex justify-between">
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id="remember"
+                            // checked={form.getValues("remember")}
+                            // onCheckedChange={form.setValue("remember")}
+                          />
+                          <Label htmlFor="remember" className="font-normal">Remember me</Label>
+                        </div>
+
                         <Button size="sm" variant="link" asChild>
                           <Link href="#">Forgot password?</Link>
                         </Button>

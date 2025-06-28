@@ -1,4 +1,4 @@
-import { LogoutButton } from "~/components/auth/logout-button";
+import { LogoutButton } from "~/features/auth/logout-button";
 import { Button } from "~/components/ui/button";
 import { currentUser } from "~/lib/auth";
 import Users from "./_components/Users";

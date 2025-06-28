@@ -17,7 +17,7 @@ import {
 } from "~/components/ui/dropdown-menu";
 import useScroll from "~/hooks/use-scroll";
 import { cn } from "~/lib/utils";
-import { LoginButton } from "~/components/auth/login-button";
+import { LoginButton } from "~/features/auth/login-button";
 import { LuLogIn, LuUser } from "react-icons/lu";
 
 const Header = () => {

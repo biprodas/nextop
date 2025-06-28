@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
-import React from "react";
 import { authSession } from "~/auth";
-import { RegisterForm } from "~/components/auth/register-form";
+import { RegisterForm } from "~/features/auth/register-form";
 
 const RegisterPage = async () => {
   const session = await authSession();
@@ -10,11 +9,7 @@ const RegisterPage = async () => {
     redirect("/dashboard");
   }
 
-  return (
-    <div className="h-screen flex justify-center items-center">
-      <RegisterForm />
-    </div>
-  );
+  return <RegisterForm />
 };
 
 export default RegisterPage;

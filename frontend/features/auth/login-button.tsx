@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
-import { LoginForm } from "~/components/auth/login-form";
+import { LoginForm } from "~/features/auth/login-form";
 
 interface LoginButtonProps {
   children: React.ReactNode;
