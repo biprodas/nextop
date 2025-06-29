@@ -11,7 +11,7 @@ export class UpdateCountryDto {
   @IsString()
   @IsNotEmpty()
   name: string;
-
+  
   @Transform(({ value }) => value || null)
   @IsString()
   @IsOptional()
@@ -25,17 +25,12 @@ export class UpdateCountryDto {
   @Transform(({ value }) => value || null)
   @IsString()
   @IsOptional()
-  code: string;
+  isoCode: string;
 
   @Transform(({ value }) => value || null)
   @IsString()
   @IsOptional()
-  phone: string;
-
-  @Transform(({ value }) => value || null)
-  @IsString()
-  @IsOptional()
-  capital: string;
+  phoneCode: string;
 
   @Transform(({ value }) => value || null)
   @IsString()
@@ -46,6 +41,11 @@ export class UpdateCountryDto {
   @IsString()
   @IsOptional()
   currencyName: string;
+  
+  @Transform(({ value }) => value || null)
+  @IsString()
+  @IsOptional()
+  capitalCity: string;
 
   @Transform(({ value }) => value || null)
   @IsArray()

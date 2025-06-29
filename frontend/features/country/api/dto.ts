@@ -3,10 +3,12 @@ export interface ICountry {
   name: string;
   alpha2?: string;
   alpha3?: string;
-  code?: string;
-  phone?: string;
-  capital?: string;
-  flag?: string;
+  isoCode?: string;
+  phoneCode?: string;
+  // currencyCode?: string;
+  // currencyName?: string;
+  // capitalCity?: string;
+  // flag?: string;
 }
 
 export interface IAddCountry {
@@ -14,10 +16,8 @@ export interface IAddCountry {
   name?: string;
   alpha2?: string;
   alpha3?: string;
-  code?: string;
-  phone?: string;
-  capital?: string;
-  flag?: string;
+  isoCode?: string;
+  phoneCode?: string;
 }
 
 export interface IUpdateCountry {
@@ -25,10 +25,8 @@ export interface IUpdateCountry {
   name?: string;
   alpha2?: string;
   alpha3?: string;
-  code?: string;
-  phone?: string;
-  capital?: string;
-  flag?: string;
+  isoCode?: string;
+  phoneCode?: string;
 }
 
 export interface ICountryResponse {

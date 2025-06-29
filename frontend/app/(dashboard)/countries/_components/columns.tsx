@@ -2,8 +2,6 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { CellAction } from "./cell-action";
-import { Button } from "~/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
 import { Checkbox } from "~/components/ui/checkbox";
 import { DataTableColumnHeader } from "~/components/data-table-column-header";
 import { ICountry } from "~/features/country/api/dto";
@@ -50,41 +48,27 @@ export const columns: ColumnDef<ICountry>[] = [
     ),
   },
   {
-    accessorKey: "code",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Code" />
-    ),
-    cell: ({ row }) => row.original.code,
-  },
-  // {
-  //   accessorKey: "amount",
-  //   header: () => <div className="text-right">Amount</div>,
-  //   cell: ({ row }) => {
-  //     const amount = parseFloat(row.getValue("amount") || "0");
-  //     const formatted = new Intl.NumberFormat("en-US", {
-  //       style: "currency",
-  //       currency: "USD",
-  //     }).format(amount);
-
-  //     return <div className="text-right font-medium">{formatted}</div>;
-  //   },
-  // },
-  {
     accessorKey: "alpha2",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Alpha 2" />
+      <DataTableColumnHeader column={column} title="ISO Alpha 2" />
     ),
   },
   {
     accessorKey: "alpha3",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Alpha 3" />
+      <DataTableColumnHeader column={column} title="ISO Alpha 3" />
     ),
   },
   {
-    accessorKey: "capital",
+    accessorKey: "isoCode",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Capital" />
+      <DataTableColumnHeader column={column} title="ISO Code" />
+    ),
+  },
+  {
+    accessorKey: "phoneCode",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Dialing Code" />
     ),
   },
   {

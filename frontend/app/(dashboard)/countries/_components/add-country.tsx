@@ -50,10 +50,8 @@ export function AddCountry() {
       name: "",
       alpha2: "",
       alpha3: "",
-      code: "",
-      phone: "",
-      capital: "",
-      // flag: "",
+      isoCode: "",
+      phoneCode: "",
     },
   });
 
@@ -63,9 +61,8 @@ export function AddCountry() {
       name: countryModal.data?.name || "",
       alpha2: countryModal.data?.alpha2 || "",
       alpha3: countryModal.data?.alpha3 || "",
-      code: countryModal.data?.code || "",
-      phone: countryModal.data?.phone || "",
-      capital: countryModal.data?.capital || "",
+      isoCode: countryModal.data?.isoCode || "",
+      phoneCode: countryModal.data?.phoneCode || "",
     });
   }, [countryModal, form]);
 
@@ -103,7 +100,7 @@ export function AddCountry() {
             {countryModal.open === "edit" ? "Edit Country" : "Add Country"}
           </SheetTitle>
           <SheetDescription>
-            Enter country details here. Click save when you&apos;re done.
+            Enter country details, click save when you&apos;re done.
           </SheetDescription>
         </SheetHeader>
         <div className="py-5">
@@ -130,32 +127,6 @@ export function AddCountry() {
                           />
                         </FormControl>
                         <FormMessage className="absolute" />
-                      </div>
-                    </div>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="code"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="grid grid-cols-4 items-center gap-3">
-                      <Label
-                        htmlFor={field.name}
-                        className="col-span-1 text-right"
-                      >
-                        Country Code
-                      </Label>
-                      <div className="col-span-3">
-                        <FormControl>
-                          <Input
-                            placeholder="Enter country code"
-                            id={field.name}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
                       </div>
                     </div>
                   </FormItem>
@@ -215,7 +186,7 @@ export function AddCountry() {
               />
               <FormField
                 control={form.control}
-                name="phone"
+                name="isoCode"
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center gap-3">
@@ -223,12 +194,12 @@ export function AddCountry() {
                         htmlFor={field.name}
                         className="col-span-1 text-right"
                       >
-                        Calling Code
+                        ISO Code
                       </Label>
                       <div className="col-span-3">
                         <FormControl>
                           <Input
-                            placeholder="Enter country dialing code"
+                            placeholder="Enter country code"
                             id={field.name}
                             {...field}
                           />
@@ -241,7 +212,7 @@ export function AddCountry() {
               />
               <FormField
                 control={form.control}
-                name="capital"
+                name="phoneCode"
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center gap-3">
@@ -249,12 +220,12 @@ export function AddCountry() {
                         htmlFor={field.name}
                         className="col-span-1 text-right"
                       >
-                        Capital Name
+                        Calling Code
                       </Label>
                       <div className="col-span-3">
                         <FormControl>
                           <Input
-                            placeholder="Enter capital name"
+                            placeholder="Enter dialing code"
                             id={field.name}
                             {...field}
                           />

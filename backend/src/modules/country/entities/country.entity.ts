@@ -18,30 +18,31 @@ export class CountryEntity {
   @Column()
   name: string;
 
-  // BD
+  // ISO Alpha-2 Code: BD
   @Column({ name: 'alpha_2', nullable: true })
   alpha2: string;
 
-  // BGD
+  // ISO Alpha-3 Code: BGD
   @Column({ name: 'alpha_3', nullable: true })
   alpha3: string;
 
-  // 050
-  @Column({ nullable: true })
-  code: string;
+  // ISO Numeric Code: 050
+  @Column({ name: 'iso_code', nullable: true })
+  isoCode: string;
 
-  // +880
-  @Column({ nullable: true })
-  phone: string;
+  // Phone Code: +880
+  @Column({ name: 'phone_code', nullable: true })
+  phoneCode: string;
 
-  @Column({ nullable: true })
-  capital: string;
-
+  // --
   @Column({ name: 'currency_code', nullable: true })
   currencyCode: string;
 
   @Column({ name: 'currency_name', nullable: true })
   currencyName: string;
+
+  @Column({ name: 'capital_city', nullable: true })
+  capitalCity: string;
 
   @Column({ type: 'simple-array', nullable: true })
   languages: string[];

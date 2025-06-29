@@ -26,7 +26,7 @@ export class CountryService {
     const reqQuery: any = {};
     if (name) reqQuery.name = name;
 
-    return this.countryRepo.find({ where: reqQuery });
+    return this.countryRepo.find({ where: reqQuery, order: { name: 'ASC' } });
   }
 
   async getCountry(
