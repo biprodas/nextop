@@ -78,6 +78,7 @@ export default function DashboardNav({ setOpen }: DashboardNavProps) {
         <Link
           key={idx}
           href={item.path}
+          // onClick={() => setOpen?.(false)}
           className={cn(
             "flex items-center gap-3 rounded-full py-1 text-[#7B7B7B] font-medium transition-all hover:text-primary px-1.5",
             { "gap-4 bg-[#E0EDFA]": item.path === path }

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FaPlus } from "react-icons/fa6";
-import { LuLoader2 } from "react-icons/lu";
+import { LuLoaderCircle } from "react-icons/lu";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
 import {
@@ -251,7 +251,7 @@ export function AddCountry() {
                   <span>
                     {countryModal.open === "edit" ? "Save Changes" : "Save"}
                   </span>
-                  {isLoading && <LuLoader2 className="ml-2 animate-spin" />}
+                  {isLoading && <LuLoaderCircle className="ml-2 animate-spin" />}
                 </Button>
               </SheetFooter>
             </form>

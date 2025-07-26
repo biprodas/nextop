@@ -1,7 +1,6 @@
 "use client";
 
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
-
+import { EditIcon, MoreHorizontal, TrashIcon } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
@@ -35,11 +34,11 @@ export const Actions = ({ id }: Props) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => onOpen(id)}>
-            <Edit className="size-4 mr-2" />
+            <EditIcon />
             Edit
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => stateModal.onOpen(id)}>
-            <Trash className="size-4 mr-2" />
+            <TrashIcon />
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>

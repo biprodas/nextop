@@ -1,4 +1,4 @@
-import { LuLoader2 } from "react-icons/lu";
+import { LoaderCircleIcon } from "lucide-react";
 
 interface Props {
   mode?: "text" | "icon";
@@ -8,7 +8,7 @@ const Loader = ({ mode = "text" }: Props) => {
   return mode === "text" ? (
     <div>Loading...</div>
   ) : (
-    <LuLoader2 className="size-6 text-slate-700 animate-spin" />
+    <LoaderCircleIcon className="size-6 text-slate-700 animate-spin" />
   );
 };
 

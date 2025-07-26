@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { LuLoader2 } from "react-icons/lu";
+import { LuLoaderCircle } from "react-icons/lu";
 import { z } from "zod";
 
 import { Button } from "~/components/ui/button";
@@ -93,7 +93,7 @@ export const StateForm = ({
                           }
                         />
                         {isLoading && (
-                          <LuLoader2 className="size-4 animate-spin" />
+                          <LuLoaderCircle className="size-4 animate-spin" />
                         )}
                       </SelectTrigger>
                       <SelectContent>

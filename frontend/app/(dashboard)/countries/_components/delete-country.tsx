@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import toast from "react-hot-toast";
-import { LuLoader2 } from "react-icons/lu";
+import { LuLoaderCircle } from "react-icons/lu";
 
 import {
   AlertDialog,
@@ -64,7 +64,7 @@ const DeleteCountryModal = () => {
             disabled={isPending}
           >
             <span>Delete</span>
-            {isPending && <LuLoader2 className="ml-2 animate-spin" />}
+            {isPending && <LuLoaderCircle className="ml-2 animate-spin" />}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

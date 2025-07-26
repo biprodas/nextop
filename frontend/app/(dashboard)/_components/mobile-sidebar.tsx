@@ -2,7 +2,14 @@
 
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "~/components/ui/sheet";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -20,15 +27,14 @@ const MobileSidebar = ({ className }: SidebarProps) => {
           <span className="sr-only">Toggle navigation menu</span>
         </Button> */}
       </SheetTrigger>
-      <SheetContent side="left" className="!px-0">
-        <div className="space-y-4 py-5">
-          <div className="p-3">
-            <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-              Overview
-            </h2>
-            <DashboardNav setOpen={setOpen} />
-          </div>
-        </div>
+      <SheetContent side="left" className="w-[300px] space-y-5">
+        <SheetHeader>
+          <SheetTitle>Overview</SheetTitle>
+          <SheetDescription>
+            select a menu item to navigate
+          </SheetDescription>
+        </SheetHeader>
+        <DashboardNav setOpen={setOpen} />
       </SheetContent>
     </Sheet>
   );
