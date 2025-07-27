@@ -8,26 +8,14 @@ export class CountryResponseDto {
   name: string;
 
   @Expose()
-  alpha2: string;
+  alpha2Code: string;
 
   @Expose()
-  alpha3: string;
+  alpha3Code: string;
 
   @Expose()
-  isoCode: string;
+  numericCode: string;
 
   @Expose()
-  phoneCode: string;
-
-  @Expose()
-  currencyCode: string;
-
-  @Expose()
-  currencyName: string;
-
-  @Expose()
-  capitalCity: string;
-  
-  @Expose()
-  languages: string[];
+  callingCode: string;
 }

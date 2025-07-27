@@ -19,35 +19,20 @@ export class CountryEntity {
   name: string;
 
   // ISO Alpha-2 Code: BD
-  @Column({ name: 'alpha_2', nullable: true })
-  alpha2: string;
+  @Column({ name: 'alpha_2_code', nullable: true })
+  alpha2Code: string;
 
   // ISO Alpha-3 Code: BGD
-  @Column({ name: 'alpha_3', nullable: true })
-  alpha3: string;
+  @Column({ name: 'alpha_3_code', nullable: true })
+  alpha3Code: string;
 
   // ISO Numeric Code: 050
-  @Column({ name: 'iso_code', nullable: true })
-  isoCode: string;
+  @Column({ name: 'numeric_code', nullable: true })
+  numericCode: string;
 
   // Phone Code: +880
-  @Column({ name: 'phone_code', nullable: true })
-  phoneCode: string;
-
-  // --
-  @Column({ name: 'currency_code', nullable: true })
-  currencyCode: string;
-
-  @Column({ name: 'currency_name', nullable: true })
-  currencyName: string;
-
-  @Column({ name: 'capital_city', nullable: true })
-  capitalCity: string;
-
-  @Column({ type: 'simple-array', nullable: true })
-  languages: string[];
-
-  // flag
+  @Column({ name: 'calling_code', nullable: true })
+  callingCode: string;
 
   // relations
   @OneToMany((_type) => StateEntity, (state) => state.country)

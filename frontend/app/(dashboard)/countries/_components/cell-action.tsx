@@ -1,6 +1,6 @@
 "use client";
 
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { CopyIcon, EditIcon, MoreHorizontalIcon, TrashIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { Button } from "~/components/ui/button";
@@ -40,22 +40,22 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="size-8 p-0">
             <span className="sr-only">Open menu</span>
-            <MoreHorizontal className="h-4 w-4" />
+            <MoreHorizontalIcon className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem onClick={() => onCopy(data.id)}>
-            <Copy className="size-4 mr-2" />
+            <CopyIcon />
             Copy Id
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => countryModal.onOpen("edit", data)}>
-            <Edit className="size-4 mr-2" />
+            <EditIcon />
             Update
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => countryModal.onOpen("delete", data)}>
-            <Trash className="size-4 mr-2" />
+            <TrashIcon />
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>

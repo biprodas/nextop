@@ -1,12 +1,5 @@
 import { Transform } from 'class-transformer';
-import {
-  ArrayNotEmpty,
-  IsArray,
-  IsDefined,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsDefined, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateCountryDto {
   @IsString()
@@ -17,41 +10,20 @@ export class CreateCountryDto {
   @Transform(({ value }) => value || null)
   @IsString()
   @IsOptional()
-  alpha2: string;
+  alpha2Code: string;
 
   @Transform(({ value }) => value || null)
   @IsString()
   @IsOptional()
-  alpha3: string;
+  alpha3Code: string;
 
   @Transform(({ value }) => value || null)
   @IsString()
   @IsOptional()
-  isoCode: string;
+  numericCode: string;
 
   @Transform(({ value }) => value || null)
   @IsString()
   @IsOptional()
-  phoneCode: string;
-
-  @Transform(({ value }) => value || null)
-  @IsString()
-  @IsOptional()
-  currencyCode: string;
-
-  @Transform(({ value }) => value || null)
-  @IsString()
-  @IsOptional()
-  currencyName: string;
-  
-  @Transform(({ value }) => value || null)
-  @IsString()
-  @IsOptional()
-  capitalCity: string;
-
-  @Transform(({ value }) => value || null)
-  @IsArray()
-  @ArrayNotEmpty()
-  @IsOptional()
-  languages: string[];
+  callingCode: string;
 }

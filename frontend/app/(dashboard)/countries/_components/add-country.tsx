@@ -48,10 +48,10 @@ export function AddCountry() {
     resolver: zodResolver(CountrySchema),
     defaultValues: {
       name: "",
-      alpha2: "",
-      alpha3: "",
-      isoCode: "",
-      phoneCode: "",
+      alpha2Code: "",
+      alpha3Code: "",
+      numericCode: "",
+      callingCode: "",
     },
   });
 
@@ -59,10 +59,10 @@ export function AddCountry() {
     // console.log("add country", data);
     form.reset({
       name: countryModal.data?.name || "",
-      alpha2: countryModal.data?.alpha2 || "",
-      alpha3: countryModal.data?.alpha3 || "",
-      isoCode: countryModal.data?.isoCode || "",
-      phoneCode: countryModal.data?.phoneCode || "",
+      alpha2Code: countryModal.data?.alpha2Code || "",
+      alpha3Code: countryModal.data?.alpha3Code || "",
+      numericCode: countryModal.data?.numericCode || "",
+      callingCode: countryModal.data?.callingCode || "",
     });
   }, [countryModal, form]);
 
@@ -121,7 +121,7 @@ export function AddCountry() {
                       <div className="col-span-3 relative">
                         <FormControl>
                           <Input
-                            placeholder="Enter country name"
+                            placeholder="e.g. Bangladesh"
                             id={field.name}
                             {...field}
                           />
@@ -134,7 +134,7 @@ export function AddCountry() {
               />
               <FormField
                 control={form.control}
-                name="alpha2"
+                name="alpha2Code"
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center gap-3">
@@ -142,12 +142,12 @@ export function AddCountry() {
                         htmlFor={field.name}
                         className="col-span-1 text-right"
                       >
-                        Alpha 2
+                        Alpha 2 Code
                       </Label>
                       <div className="col-span-3">
                         <FormControl>
                           <Input
-                            placeholder="Enter alpha2 code"
+                            placeholder="e.g. BD"
                             id={field.name}
                             {...field}
                           />
@@ -160,7 +160,7 @@ export function AddCountry() {
               />
               <FormField
                 control={form.control}
-                name="alpha3"
+                name="alpha3Code"
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center gap-3">
@@ -168,12 +168,12 @@ export function AddCountry() {
                         htmlFor={field.name}
                         className="col-span-1 text-right"
                       >
-                        Alpha 3
+                        Alpha 3 Code
                       </Label>
                       <div className="col-span-3">
                         <FormControl>
                           <Input
-                            placeholder="Enter alpha3 code"
+                            placeholder="e.g. BGD"
                             id={field.name}
                             {...field}
                           />
@@ -186,7 +186,7 @@ export function AddCountry() {
               />
               <FormField
                 control={form.control}
-                name="isoCode"
+                name="numericCode"
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center gap-3">
@@ -194,12 +194,12 @@ export function AddCountry() {
                         htmlFor={field.name}
                         className="col-span-1 text-right"
                       >
-                        ISO Code
+                        Numeric Code
                       </Label>
                       <div className="col-span-3">
                         <FormControl>
                           <Input
-                            placeholder="Enter country code"
+                            placeholder="e.g. 050"
                             id={field.name}
                             {...field}
                           />
@@ -212,7 +212,7 @@ export function AddCountry() {
               />
               <FormField
                 control={form.control}
-                name="phoneCode"
+                name="callingCode"
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center gap-3">
@@ -225,7 +225,7 @@ export function AddCountry() {
                       <div className="col-span-3">
                         <FormControl>
                           <Input
-                            placeholder="Enter dialing code"
+                            placeholder="e.g. +880"
                             id={field.name}
                             {...field}
                           />

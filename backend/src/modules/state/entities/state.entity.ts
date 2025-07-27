@@ -26,7 +26,9 @@ export class StateEntity {
 
   @Column({ name: 'country_id' })
   countryId: string;
-  @ManyToOne((_type) => CountryEntity, (country) => country.states)
+  @ManyToOne((_type) => CountryEntity, (country) => country.states, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'country_id' })
   country: CountryEntity;
 

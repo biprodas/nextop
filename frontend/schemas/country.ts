@@ -4,8 +4,8 @@ export const CountrySchema = z.object({
   name: z.string().min(1, {
     message: "Country name is required",
   }),
-  alpha2: z.string().optional(),
-  alpha3: z.string().optional(),
-  isoCode: z.string().optional(),
-  phoneCode: z.string().optional(),
+  alpha2Code: z.string().optional(),
+  alpha3Code: z.string().optional(),
+  numericCode: z.string().optional(),
+  callingCode: z.string().optional(),
 });

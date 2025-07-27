@@ -1,32 +1,28 @@
 export interface ICountry {
   id: string;
   name: string;
-  alpha2?: string;
-  alpha3?: string;
-  isoCode?: string;
-  phoneCode?: string;
-  // currencyCode?: string;
-  // currencyName?: string;
-  // capitalCity?: string;
-  // flag?: string;
+  alpha2Code?: string;
+  alpha3Code?: string;
+  numericCode?: string;
+  callingCode?: string;
 }
 
 export interface IAddCountry {
   id?: string;
   name?: string;
-  alpha2?: string;
-  alpha3?: string;
-  isoCode?: string;
-  phoneCode?: string;
+  alpha2Code?: string;
+  alpha3Code?: string;
+  numericCode?: string;
+  callingCode?: string;
 }
 
 export interface IUpdateCountry {
   id: string;
   name?: string;
-  alpha2?: string;
-  alpha3?: string;
-  isoCode?: string;
-  phoneCode?: string;
+  alpha2Code?: string;
+  alpha3Code?: string;
+  numericCode?: string;
+  callingCode?: string;
 }
 
 export interface ICountryResponse {

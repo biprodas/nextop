@@ -48,25 +48,25 @@ export const columns: ColumnDef<ICountry>[] = [
     ),
   },
   {
-    accessorKey: "alpha2",
+    accessorKey: "alpha2Code",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="ISO Alpha 2" />
     ),
   },
   {
-    accessorKey: "alpha3",
+    accessorKey: "alpha3Code",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="ISO Alpha 3" />
     ),
   },
   {
-    accessorKey: "isoCode",
+    accessorKey: "numericCode",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="ISO Code" />
     ),
   },
   {
-    accessorKey: "phoneCode",
+    accessorKey: "callingCode",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Dialing Code" />
     ),
