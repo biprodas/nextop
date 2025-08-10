@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FaHeart } from "react-icons/fa";
 import Container from "~/components/container";
 
-const Footer = () => {
+export const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
@@ -24,5 +24,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;

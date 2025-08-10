@@ -20,7 +20,7 @@ import { cn } from "~/lib/utils";
 import { LoginButton } from "~/features/auth/login-button";
 import { LuLogIn, LuUser } from "react-icons/lu";
 
-const Header = () => {
+export const Header = () => {
   const scrolled = useScroll(50);
   const router = useRouter();
 
@@ -53,7 +53,7 @@ const Header = () => {
           <NavLink href="/#contact-us">Contact Us</NavLink>
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <div className="p-2 border rounded-full hover:bg-slate-50">
+              <div className="p-2 border rounded-full hover:bg-slate-50 dark:hover:bg-slate-800">
                 <CiMenuKebab size={20} />
               </div>
             </DropdownMenuTrigger>
@@ -86,5 +86,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

@@ -1,7 +1,9 @@
+import LandingPage from "./_components/hero";
+
 export default function Home() {
   return (
-    <main className="p-3">
-      <div>Home Page</div>
+    <main className="">
+      <LandingPage />
     </main>
   );
 }
